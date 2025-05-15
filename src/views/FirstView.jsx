@@ -25,7 +25,11 @@ return (
                 <Text className="text-white text-base font-bold text-center">Iniciar Sesion</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity className="border-2 border-primary-light rounded-lg w-full py-3 mb-3" activeOpacity={0.8}>
+            <TouchableOpacity
+                className="border-2 border-primary-light rounded-lg w-full py-3 mb-3"
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('Register')}
+            >
                 <Text className="text-primary-light text-base font-bold text-center">Registrate</Text>
             </TouchableOpacity>
 

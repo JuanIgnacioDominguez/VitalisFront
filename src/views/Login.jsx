@@ -64,13 +64,13 @@ return (
         <Text className="text-xs text-primary-light text-right">Olvidé mi Contraseña</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="bg-primary-light rounded-lg w-full py-3 mb-3" activeOpacity={0.8}>
-        <Text className="text-white text-base font-bold text-center">Iniciar Sesion</Text>
+        <TouchableOpacity className="bg-primary-light rounded-lg w-full py-3 mb-3" activeOpacity={0.8} onPress={() => navigation.navigate('Home')}>
+            <Text className="text-white text-base font-bold text-center">Iniciar Sesion</Text>
         </TouchableOpacity>
 
         <View className="flex-row justify-center mt-2">
         <Text className="text-xs text-primary-light">No tienes Cuenta? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text className="text-xs text-primary-light font-bold underline">Registrate</Text>
         </TouchableOpacity>
         </View>
