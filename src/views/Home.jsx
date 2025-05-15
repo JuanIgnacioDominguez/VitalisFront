@@ -1,24 +1,27 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { addAppointment } from '../Redux/slices/appointmentsSlice'
+import { ScrollView, View } from 'react-native'
+import Header from '../components/Home/Header'
+import SearchBar from '../components/Home/SearchBar'
+import Banner from '../components/Home/Banner'
+import SpecialtiesGrid from '../components/Home/SpecialtiesGrid'
+import BestDoctors from '../components/Home/BestDoctors'
+import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 
 export default function Home() {
-    const list = useSelector(state => state.appointments.list)
-    const dispatch = useDispatch()
-
     return (
-        <View className="p-4">
-        <Text className="text-xl mb-2">Turnos Médicos</Text>
-        {list.map(a => (
-            <Text key={a.id}>– {a.patient}</Text>
-        ))}
-        <Button
-            title="Agregar turno"
-            onPress={() =>
-            dispatch(addAppointment({ id: Date.now(), patient: 'Paciente Ejemplo' }))
-            }
-        />
+        <View className="flex-1 bg-background-light">
+        <ScrollView
+            className="flex-1 px-4"
+            contentContainerStyle={{ paddingTop: 24, paddingBottom: 80 }}
+            showsVerticalScrollIndicator={false}
+        >
+            <Header />
+            <SearchBar />
+            <Banner />
+            <SpecialtiesGrid />
+            <BestDoctors />
+        </ScrollView>
+        <BottomNavbar />
         </View>
     )
-    }
+}
