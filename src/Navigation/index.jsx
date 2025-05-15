@@ -4,16 +4,18 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from '../views/Home'
+import FirstView from '../views/FirstView'
+import Login from '../views/Login'
 
 const Stack = createNativeStackNavigator()
 
 export default function Navigation() {
     return (
         <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="FirstView" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="FirstView" component={FirstView} />
+            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Home" component={Home} />
-            { /* Aquí podrías agregar más pantallas:
-            <Stack.Screen name="Details" component={Details} /> */ }
         </Stack.Navigator>
         </NavigationContainer>
     )
