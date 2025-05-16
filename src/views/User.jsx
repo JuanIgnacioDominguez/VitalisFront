@@ -43,7 +43,7 @@ export default function User({ navigation }) {
             <UserMenuItem
                 icon="https://img.icons8.com/ios-filled/50/008080/logout-rounded-left.png"
                 label="Cerrar Sesión"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('FirstView')}
             />
             </View>
         </ScrollView>
