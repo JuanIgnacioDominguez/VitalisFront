@@ -10,11 +10,10 @@ return (
     <View className="flex-1 bg-background-light px-6">
         <View className="flex-1 justify-center items-center">
             <Image
-                source={require('../../assets/icon.png')}
+                source={require('../../assets/LogoApp.png')}
                 className="w-40 h-40 mb-4"
                 resizeMode="contain"
             />
-            <Text className="text-4xl font-bold text-primary-light mb-2">Vitalis</Text>
             <Text className="text-xl text-text-light mb-8 text-center">Clínica de Salud Vitalis</Text>
 
             <TouchableOpacity
