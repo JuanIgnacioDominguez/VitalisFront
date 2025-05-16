@@ -8,6 +8,7 @@ import FirstView from '../views/FirstView'
 import Login from '../views/Login'
 import Register from '../views/Register'
 import User from '../views/User'
+import Appointments from '~/views/Appointments'
 
 const Stack = createNativeStackNavigator()
 
@@ -20,6 +21,7 @@ export default function Navigation() {
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="User" component={User} />
+            <Stack.Screen name="Appointments" component={Appointments} />
         </Stack.Navigator>
         </NavigationContainer>
     )
