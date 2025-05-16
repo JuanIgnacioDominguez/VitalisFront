@@ -9,18 +9,12 @@ import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 
 export default function Home() {
     return (
-        <View className="flex-1 bg-background-light">
-        <ScrollView
-            className="flex-1 px-4"
-            contentContainerStyle={{ paddingTop: 24, paddingBottom: 80 }}
-            showsVerticalScrollIndicator={false}
-        >
+        <View className="flex-1 bg-background-light p-5">
             <Header />
             <SearchBar />
             <Banner />
             <SpecialtiesGrid />
             <BestDoctors />
-        </ScrollView>
         <BottomNavbar />
         </View>
     )
