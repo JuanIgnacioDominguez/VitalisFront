@@ -12,11 +12,10 @@ export default function Register({ navigation }) {
         <View className="flex-1 bg-background-light px-6">
             <View className="items-center mt-10 mb-6">
             <Image
-                source={require('../../assets/icon.png')}
-                className="w-40 h-40 mb-4"
-                resizeMode="contain"
+                source={require('../../assets/LogoApp.png')}
+                className="w-100 h-70 mt-5"
+                resizeMode="full"
             />
-            <Text className="text-4xl font-bold text-primary-light mb-2">Vitalis</Text>
             </View>
 
             <Text className="text-base font-bold text-primary-light mb-1">Email:</Text>
@@ -85,7 +84,7 @@ export default function Register({ navigation }) {
             />
             <TextInput
                 className="flex-1 py-2 text-primary-light"
-                placeholder="1121571748"
+                placeholder="1234567890"
                 placeholderTextColor="#00808099"
                 value={phone}
                 onChangeText={setPhone}
@@ -94,13 +93,13 @@ export default function Register({ navigation }) {
             </View>
 
             <TouchableOpacity className="bg-primary-light rounded-lg w-full py-3 mb-3" activeOpacity={0.8}>
-            <Text className="text-white text-base font-bold text-center">Crear Cuenta</Text>
+                <Text className="text-white text-base font-bold text-center">Crear Cuenta</Text>
             </TouchableOpacity>
 
             <View className="flex-row justify-center mt-2">
-            <Text className="text-xs text-primary-light">Ya tienes cuenta? </Text>
+            <Text className="text-lg text-primary-light">Ya tienes cuenta? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text className="text-xs text-primary-light font-bold underline">Inicia Sesión</Text>
+                <Text className="text-lg text-primary-light font-bold underline">Inicia Sesión</Text>
             </TouchableOpacity>
             </View>
         </View>

@@ -10,11 +10,10 @@ return (
     <View className="flex-1 bg-background-light px-6">
         <View className="items-center mt-10 mb-6">
         <Image
-            source={require('../../assets/icon.png')}
-            className="w-40 h-40 mb-4"
+            source={require('../../assets/LogoApp.png')}
+            className="w-100 h-70 mt-5"
             resizeMode="contain"
         />
-        <Text className="text-4xl font-bold text-primary-light mb-2">Vitalis</Text>
         </View>
 
         <Text className="text-base font-bold text-primary-light mb-1">Email:</Text>
@@ -61,17 +60,17 @@ return (
         </View>
 
         <TouchableOpacity className="mb-6 mt-1">
-        <Text className="text-xs text-primary-light text-right">Olvidé mi Contraseña</Text>
+        <Text className="text-lg text-primary-light text-right">Olvidé mi Contraseña</Text>
         </TouchableOpacity>
 
         <TouchableOpacity className="bg-primary-light rounded-lg w-full py-3 mb-3" activeOpacity={0.8} onPress={() => navigation.navigate('Home')}>
-            <Text className="text-white text-base font-bold text-center">Iniciar Sesion</Text>
+            <Text className="text-white font-bold text-center text-lg">Iniciar Sesion</Text>
         </TouchableOpacity>
 
         <View className="flex-row justify-center mt-2">
-        <Text className="text-xs text-primary-light">No tienes Cuenta? </Text>
+        <Text className="text-lg text-primary-light">No tienes Cuenta? </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text className="text-xs text-primary-light font-bold underline">Registrate</Text>
+            <Text className="text-lg text-primary-light font-bold underline">Registrate</Text>
         </TouchableOpacity>
         </View>
     </View>

@@ -6,25 +6,31 @@ import {
     HeartIcon,
     UserIcon
 } from 'react-native-heroicons/outline'
+import { useNavigation } from '@react-navigation/native'
 
 const tabs = [
-    { label: 'Menu', icon: HomeIcon },
-    { label: 'Turnos', icon: CalendarDaysIcon },
-    { label: 'Favoritos', icon: HeartIcon },
-    { label: 'Perfil', icon: UserIcon }
+    { label: 'Menu', icon: HomeIcon, route: 'Home' },
+    { label: 'Turnos', icon: CalendarDaysIcon, route: 'Appointments' },
+    { label: 'Favoritos', icon: HeartIcon, route: 'Favorites' },
+    { label: 'Perfil', icon: UserIcon, route: 'User' } 
 ]
 
 export default function BottomNavbar() {
+    const navigation = useNavigation()
+
     return (
         <View className="absolute bottom-0 left-0 right-0 bg-primary-light flex-row justify-between px-2 py-1 h-[56px] border-t border-quaternary-light">
         {tabs.map((tab, idx) => (
             <TouchableOpacity
-            key={tab.label}
-            className="flex-1 items-center justify-center"
-            activeOpacity={0.7}
+                key={tab.label}
+                className="flex-1 items-center justify-center"
+                activeOpacity={0.7}
+                onPress={() => {
+                    if (tab.route) navigation.navigate(tab.route)
+                }}
             >
-            <tab.icon size={24} color="#FFFFFF" />
-            <Text className="text-white text-xs mt-1">{tab.label}</Text>
+                <tab.icon size={24} color="#FFFFFF" />
+                <Text className="text-white text-xs mt-1">{tab.label}</Text>
             </TouchableOpacity>
         ))}
         </View>
