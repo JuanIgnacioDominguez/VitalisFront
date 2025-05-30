@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import RegisterHeader from '../components/Register/RegisterHeader'
 import RegisterInput from '../components/Register/RegisterInput'
+import { registerUser } from '../Redux/slices/authSlice'
 
 export default function Register({ navigation }) {
     const [email, setEmail] = useState('')
@@ -9,6 +11,23 @@ export default function Register({ navigation }) {
     const [showPassword, setShowPassword] = useState(false)
     const [fullName, setFullName] = useState('')
     const [phone, setPhone] = useState('')
+    const dispatch = useDispatch()
+    const { user, loading, error } = useSelector(state => state.auth)
+
+    const handleRegister = () => {
+        dispatch(registerUser({
+            email,
+            password,
+            nombre: fullName,
+            telefono: phone
+        }))
+    }
+
+    useEffect(() => {
+        if (user && !loading && !error) {
+            navigation.navigate('Login')
+        }
+    }, [user, loading, error])
 
     return (
         <View className="flex-1 bg-background-light px-6">
@@ -47,9 +66,19 @@ export default function Register({ navigation }) {
             onChangeText={setPhone}
             keyboardType="phone-pad"
         />
-        <TouchableOpacity className="bg-primary-light rounded-lg w-full py-3 mb-3 mt-2" activeOpacity={0.8}>
-            <Text className="text-white text-base font-bold text-center">Crear Cuenta</Text>
+        <TouchableOpacity
+            className="bg-primary-light rounded-lg w-full py-3 mb-3 mt-2"
+            activeOpacity={0.8}
+            onPress={handleRegister}
+            disabled={loading}
+        >
+            <Text className="text-white text-base font-bold text-center">
+                {loading ? 'Creando...' : 'Crear Cuenta'}
+            </Text>
         </TouchableOpacity>
+        {error && (
+            <Text className="text-red-500 text-center mb-2">{error}</Text>
+        )}
         <View className="flex-row justify-center mt-2">
             <Text className="text-xs text-primary-light">Ya tienes cuenta? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
