@@ -1,27 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-// Thunk para registrar usuario
+// Thunk para registrar usuario usando axios
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData, { rejectWithValue }) => {
+        console.log('Datos de usuario a registrar:', userData)
         try {
-            const response = await fetch('http://10.0.2.2:4002/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            })
-            if (!response.ok) {
-                const errorData = await response.json()
-                console.error('Error del backend:', errorData) 
-                return rejectWithValue(errorData)
-            }
-            else{
-                console.log('Registro exitoso:', await response.json()) 
-            }
-            return await response.json()
+            const response = await axios.post('http://10.0.2.2:4002/auth/register', userData)
+            console.log('Registro exitoso:', response.data)
+            return response.data
         } catch (error) {
-            console.error('Error de red:', error) 
-            return rejectWithValue({ mensaje: 'Error de red' })
+            if (error.response && error.response.data) {
+                console.error('Error del backend:', error.response.data)
+                return rejectWithValue(error.response.data)
+            } else {
+                console.error('Error de red:', error.message)
+                return rejectWithValue({ mensaje: 'Error de red' })
+            }
         }
     }
 )
