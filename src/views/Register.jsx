@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import RegisterHeader from '../components/Register/RegisterHeader'
 import RegisterInput from '../components/Register/RegisterInput'
-import { registerUser } from '../Api/authSlice'
+import { registerUser } from '../api/auth'
 
 export default function Register({ navigation }) {
     const [email, setEmail] = useState('')

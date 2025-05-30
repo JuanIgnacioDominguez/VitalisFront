@@ -1,21 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { API_HOST } from '../utils/constants'
 
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData, { rejectWithValue }) => {
-        console.log('Datos de usuario a registrar:', userData)
         try {
-            const response = await axios.post('http://10.0.2.2:4002/auth/register', userData)
-            console.log('Registro exitoso:', response.data)
+            const response = await axios.post(`${API_HOST}auth/register`, userData)
+            console.log(userData)
             return response.data
         } catch (error) {
-            if (error.response && error.response.data) {
-                console.error('Error del backend:', error.response.data)
-                return rejectWithValue(error.response.data)
+            if (error.response) {
+                // Intenta obtener el mensaje del backend, si existe
+                const mensaje = error.response.data?.mensaje || 'Error en el servidor'
+                return rejectWithValue({ mensaje })
+            } else if (error.request) {
+                // No hubo respuesta del servidor
+                return rejectWithValue({ mensaje: 'No se pudo conectar al servidor' })
             } else {
-                console.error('Error de red:', error.message)
-                return rejectWithValue({ mensaje: 'Error de red' })
+                // Otro error
+                return rejectWithValue({ mensaje: 'Error desconocido' })
             }
         }
     }
