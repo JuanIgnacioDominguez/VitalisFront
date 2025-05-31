@@ -3,8 +3,20 @@ import { View, ScrollView } from 'react-native'
 import UserHeader from '../components/User/UserHeader'
 import UserMenuItem from '../components/User/UserMenuItem'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
+import { useDispatch } from 'react-redux'
+import { logout } from '../Api/auth' 
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function User({ navigation }) {
+    const dispatch = useDispatch()
+
+    const handleLogout = async () => {
+        await AsyncStorage.removeItem('user')
+        await AsyncStorage.removeItem('token')
+        dispatch(logout())
+        navigation.navigate('FirstView')
+    }
+
     return (
         <View className="flex-1 bg-background-light">
         <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
@@ -43,7 +55,7 @@ export default function User({ navigation }) {
             <UserMenuItem
                 icon="https://img.icons8.com/ios-filled/50/008080/logout-rounded-left.png"
                 label="Cerrar Sesión"
-                onPress={() => navigation.navigate('FirstView')}
+                onPress={handleLogout}
             />
             </View>
         </ScrollView>
