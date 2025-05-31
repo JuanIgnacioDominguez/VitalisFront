@@ -3,12 +3,13 @@ import { View, ScrollView } from 'react-native'
 import UserHeader from '../components/User/UserHeader'
 import UserMenuItem from '../components/User/UserMenuItem'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../Api/auth' 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function User({ navigation }) {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.auth.user)
 
     const handleLogout = async () => {
         await AsyncStorage.removeItem('user')
@@ -20,7 +21,7 @@ export default function User({ navigation }) {
     return (
         <View className="flex-1 bg-background-light">
         <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
-            <UserHeader />
+            <UserHeader nombre={user?.nombre || 'Usuario'} />
             <View className="px-8">
             <UserMenuItem
                 icon="https://img.icons8.com/ios-filled/50/008080/user.png"
