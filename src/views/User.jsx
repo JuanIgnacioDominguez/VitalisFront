@@ -26,7 +26,7 @@ export default function User({ navigation }) {
             <UserMenuItem
                 icon="https://img.icons8.com/ios-filled/50/008080/user.png"
                 label="Perfil"
-                onPress={() => {}}
+                onPress={() => navigation.navigate('EditUser')}
             />
             <UserMenuItem
                 icon="https://img.icons8.com/ios-filled/50/008080/star.png"

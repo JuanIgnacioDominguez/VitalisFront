@@ -7,6 +7,7 @@ import FirstView from '../views/FirstView'
 import Login from '../views/Login'
 import Register from '../views/Register'
 import User from '../views/User'
+import EditUser from '../views/UserViews/EditUser'
 import Appointments from '~/views/Appointments'
 
 const Stack = createNativeStackNavigator()
@@ -21,6 +22,7 @@ export default function Navigation() {
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="User" component={User} />
             <Stack.Screen name="Appointments" component={Appointments} />
+            <Stack.Screen name="EditUser" component={EditUser} />
         </Stack.Navigator>
         </NavigationContainer>
     )
