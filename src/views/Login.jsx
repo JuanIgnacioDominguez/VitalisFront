@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import LoginHeader from '../components/Login/LoginHeader'
 import LoginInput from '../components/Login/LoginInput'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../Api/auth'
+import { loginUser } from '../api/auth'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -68,5 +68,5 @@ export default function Login({ navigation }) {
             </View>
         </View>
     )
-    
+
 }

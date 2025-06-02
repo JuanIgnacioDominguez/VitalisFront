@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { updateUser } from '../../Api/user'
+import { updateUser } from '../../api/user'
 
 export const updateUserThunk = createAsyncThunk(
     'editUser/updateUser',

@@ -4,7 +4,7 @@ import UserHeader from '../components/User/UserHeader'
 import UserMenuItem from '../components/User/UserMenuItem'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../Api/auth' 
+import { logout } from '../api/auth' 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LogOut from '../components/PopUps/LogOut'
 

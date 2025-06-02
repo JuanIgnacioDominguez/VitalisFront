@@ -9,6 +9,7 @@ import Register from '../views/Register'
 import User from '../views/User'
 import EditUser from '../views/UserViews/EditUser'
 import Appointments from '~/views/Appointments'
+import AppointmentDetail from '../views/AppointmentDetail' 
 
 const Stack = createNativeStackNavigator()
 
@@ -23,6 +24,7 @@ export default function Navigation() {
             <Stack.Screen name="User" component={User} />
             <Stack.Screen name="Appointments" component={Appointments} />
             <Stack.Screen name="EditUser" component={EditUser} />
+            <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} /> 
         </Stack.Navigator>
         </NavigationContainer>
     )

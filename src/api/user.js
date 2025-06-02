@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_HOST } from '../Utils/constants'
+import { API_HOST } from '../utils/constants'
 
 export async function updateUser(id, data, token) {
     try {
