@@ -27,7 +27,7 @@ const doctors = [
 
 export default function BestDoctors() {
   return (
-    <View className="mb-4">
+    <View className="mb-2">
       <Text className="text-primary-light text-xl font-bold mb-3">Mejores Doctores</Text>
       <View className="flex-row flex-wrap justify-between">
         {doctors.map(d => (

@@ -1,46 +1,24 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import AppointmentCard from '../components/Appointments/AppointmentCard'
-
-const exampleAppointments = [
-    {
-        id: 1,
-        doctor: 'Dr. Martín Pérez',
-        specialty: 'Pediatra',
-        date: 'Lunes, 12 de Abril',
-        time: '10:00 AM',
-        image: 'https://randomuser.me/api/portraits/men/32.jpg'
-    },
-    {
-        id: 2,
-        doctor: 'Dr. Pablo Giardina',
-        specialty: 'Neurólogo',
-        date: 'Martes, 13 de Abril',
-        time: '11:00 AM',
-        image: 'https://randomuser.me/api/portraits/men/45.jpg'
-    },
-    {
-        id: 3,
-        doctor: 'Dr. Pablito Lescano',
-        specialty: 'Pediatra',
-        date: 'Jueves, 16 de Abril',
-        time: '15:00 PM',
-        image: 'https://randomuser.me/api/portraits/men/65.jpg'
-    },
-    {
-        id: 4,
-        doctor: 'Dr. Mateo Sanchez',
-        specialty: 'Ginecólogo',
-        date: 'Viernes, 18 de Abril',
-        time: '09:00 AM',
-        image: 'https://randomuser.me/api/portraits/men/12.jpg'
-    }
-]
+import { fetchAppointmentsThunk } from '../Redux/slices/appointmentsSlice'
+import AppointmentDetail from '../views/AppointmentsViews/AppointmentDetail'
 
 export default function Appointments({ navigation }) {
     const [tab, setTab] = useState('Pendientes')
-    const filteredAppointments = tab === 'Pendientes' ? exampleAppointments : []
+    const dispatch = useDispatch()
+    const { list: appointments, loading, error } = useSelector(state => state.appointments)
+
+    useEffect(() => {
+        dispatch(fetchAppointmentsThunk())
+    }, [dispatch])
+
+    // Filtra por estado
+    const filteredAppointments = appointments.filter(a =>
+        tab === 'Pendientes' ? a.status === 'pending' : a.status === 'completed'
+    )
 
     return (
         <View className="flex-1 bg-background-light">
@@ -65,23 +43,38 @@ export default function Appointments({ navigation }) {
             </View>
 
             <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 90 }}>
-                {filteredAppointments.length === 0 ? (
-                    <View className="flex-1 items-center justify-center mt-16">
-                        <Text className="text-[90px] text-primary-light mb-6">☹️</Text>
-                        <Text className="text-primary-light text-2xl font-bold text-center mb-8 leading-7">¡No hay turnos{'\n'}Agendados!</Text>
+                {loading && (
+                    <ActivityIndicator size="large" color="#006A71" style={{ marginTop: 40 }} />
+                )}
+                {!loading && error && (
+                    <Text className="text-red-500 text-center mt-10">{error}</Text>
+                )}
+                {!loading && !error && filteredAppointments.length === 0 && (
+                    <View className="flex-1 items-center justify-center mt-10">
+                        <View className="bg-primary-light rounded-full w-44 h-44 items-center justify-center mb-8">
+                            <Text style={{ fontSize: 90 }} className="text-white">☹️</Text>
+                        </View>
+                        <Text className="text-primary-light text-3xl font-bold text-center mb-8 leading-7">
+                            ¡No hay turnos{'\n'}Agendados!
+                        </Text>
                         <TouchableOpacity
-                            className="border-2 border-primary-light rounded-lg px-8 py-3"
+                            className="border-2 border-primary-light rounded-xl px-8 py-3"
                             activeOpacity={0.8}
                             onPress={() => navigation.navigate('Home')}
                         >
-                            <Text className="text-primary-light text-lg font-bold">Reserva tu turno</Text>
+                            <Text className="text-primary-light text-xl font-bold">Reserva tu turno</Text>
                         </TouchableOpacity>
                     </View>
-                ) : (
+                )}
+                {!loading && !error && filteredAppointments.length > 0 && (
                     filteredAppointments.map(a => (
                         <AppointmentCard
                             key={a.id}
-                            {...a}
+                            doctor={a.doctor}
+                            specialty={a.specialty}
+                            date={a.date}
+                            time={a.time}
+                            image={a.image}
                             onPress={() => navigation.navigate('AppointmentDetail', { appointment: a })}
                         />
                     ))

@@ -8,8 +8,8 @@ import Login from '../views/Login'
 import Register from '../views/Register'
 import User from '../views/User'
 import EditUser from '../views/UserViews/EditUser'
-import Appointments from '~/views/Appointments'
-import AppointmentDetail from '../views/AppointmentDetail' 
+import Appointments from '../views/Appointments'
+import AppointmentDetail from '../views/AppointmentsViews/AppointmentDetail' 
 
 const Stack = createNativeStackNavigator()
 
