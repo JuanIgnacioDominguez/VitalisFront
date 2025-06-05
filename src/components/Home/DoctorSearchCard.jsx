@@ -14,7 +14,7 @@ export default function DoctorSearchCard({ doctor, isFavorite, onFavorite, onPre
             source={
             doctor.imagen
                 ? { uri: `data:image/jpeg;base64,${doctor.imagen}` }
-                : { uri: 'https://ui-avatars.com/api/?name=Doctor' } // fallback genérico
+                : { uri: 'https://ui-avatars.com/api/?name=Doctor' } 
             }
             className="w-14 h-14 rounded-full mr-3 border-2 border-primary-light"
         />
