@@ -1,20 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { API_HOST } from '../../utils/constants'
+import { store } from '../store'
 
 export const fetchProfessionals = createAsyncThunk(
     'professionals/fetchAll',
     async (_, { rejectWithValue }) => {
         try {
-        const res = await axios.get(`${API_HOST}professionals`)
-        return res.data
+            const state = store.getState()
+            const token = state.auth.token 
+            const res = await axios.get(`${API_HOST}professionals`, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            return res.data
         } catch (e) {
-        return rejectWithValue('Error al cargar profesionales')
+            console.log('Error al cargar profesionales:', e)
+            return rejectWithValue('Error al cargar profesionales')
         }
     }
-    )
+)
 
-    const professionalsSlice = createSlice({
+const professionalsSlice = createSlice({
     name: 'professionals',
     initialState: {
         list: [],
