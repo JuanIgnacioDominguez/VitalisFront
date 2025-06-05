@@ -44,7 +44,7 @@ export default function Login({ navigation }) {
                 setShowPassword={setShowPassword}
                 isPassword
             />
-            <TouchableOpacity className="mb-6 mt-1">
+            <TouchableOpacity className="mb-6 mt-1" onPress={() => navigation.navigate('ForgotPassword')}>
                 <Text className="text-xs text-primary-light text-right">Olvidé mi Contraseña</Text>
             </TouchableOpacity>
             <TouchableOpacity

@@ -40,6 +40,22 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+export const requestPasswordReset = async (email) => {
+    console.log('Enviando email para restablecer contraseña:', email)
+    const res = await axios.post(`${API_HOST}auth/request-password-reset`, { email })
+    return res.data
+}
+
+export const verifyResetCode = async (email, code) => {
+    const res = await axios.post(`${API_HOST}auth/verify-reset-code`, { email, code })
+    return res.data
+}
+
+export const resetPassword = async (email, nueva, code) => {
+    const res = await axios.put(`${API_HOST}auth/reset-password`, { email, nueva, code })
+    return res.data
+}
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
