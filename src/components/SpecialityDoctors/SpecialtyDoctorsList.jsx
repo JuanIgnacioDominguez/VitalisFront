@@ -3,7 +3,15 @@ import { View, Text } from 'react-native'
 import DoctorSearchCard from '../Home/DoctorSearchCard'
 import PropTypes from 'prop-types'
 
-export default function SpecialtyDoctorsList({ doctors, loading, error, specialtyLabels, onDoctorPress }) {
+export default function SpecialtyDoctorsList({
+    doctors,
+    loading,
+    error,
+    specialtyLabels,
+    onDoctorPress,
+    favorites,
+    onToggleFavorite
+}) {
     if (loading) {
         return <Text className="text-primary-light text-center mt-10">Cargando...</Text>
     }
@@ -23,8 +31,8 @@ export default function SpecialtyDoctorsList({ doctors, loading, error, specialt
                 <DoctorSearchCard
                     key={doctor.id}
                     doctor={doctor}
-                    isFavorite={false}
-                    onFavorite={() => {}}
+                    isFavorite={favorites.some(f => f.professionalId === doctor.id)}
+                    onFavorite={() => onToggleFavorite(doctor)}
                     onPress={() => onDoctorPress(doctor)}
                 >
                     <Text>{specialtyLabels[doctor.specialty] || doctor.specialty}</Text>
@@ -40,4 +48,6 @@ SpecialtyDoctorsList.propTypes = {
     error: PropTypes.string,
     specialtyLabels: PropTypes.object.isRequired,
     onDoctorPress: PropTypes.func.isRequired,
+    favorites: PropTypes.array,
+    onToggleFavorite: PropTypes.func,
 }

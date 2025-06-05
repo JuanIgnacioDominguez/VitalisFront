@@ -19,8 +19,8 @@ export default function DoctorSearchResults({ doctors, loading, error, favorites
                 <DoctorSearchCard
                     key={doctor.id}
                     doctor={doctor}
-                    isFavorite={favorites.includes(doctor.id)}
-                    onFavorite={() => onFavorite(doctor.id)}
+                    isFavorite={favorites.some(f => f.professionalId === doctor.id)}
+                    onFavorite={() => onFavorite(doctor)}
                     onPress={() => onPress(doctor)}
                 />
             ))}

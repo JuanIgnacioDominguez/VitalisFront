@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import SpecialtyHeader from '../../components/SpecialityDoctors/SpecialtyHeader'
 import SpecialtyDoctorsList from '../../components/SpecialityDoctors/SpecialtyDoctorsList'
+import { fetchFavorites, toggleFavorite } from '../../Redux/slices/favoritesSlice'
 
 const specialtyLabels = {
     CARDIOLOGO: "Cardiólogo",
@@ -33,6 +34,18 @@ function SpecialtyDoctors({ route, navigation }) {
     const professionals = useSelector(state => state.professionals.list)
     const loading = useSelector(state => state.professionals.loading)
     const error = useSelector(state => state.professionals.error)
+    const userId = useSelector(state => state.auth.user?.id)
+    const favorites = useSelector(state => state.favorites.list)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (userId) dispatch(fetchFavorites(userId))
+    }, [userId, dispatch])
+
+    const handleToggleFavorite = (doctor) => {
+        if (!userId) return
+        dispatch(toggleFavorite({ userId, doctor }))
+    }
 
     const filteredDoctors = professionals.filter(
         d => d.specialty?.toUpperCase() === specialty.toUpperCase()
@@ -48,6 +61,8 @@ function SpecialtyDoctors({ route, navigation }) {
                     error={error}
                     specialtyLabels={specialtyLabels}
                     onDoctorPress={doctor => navigation.navigate('AppointmentDetail', { appointment: doctor })}
+                    favorites={favorites}
+                    onToggleFavorite={handleToggleFavorite}
                 />
             </View>
         </View>

@@ -9,29 +9,31 @@ import BestDoctors from '../components/Home/BestDoctors'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import DoctorSearchResults from '../components/Home/DoctorSearchResults'
 import { fetchProfessionals } from '../Redux/slices/professionalsSlice'
+import { fetchFavorites, toggleFavorite } from '../Redux/slices/favoritesSlice'
 
 export default function Home({ navigation }) {
     const [search, setSearch] = useState('')
-    const [favorites, setFavorites] = useState([])
-
     const dispatch = useDispatch()
     const { list: professionals, loading, error } = useSelector(state => state.professionals)
+    const userId = useSelector(state => state.auth.user?.id)
+    const favorites = useSelector(state => state.favorites.list)
 
     useEffect(() => {
         dispatch(fetchProfessionals())
     }, [dispatch])
+
+    useEffect(() => {
+        if (userId) dispatch(fetchFavorites(userId))
+    }, [userId, dispatch])
 
     const filteredDoctors = professionals.filter(d =>
         d.name.toLowerCase().includes(search.toLowerCase()) ||
         d.specialty.toLowerCase().includes(search.toLowerCase())
     )
 
-    const handleFavorite = (id) => {
-        setFavorites(prev =>
-            prev.includes(id)
-                ? prev.filter(f => f !== id)
-                : [...prev, id]
-        )
+    const handleFavorite = (doctor) => {
+        if (!userId) return
+        dispatch(toggleFavorite({ userId, doctor }))
     }
 
     const handleDoctorPress = (doctor) => {
