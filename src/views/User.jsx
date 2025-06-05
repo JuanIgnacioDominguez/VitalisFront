@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../api/auth' 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LogOut from '../components/PopUps/LogOut'
+import { useTheme } from '../context/ThemeContext'
 
 export default function User({ navigation }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
     const [showModal, setShowModal] = useState(false)
+    const { darkMode } = useTheme()
 
     const handleLogout = async () => {
         setShowModal(false)
@@ -22,7 +24,7 @@ export default function User({ navigation }) {
     }
 
     return (
-        <View className="flex-1 bg-background-light">
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
                 <UserHeader nombre={user?.nombre || 'Usuario'} />
                 <View className="px-8">

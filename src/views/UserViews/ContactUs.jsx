@@ -5,6 +5,7 @@ import BottomNavbar from '../../components/BotomNavbar/BottomNavbar'
 import { sendContactMessage } from '../../api/user'
 import { useSelector } from 'react-redux' 
 import { API_HOST } from '../../utils/constants'
+import { useTheme } from '../../context/ThemeContext'
 
 export default function ContactUs({ navigation }) {
     const [nombre, setNombre] = useState('')
@@ -12,6 +13,7 @@ export default function ContactUs({ navigation }) {
     const [mensaje, setMensaje] = useState('')
     const [loading, setLoading] = useState(false)
     const token = useSelector(state => state.auth.token)
+    const { darkMode } = useTheme()
 
     const handleSend = async () => {
         if (!nombre || !email || !mensaje) {
@@ -32,38 +34,38 @@ export default function ContactUs({ navigation }) {
     }
 
     return (
-        <View className="flex-1 bg-background-light">
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
                 <View className="flex-row items-center mt-12 mb-6 px-6">
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ArrowLeftIcon size={28} color="#006A71" />
+                        <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
-                    <Text className="text-primary-light text-2xl font-bold flex-1 text-center mr-8">
+                    <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
                         Contactanos
                     </Text>
                 </View>
                 <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                     <View className="px-6">
                         <TextInput
-                            className="border-2 border-primary-light rounded-lg px-4 py-3 mb-4 bg-background-light text-primary-light"
+                            className={`border-2 rounded-lg px-4 py-3 mb-4 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
                             placeholder="Nombre"
-                            placeholderTextColor="#00808099"
+                            placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={nombre}
                             onChangeText={setNombre}
                         />
                         <TextInput
-                            className="border-2 border-primary-light rounded-lg px-4 py-3 mb-4 bg-background-light text-primary-light"
+                            className={`border-2 rounded-lg px-4 py-3 mb-4 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
                             placeholder="ejemplo@mail.com"
-                            placeholderTextColor="#00808099"
+                            placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
                             autoCapitalize="none"
                         />
                         <TextInput
-                            className="border-2 border-primary-light rounded-lg px-4 py-3 mb-8 bg-background-light text-primary-light"
+                            className={`border-2 rounded-lg px-4 py-3 mb-8 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
                             placeholder="Cuéntanos lo que quieras"
-                            placeholderTextColor="#00808099"
+                            placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={mensaje}
                             onChangeText={setMensaje}
                             multiline
@@ -71,7 +73,7 @@ export default function ContactUs({ navigation }) {
                             style={{ minHeight: 100, textAlignVertical: 'top' }}
                         />
                         <TouchableOpacity
-                            className="bg-primary-light rounded-lg py-3"
+                            className={`${darkMode ? 'bg-primary-dark' : 'bg-primary-light'} rounded-lg py-3`}
                             onPress={handleSend}
                             disabled={loading}
                             activeOpacity={0.8}

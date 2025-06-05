@@ -1,24 +1,25 @@
 import React, { useState } from 'react'
 import { View, Text, Switch, TouchableOpacity, ScrollView, Image } from 'react-native'
 import UserMenuItem from '../../components/User/UserMenuItem'
+import { useTheme } from '../../context/ThemeContext'
 
-const chevronThin = 'https://img.icons8.com/ios/20/008080/chevron-right.png'
-const chevronDownThin = 'https://img.icons8.com/ios/20/008080/chevron-down.png'
+const chevronThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-right.png'
+const chevronDownThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-down.png'
 const backArrow = 'https://img.icons8.com/ios/30/008080/left.png'
 
 export default function Settings({ navigation }) {
-    const [darkMode, setDarkMode] = useState(false)
+    const { darkMode, setDarkMode } = useTheme()
     const [showLanguages, setShowLanguages] = useState(false)
     const [selectedLanguage, setSelectedLanguage] = useState('Español')
 
     return (
-        <View className="flex-1 bg-background-light mt-10">
+        <View className={`flex-1 mt-10 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 24, marginBottom: 16 }}>
                     <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 16 }}>
                         <Image source={{ uri: backArrow }} style={{ width: 28, height: 28 }} />
                     </TouchableOpacity>
-                    <Text className="text-primary-light text-2xl font-bold text-center" style={{ flex: 1, marginRight: 44 }}>
+                    <Text className={`text-2xl font-bold text-center ${darkMode ? 'text-text-dark' : 'text-primary-light'}`} style={{ flex: 1, marginRight: 44 }}>
                         Ajustes
                     </Text>
                 </View>
@@ -44,7 +45,7 @@ export default function Settings({ navigation }) {
                             hideArrow
                             rightComponent={
                                 <Image
-                                    source={{ uri: showLanguages ? "https://img.icons8.com/ios-filled/24/008080/chevron-down.png" : "https://img.icons8.com/ios-filled/24/008080/chevron-right.png" }}
+                                    source={{ uri: showLanguages ? chevronDownThin : chevronThin }}
                                     style={{ width: 24, height: 24, marginLeft: 8 }}
                                 />
                             }

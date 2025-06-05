@@ -10,6 +10,7 @@ import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import DoctorSearchResults from '../components/Home/DoctorSearchResults'
 import { fetchProfessionals } from '../Redux/slices/professionalsSlice'
 import { fetchFavorites, toggleFavorite } from '../Redux/slices/favoritesSlice'
+import { useTheme } from '../context/ThemeContext' 
 
 export default function Home({ navigation }) {
     const [search, setSearch] = useState('')
@@ -17,6 +18,7 @@ export default function Home({ navigation }) {
     const { list: professionals, loading, error } = useSelector(state => state.professionals)
     const userId = useSelector(state => state.auth.user?.id)
     const favorites = useSelector(state => state.favorites.list)
+    const { darkMode } = useTheme() 
 
     useEffect(() => {
         dispatch(fetchProfessionals())
@@ -41,7 +43,7 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <View className="flex-1 bg-background-light">
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <View className="flex-1 p-5 pb-20">
                 <Header />
                 <SearchBar value={search} onChangeText={setSearch} />
