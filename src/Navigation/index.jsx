@@ -15,6 +15,7 @@ import ForgotPassword from '../views/ForgotPassword'
 import VerifyCode from '../views/VerifyCode'
 import ResetPassword from '../views/ResetPassword'
 import PrivacyPolicy from '../views/PrivacyPolicy'
+import Favorites from '../views/Favorites' 
 
 const Stack = createNativeStackNavigator()
 
@@ -29,12 +30,13 @@ export default function Navigation() {
             <Stack.Screen name="User" component={User} />
             <Stack.Screen name="Appointments" component={Appointments} />
             <Stack.Screen name="EditUser" component={EditUser} />
-            <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} /> 
+            <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} />
             <Stack.Screen name="SpecialtyDoctors" component={SpecialtyDoctors} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="VerifyCode" component={VerifyCode} />
             <Stack.Screen name="ResetPassword" component={ResetPassword} />
             <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen name="Favorites" component={Favorites} /> 
         </Stack.Navigator>
         </NavigationContainer>
     )
