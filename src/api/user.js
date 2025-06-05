@@ -19,3 +19,22 @@ export async function updateUser(id, data, token) {
         throw error.response?.data || { mensaje: error.message || 'Error al actualizar usuario' }
     }
 }
+
+export async function sendContactMessage(data, token) {
+    try {
+        const response = await axios.post(
+            `${API_HOST}users/contact`,
+            data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token && { Authorization: `Bearer ${token}` })
+                }
+            }
+        )
+        return response.data
+    } catch (error) {
+        console.log('Error al enviar mensaje de contacto:', error.response?.data || error.message || error)
+        throw error.response?.data || { mensaje: error.message || 'Error al enviar mensaje de contacto' }
+    }
+}
