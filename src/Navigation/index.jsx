@@ -19,6 +19,7 @@ import Favorites from '../views/Favorites'
 import ContactUs from '../views/UserViews/ContactUs'
 import Rating from '../views/UserViews/Rating'
 import Faq from '../views/UserViews/Faq'
+import Settings from '../views/UserViews/Settings'
 
 const Stack = createNativeStackNavigator()
 
@@ -43,6 +44,7 @@ export default function Navigation() {
             <Stack.Screen name="ContactUs" component={ContactUs} />
             <Stack.Screen name="Rating" component={Rating} />
             <Stack.Screen name="Faq" component={Faq} />
+            <Stack.Screen name="Settings" component={Settings} />
         </Stack.Navigator>
         </NavigationContainer>
     )

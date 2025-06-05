@@ -44,7 +44,7 @@ export default function User({ navigation }) {
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/settings.png"
                     label="Ajustes"
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate('Settings')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/help.png"
