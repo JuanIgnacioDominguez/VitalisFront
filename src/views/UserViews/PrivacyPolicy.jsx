@@ -66,22 +66,6 @@ export default function PrivacyPolicy({ navigation }) {
                 <Text className="text-base text-primary-light mb-2">
                     5. Para cualquier consulta, puedes contactar con nuestro equipo de soporte a través del correo soporte@vitalis.com.
                 </Text>
-                <Text className="text-xl text-primary-light font-bold mt-6 mb-2">Preguntas Frecuentes</Text>
-                <Text className="text-base text-primary-light mb-2">
-                    <Text style={{ fontWeight: 'bold' }}>¿Cómo puedo eliminar mi cuenta?</Text> Puedes solicitar la eliminación de tu cuenta desde la sección de configuración o contactando con soporte.
-                </Text>
-                <Text className="text-base text-primary-light mb-2">
-                    <Text style={{ fontWeight: 'bold' }}>¿Qué datos almacena Vitalis?</Text> Solo almacenamos los datos necesarios para el funcionamiento de la aplicación y la mejora de nuestros servicios.
-                </Text>
-                <Text className="text-base text-primary-light mb-2">
-                    <Text style={{ fontWeight: 'bold' }}>¿Puedo modificar mis datos?</Text> Sí, puedes modificar tus datos personales en cualquier momento desde tu perfil.
-                </Text>
-                <Text className="text-base text-primary-light mb-2">
-                    <Text style={{ fontWeight: 'bold' }}>¿Cómo protege Vitalis mi información?</Text> Utilizamos cifrado y otras medidas de seguridad para proteger tus datos.
-                </Text>
-                <Text className="text-base text-primary-light mb-2">
-                    <Text style={{ fontWeight: 'bold' }}>¿Dónde puedo obtener más información?</Text> Consulta nuestra web o contacta con soporte para más detalles.
-                </Text>
             </ScrollView>
         </View>
     )

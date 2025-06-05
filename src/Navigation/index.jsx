@@ -14,9 +14,10 @@ import SpecialtyDoctors from '../views/HomeViews/SpecialtyDoctors'
 import ForgotPassword from '../views/ForgotPassword'
 import VerifyCode from '../views/VerifyCode'
 import ResetPassword from '../views/ResetPassword'
-import PrivacyPolicy from '../views/PrivacyPolicy'
+import PrivacyPolicy from '../views/UserViews/PrivacyPolicy'
 import Favorites from '../views/Favorites' 
 import ContactUs from '../views/UserViews/ContactUs'
+import Rating from '../views/UserViews/Rating'
 
 const Stack = createNativeStackNavigator()
 
@@ -39,6 +40,7 @@ export default function Navigation() {
             <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
             <Stack.Screen name="Favorites" component={Favorites} /> 
             <Stack.Screen name="ContactUs" component={ContactUs} />
+            <Stack.Screen name="Rating" component={Rating} />
         </Stack.Navigator>
         </NavigationContainer>
     )

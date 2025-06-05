@@ -34,7 +34,7 @@ export default function User({ navigation }) {
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/star.png"
                     label="Calificación"
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate('Rating')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
