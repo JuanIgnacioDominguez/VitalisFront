@@ -39,7 +39,7 @@ export default function User({ navigation }) {
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
                     label="Políticas De Privacidad"
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate('PrivacyPolicy')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/settings.png"

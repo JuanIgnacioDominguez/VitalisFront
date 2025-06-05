@@ -14,6 +14,7 @@ import SpecialtyDoctors from '../views/HomeViews/SpecialtyDoctors'
 import ForgotPassword from '../views/ForgotPassword'
 import VerifyCode from '../views/VerifyCode'
 import ResetPassword from '../views/ResetPassword'
+import PrivacyPolicy from '../views/PrivacyPolicy'
 
 const Stack = createNativeStackNavigator()
 
@@ -33,6 +34,7 @@ export default function Navigation() {
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="VerifyCode" component={VerifyCode} />
             <Stack.Screen name="ResetPassword" component={ResetPassword} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
         </Stack.Navigator>
         </NavigationContainer>
     )
