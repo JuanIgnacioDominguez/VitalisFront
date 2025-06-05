@@ -49,7 +49,7 @@ export default function User({ navigation }) {
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/help.png"
                     label="Ayuda"
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate('Faq')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"

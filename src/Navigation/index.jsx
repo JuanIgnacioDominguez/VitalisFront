@@ -18,6 +18,7 @@ import PrivacyPolicy from '../views/UserViews/PrivacyPolicy'
 import Favorites from '../views/Favorites' 
 import ContactUs from '../views/UserViews/ContactUs'
 import Rating from '../views/UserViews/Rating'
+import Faq from '../views/UserViews/Faq'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,6 +42,7 @@ export default function Navigation() {
             <Stack.Screen name="Favorites" component={Favorites} /> 
             <Stack.Screen name="ContactUs" component={ContactUs} />
             <Stack.Screen name="Rating" component={Rating} />
+            <Stack.Screen name="Faq" component={Faq} />
         </Stack.Navigator>
         </NavigationContainer>
     )
