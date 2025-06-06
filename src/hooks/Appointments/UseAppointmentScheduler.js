@@ -79,7 +79,6 @@ export function useAppointmentScheduler(professional, navigation) {
             })
 
             setBooking(false)
-            navigation.navigate('Home')
         } catch (e) {
             setBooking(false)
             alert(e?.response?.data || 'Error al reservar turno')
