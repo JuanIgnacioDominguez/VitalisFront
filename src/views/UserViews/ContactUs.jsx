@@ -85,7 +85,6 @@ export default function ContactUs({ navigation }) {
                     </View>
                 </KeyboardAvoidingView>
             </ScrollView>
-            <BottomNavbar />
         </View>
     )
 }

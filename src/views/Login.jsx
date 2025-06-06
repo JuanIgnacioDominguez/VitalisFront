@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
 
     useEffect(() => {
         if (user && !loading && !error) {
-            navigation.navigate('Home')
+            navigation.navigate('MainTabs', { screen: 'Home' })
         }
     }, [user, loading, error])
 

@@ -36,11 +36,10 @@ export default function Favorites() {
                 doctors={favoriteDoctors}
                 onPressDoctor={doctor => {
                     if (doctor) navigation.navigate('AppointmentDetail', { appointment: doctor })
-                    else navigation.navigate('Home')
+                    else navigation.navigate('MainTabs', { screen: 'Home' })
                 }}
                 onToggleFavorite={handleToggleFavorite}
             />
-            <BottomNavbar />
         </View>
     )
 }

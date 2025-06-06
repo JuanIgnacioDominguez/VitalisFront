@@ -65,7 +65,6 @@ export default function User({ navigation }) {
                 />
                 </View>
             </ScrollView>
-            <BottomNavbar />
             <LogOut
                 visible={showModal}
                 onClose={() => setShowModal(false)}

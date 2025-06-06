@@ -61,7 +61,7 @@ export default function Appointments({ navigation }) {
                         <TouchableOpacity
                             className={`border-2 rounded-xl px-8 py-3 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
                             activeOpacity={0.8}
-                            onPress={() => navigation.navigate('Home')}
+                            onPress={() => navigation.navigate('MainTabs', { screen: 'Home' })}
                         >
                             <Text className={`text-xl font-bold ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>Reserva tu turno</Text>
                         </TouchableOpacity>
@@ -81,7 +81,6 @@ export default function Appointments({ navigation }) {
                     ))
                 )}
             </ScrollView>
-            <BottomNavbar />
         </View>
     )
 }

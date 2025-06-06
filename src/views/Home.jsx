@@ -64,7 +64,6 @@ export default function Home({ navigation }) {
                     </>
                 )}
             </View>
-            <BottomNavbar />
         </View>
     )
 }

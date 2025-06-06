@@ -27,7 +27,7 @@ export default function BottomNavbar() {
                         className="flex-1 items-center justify-center"
                         activeOpacity={0.7}
                         onPress={() => {
-                            if (tab.route) navigation.navigate(tab.route)
+                            if (tab.route) navigation.navigate('MainTabs', { screen: tab.route })
                         }}
                     >
                         <tab.icon size={24} color="#FFFFFF" />

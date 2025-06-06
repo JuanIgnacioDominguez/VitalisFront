@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SpecialtyHeader from '../../components/SpecialityDoctors/SpecialtyHeader'
 import SpecialtyDoctorsList from '../../components/SpecialityDoctors/SpecialtyDoctorsList'
 import { fetchFavorites, toggleFavorite } from '../../Redux/slices/favoritesSlice'
+import { useTheme } from '../../context/ThemeContext'
 
 const specialtyLabels = {
     CARDIOLOGO: "Cardiólogo",
@@ -37,6 +38,7 @@ function SpecialtyDoctors({ route, navigation }) {
     const userId = useSelector(state => state.auth.user?.id)
     const favorites = useSelector(state => state.favorites.list)
     const dispatch = useDispatch()
+    const { darkMode } = useTheme()
 
     useEffect(() => {
         if (userId) dispatch(fetchFavorites(userId))
@@ -52,7 +54,7 @@ function SpecialtyDoctors({ route, navigation }) {
     )
 
     return (
-        <View className="flex-1 bg-background-light">
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <SpecialtyHeader title={specialty} onBack={navigation.goBack} />
             <View className="flex-1 px-5">
                 <SpecialtyDoctorsList
