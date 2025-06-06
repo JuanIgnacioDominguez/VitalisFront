@@ -11,18 +11,14 @@ export default function AppointmentDetail({ route, navigation }) {
     const { appointment } = route.params
     const { darkMode } = useTheme()
     const { cancelAppointment, loading } = useCancelAppointment()
-
-    // Datos fijos para campos no presentes en la base
     const ubicacion = 'Clínica Vitalis, Av. Rivadavia 742'
     const sector = 'Sector C, consultorio 221'
-    // Estado dinámico según status
     const estado =
         appointment.status === 'completed'
             ? 'Completado'
             : 'Confirmado'
     const notas = 'El paciente debe traer estudios de control previos.'
 
-    // Formato de fecha y hora
     const fechaFormateada = (() => {
         const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
         const [año, mes, dia] = appointment.date.split('-')
