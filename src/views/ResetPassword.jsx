@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import { resetPassword } from '../api/auth'
 import CustomPopup from '../components/PopUps/CustomPopup'
+import { useSelector } from 'react-redux'
 
 export default function ResetPassword({ navigation, route }) {
     const { email, code } = route.params 
@@ -10,6 +11,7 @@ export default function ResetPassword({ navigation, route }) {
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
+    const user = useSelector(state => state.auth.user)
 
     const handleReset = async () => {
         if (!password || password.length < 6) {
@@ -79,13 +81,17 @@ export default function ResetPassword({ navigation, route }) {
             visible={showSuccessPopup}
             onClose={() => {
                 setShowSuccessPopup(false)
-                navigation.navigate('Login')
+                if (user) {
+                    navigation.navigate('Settings')
+                } else {
+                    navigation.navigate('Login')
+                }
             }}
             title="¡Contraseña cambiada!"
             message="Tu contraseña fue restablecida correctamente. Ya puedes iniciar sesión."
             color="#008080"
             borderColor="#7AD7F0"
-            buttonText="Iniciar sesión"
+            buttonText={user ? "Ir a Ajustes" : "Iniciar sesión"}
         />
         </View>
     )
