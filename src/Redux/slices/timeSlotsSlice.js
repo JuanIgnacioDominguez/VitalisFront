@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchTimeSlots } from '../../api/timeslots'
+import { getReservedTimeSlots } from '../../api/timeslots'
 
 export const getTimeSlots = createAsyncThunk(
-    'timeSlots/get',
+    'timeSlots/getTimeSlots',
     async ({ professionalId, date }, { rejectWithValue }) => {
         try {
-            return await fetchTimeSlots(professionalId, date)
+            return await getReservedTimeSlots(professionalId, date)
         } catch (e) {
-            return rejectWithValue('Error al cargar horarios')
+            return rejectWithValue('Error al cargar horarios reservados')
         }
     }
 )
@@ -28,7 +28,7 @@ const timeSlotsSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(getTimeSlots.pending, state => {
+            .addCase(getTimeSlots.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
