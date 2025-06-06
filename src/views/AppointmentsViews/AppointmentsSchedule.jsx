@@ -51,6 +51,7 @@ function generateTimeSlots() {
 export default function AppointmentsSchedule({ route, navigation }) {
     const { professional } = route.params
     const userId = useSelector(state => state.auth.user?.id)
+    const token = useSelector(state => state.auth.token)
     const { darkMode } = useTheme()
     const dispatch = useDispatch()
     const { list: reservedSlots, loading } = useSelector(state => state.timeSlots)
@@ -105,25 +106,42 @@ export default function AppointmentsSchedule({ route, navigation }) {
         if (!selectedSlot) return
         setBooking(true)
         try {
-            // 1. Reservar el horario
-            await reserveTimeSlot({
+            console.log('[handleBook] Reservando slot con:', {
                 professionalId: professional.id,
                 date: selectedDate,
                 time: selectedSlot,
                 userId
             })
-            // 2. Crear el Appointment
-            await createAppointment({
+            const slotRes = await reserveTimeSlot({
+                professionalId: professional.id,
+                date: selectedDate,
+                time: selectedSlot,
+                userId,
+                token
+            })
+            console.log('[handleBook] Slot reservado:', slotRes)
+
+            console.log('[handleBook] Creando appointment con:', {
                 userId,
                 professionalId: professional.id,
                 date: selectedDate,
                 time: selectedSlot,
                 status: 'pending'
             })
+            const appointmentRes = await createAppointment({
+                userId,
+                professionalId: professional.id,
+                date: selectedDate,
+                time: selectedSlot,
+                status: 'pending'
+            })
+            console.log('[handleBook] Appointment creado:', appointmentRes)
+
             setBooking(false)
             navigation.navigate('Appointments')
         } catch (e) {
             setBooking(false)
+            console.log('[handleBook] Error:', e, e?.response?.data)
             alert(e?.response?.data || 'Error al reservar turno')
         }
     }
