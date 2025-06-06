@@ -4,9 +4,9 @@ import { API_HOST } from '../../utils/constants'
 
 export const fetchAppointmentsThunk = createAsyncThunk(
     'appointments/fetchAll',
-    async (_, { rejectWithValue }) => {
+    async (userId, { rejectWithValue }) => {
         try {
-            const res = await axios.get(`${API_HOST}appointments`)
+            const res = await axios.get(`${API_HOST}appointments?userId=${userId}`)
             return res.data
         } catch (e) {
             return rejectWithValue('Error al cargar turnos')

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { CalendarDaysIcon, ClockIcon } from 'react-native-heroicons/outline'
+import AppointmentTags from './AppointmentTags'
 
 export default function AppointmentCard({ doctor, specialty, date, time, image, onPress }) {
     return (
@@ -15,15 +15,8 @@ export default function AppointmentCard({ doctor, specialty, date, time, image, 
                     <Text className="text-secondary-light text-xs">{specialty}</Text>
                 </View>
             </View>
-            <View className="flex-row items-center px-4 pb-2">
-                <View className="flex-row items-center bg-quaternary-light rounded-full px-2 py-1 mr-3">
-                    <CalendarDaysIcon size={16} color="#006A71" />
-                    <Text className="ml-1 text-xs text-primary-light">{date}</Text>
-                </View>
-                <View className="flex-row items-center bg-quaternary-light rounded-full px-2 py-1">
-                    <ClockIcon size={16} color="#006A71" />
-                    <Text className="ml-1 text-xs text-primary-light">{time}</Text>
-                </View>
+            <View className="px-4">
+                <AppointmentTags date={date} time={time} />
             </View>
             <View className="px-4 pb-4 pt-1">
                 <TouchableOpacity

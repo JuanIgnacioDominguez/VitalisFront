@@ -27,3 +27,21 @@ export function generateTimeSlots() {
     slots.push('18:00')
     return slots
 }
+
+export function formatDateEs(fechaISO) {
+    // fechaISO: '2024-08-25'
+    const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+    const [año, mes, dia] = fechaISO.split('-')
+    return `${parseInt(dia)} de ${meses[parseInt(mes) - 1]}, ${año}`
+}
+
+export function formatHourEs(hora) {
+    // hora: '10:00' o '14:30'
+    let [h, m] = hora.split(':')
+    h = parseInt(h)
+    const sufijo = h >= 12 ? 'PM' : 'AM'
+    if (h > 12) h -= 12
+    if (h === 0) h = 12
+    return `${h}:${m} ${sufijo}`
+}
+
