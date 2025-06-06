@@ -22,10 +22,12 @@ const authSlice = createSlice({
         },
         clearRegisterSuccess: (state) => {
             state.registerSuccess = false
+        },
+        clearAuthError: (state) => {
+            state.error = null
         }
-        
     }
 })
 
-export const { clearRegisterSuccess } = authSlice.actions
+export const { setUser, setToken, logout, clearRegisterSuccess, clearAuthError } = authSlice.actions
 export default authSlice.reducer

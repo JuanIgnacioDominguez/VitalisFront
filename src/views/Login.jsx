@@ -3,8 +3,9 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import LoginHeader from '../components/Login/LoginHeader'
 import LoginInput from '../components/Login/LoginInput'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../api/auth'
+import { loginUser} from '../api/auth'
 import LoginErrorModal from '../components/PopUps/LoginErrorModal'
+import { clearAuthError } from '../Redux/slices/AuthSlice'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -75,11 +76,16 @@ export default function Login({ navigation }) {
             </View>
             <LoginErrorModal
                 visible={showErrorModal}
-                onClose={() => setShowErrorModal(false)}
+                onClose={() => {
+                    dispatch(clearAuthError())
+                    setShowErrorModal(false)
+                }}
                 message={
                     !/^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i.test(email)
                         ? 'Ingrese un email válido (gmail, hotmail, outlook, yahoo)'
-                        : error
+                        : (error && (error.toLowerCase().includes('credencial') || error.toLowerCase().includes('contraseña') || error.toLowerCase().includes('password')))
+                            ? 'Mail o contraseña incorrecta'
+                            : error
                 }
             />
         </View>
