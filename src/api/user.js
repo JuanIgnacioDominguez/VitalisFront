@@ -38,3 +38,22 @@ export async function sendContactMessage(data, token) {
         throw error.response?.data || { mensaje: error.message || 'Error al enviar mensaje de contacto' }
     }
 }
+
+export async function changePassword(userId, currentPassword, newPassword, token) {
+    try {
+        const response = await axios.put(
+            `${API_HOST}users/${userId}/password`,
+            { actual: currentPassword, nueva: newPassword },
+            {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : undefined,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        console.log('[changePassword] Response:', response.data)
+        return response.data
+    } catch (error) {
+        throw error.response?.data || { mensaje: error.message || 'Error al cambiar contraseña' }
+    }
+}
