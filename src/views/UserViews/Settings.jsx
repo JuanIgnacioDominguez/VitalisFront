@@ -64,7 +64,7 @@ export default function Settings({ navigation }) {
                     <UserMenuItem
                         icon="https://img.icons8.com/ios-filled/48/008080/key.png"
                         label="Cambiar Contraseña"
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('ChangePassword')}
                     />
                     <UserMenuItem
                         icon="https://img.icons8.com/ios-filled/48/008080/user-male-delete.png"
