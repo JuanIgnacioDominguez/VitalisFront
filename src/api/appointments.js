@@ -11,3 +11,7 @@ export async function createAppointment({ userId, professionalId, date, time, st
     })
     return res.data
 }
+
+export async function deleteAppointment(appointmentId) {
+    return axios.delete(`${API_HOST}appointments/${appointmentId}`)
+}
