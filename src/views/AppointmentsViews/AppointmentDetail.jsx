@@ -15,7 +15,11 @@ export default function AppointmentDetail({ route, navigation }) {
     // Datos fijos para campos no presentes en la base
     const ubicacion = 'Clínica Vitalis, Av. Rivadavia 742'
     const sector = 'Sector C, consultorio 221'
-    const estado = 'Confirmado'
+    // Estado dinámico según status
+    const estado =
+        appointment.status === 'completed'
+            ? 'Completado'
+            : 'Confirmado'
     const notas = 'El paciente debe traer estudios de control previos.'
 
     // Formato de fecha y hora
@@ -102,17 +106,20 @@ export default function AppointmentDetail({ route, navigation }) {
                         <Text className="mb-3 text-primary-light">{estado}</Text>
                         <Text className="font-bold text-primary-light mb-1">Notas adicionales</Text>
                         <Text className="mb-3 text-primary-light">{notas}</Text>
-                        <TouchableOpacity
-                            className="rounded-xl py-3 mt-4"
-                            style={{ backgroundColor: '#F76C6C' }}
-                            onPress={handleCancel}
-                            disabled={loading}
-                            activeOpacity={0.85}
-                        >
-                            <Text className="text-white text-center text-lg font-bold">
-                                {loading ? 'Cancelando...' : 'Cancelar turno'}
-                            </Text>
-                        </TouchableOpacity>
+                        {/* Solo mostrar el botón si el estado es pending */}
+                        {appointment.status !== 'completed' && (
+                            <TouchableOpacity
+                                className="rounded-xl py-3 mt-4"
+                                style={{ backgroundColor: '#F76C6C' }}
+                                onPress={handleCancel}
+                                disabled={loading}
+                                activeOpacity={0.85}
+                            >
+                                <Text className="text-white text-center text-lg font-bold">
+                                    {loading ? 'Cancelando...' : 'Cancelar turno'}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
             </ScrollView>
