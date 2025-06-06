@@ -47,24 +47,26 @@ export default function CustomPopup({ visible, onClose, title, message, color = 
                     }}>
                         {message}
                     </Text>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: color,
-                            borderRadius: 12,
-                            paddingVertical: 12,
-                            width: 200
-                        }}
-                        onPress={onClose}
-                    >
-                        <Text style={{
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            fontSize: 18,
-                            textAlign: 'center'
-                        }}>
-                            {buttonText}
-                        </Text>
-                    </TouchableOpacity>
+                    {buttonText && (
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: color,
+                                borderRadius: 12,
+                                paddingVertical: 12,
+                                width: 200
+                            }}
+                            onPress={onClose}
+                        >
+                            <Text style={{
+                                color: '#fff',
+                                fontWeight: 'bold',
+                                fontSize: 18,
+                                textAlign: 'center'
+                            }}>
+                                {buttonText}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
         </Modal>
