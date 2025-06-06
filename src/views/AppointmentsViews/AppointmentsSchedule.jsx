@@ -39,7 +39,6 @@ export default function AppointmentsSchedule({ route, navigation }) {
     } = useAppointmentScheduler(professional, navigation)
 
     const handleBook = async () => {
-        // Validación frontend antes de reservar
         if (
             !user?.obraSocial ||
             !user?.nroAfiliado ||
@@ -64,7 +63,6 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 }, 2000)
             }
         } catch (e) {
-            // Si igual hay error, mostrar mensaje genérico
             const msg = e?.response?.data || ''
             alert(msg || 'No se pudo reservar el turno. Verifica tus datos.')
         }
@@ -83,27 +81,33 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 handleNextMonth={handleNextMonth}
                 today={new Date()}
             />
-            <DaySelector
-                daysOfMonth={daysOfMonth}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                darkMode={darkMode}
-            />
-            <TimeSlots
-                allTimeSlots={allTimeSlots}
-                reservedTimes={reservedTimes}
-                selectedSlot={selectedSlot}
-                setSelectedSlot={setSelectedSlot}
-                darkMode={darkMode}
-                loading={loading}
-            />
-            <BookButton
-                onPress={handleBook}
-                disabled={!selectedSlot || booking}
-                booking={booking}
-                darkMode={darkMode}
-                selectedSlot={selectedSlot}
-            />
+            <View className="mt-0 mb-2 px-2">
+                <DaySelector
+                    daysOfMonth={daysOfMonth}
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                    darkMode={darkMode}
+                />
+            </View>
+            <View className="flex-1 px-2 py-2">
+                <TimeSlots
+                    allTimeSlots={allTimeSlots}
+                    reservedTimes={reservedTimes}
+                    selectedSlot={selectedSlot}
+                    setSelectedSlot={setSelectedSlot}
+                    darkMode={darkMode}
+                    loading={loading}
+                />
+            </View>
+            <View className="px-4 pb-6 pt-2 bg-transparent">
+                <BookButton
+                    onPress={handleBook}
+                    disabled={!selectedSlot || booking}
+                    booking={booking}
+                    darkMode={darkMode}
+                    selectedSlot={selectedSlot}
+                />
+            </View>
             <CustomPopup
                 visible={showSuccessPopup}
                 onClose={() => setShowSuccessPopup(false)}

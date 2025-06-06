@@ -4,7 +4,7 @@ import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 
 export default function HeaderSection({ navigation, darkMode }) {
     return (
-        <View className="flex-row items-center px-6 pt-10 pb-2">
+        <View className="flex-row items-center px-6 mt-12">
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>

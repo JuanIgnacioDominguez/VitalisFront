@@ -3,7 +3,7 @@ import { ScrollView, TouchableOpacity, Text } from 'react-native'
 
 export default function DaySelector({ daysOfMonth, selectedDate, setSelectedDate, darkMode }) {
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-4 mb-2">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-2 mb-2 mt-4">
             {daysOfMonth.map(day => (
                 <TouchableOpacity
                     key={day.value}

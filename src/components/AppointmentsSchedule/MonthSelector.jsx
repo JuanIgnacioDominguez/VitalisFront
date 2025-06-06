@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'react-native-heroicons/outlin
 
 export default function MonthSelector({ selectedMonth, selectedYear, MONTHS_ES, darkMode, handlePrevMonth, handleNextMonth, today }) {
     return (
-        <View className="flex-row items-center justify-center mt-2 mb-2">
+        <View className="flex-row items-center justify-center mb-2 mt-4">
             <TouchableOpacity
                 onPress={handlePrevMonth}
                 disabled={selectedYear === today.getFullYear() && selectedMonth === today.getMonth()}
