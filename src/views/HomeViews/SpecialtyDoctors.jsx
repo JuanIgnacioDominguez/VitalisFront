@@ -62,7 +62,7 @@ function SpecialtyDoctors({ route, navigation }) {
                     loading={loading}
                     error={error}
                     specialtyLabels={specialtyLabels}
-                    onDoctorPress={doctor => navigation.navigate('AppointmentDetail', { appointment: doctor })}
+                    onDoctorPress={doctor => navigation.navigate('AppointmentsSchedule', { professional: doctor })}
                     favorites={favorites}
                     onToggleFavorite={handleToggleFavorite}
                 />
