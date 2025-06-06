@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import CustomPopup from '../../components/PopUps/CustomPopup'
 import { deleteUserWithCode } from '../../api/user'
+import { logout } from '../../Redux/slices/AuthSlice' 
 
 export default function VerifyDeleteCode({ navigation, route }) {
     const { email } = route.params
     const userId = useSelector(state => state.auth.user?.id)
     const token = useSelector(state => state.auth.token)
+    const dispatch = useDispatch()
     const [code, setCode] = useState('')
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
@@ -27,6 +29,7 @@ export default function VerifyDeleteCode({ navigation, route }) {
             setShowDeletedPopup(true)
             setTimeout(() => {
                 setShowDeletedPopup(false)
+                dispatch(logout()) 
                 navigation.navigate('FirstView')
             }, 2000)
         } catch (e) {

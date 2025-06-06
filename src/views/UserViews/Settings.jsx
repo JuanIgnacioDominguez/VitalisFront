@@ -74,7 +74,7 @@ export default function Settings({ navigation }) {
                         onPress={() => navigation.navigate('ChangePassword')}
                     />
                     <UserMenuItem
-                        icon="https://img.icons8.com/ios-filled/48/008080/user-male-delete.png"
+                        icon="https://img.icons8.com/ios-filled/48/008080/trash--v1.png"
                         label="Borrar Cuenta"
                         onPress={() => setShowDeletePopup(true)}
                     />
