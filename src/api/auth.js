@@ -62,32 +62,38 @@ const authSlice = createSlice({
         user: null,
         token: null,
         loading: false,
-        error: null
+        error: null,
+        registerSuccess: false, 
     },
     reducers: {
         logout: (state) => {
             state.user = null
             state.token = null
             state.error = null
+        },
+        setUser: (state, action) => {
+            state.user = { ...state.user, ...action.payload }
+        },
+        clearRegisterSuccess: (state) => {
+            state.registerSuccess = false
         }
     },
     extraReducers: builder => {
         builder
-        // Registro
         .addCase(registerUser.pending, (state) => {
             state.loading = true
             state.error = null
+            state.registerSuccess = false
         })
         .addCase(registerUser.fulfilled, (state, action) => {
             state.loading = false
-            state.user = action.payload.usuario
-            state.token = action.payload.token
+            state.registerSuccess = true 
         })
         .addCase(registerUser.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload?.mensaje || 'Error al registrar'
+            state.registerSuccess = false
         })
-        // Login
         .addCase(loginUser.pending, (state) => {
             state.loading = true
             state.error = null
@@ -104,5 +110,5 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout } = authSlice.actions
+export const { logout, setUser, clearRegisterSuccess } = authSlice.actions
 export default authSlice.reducer

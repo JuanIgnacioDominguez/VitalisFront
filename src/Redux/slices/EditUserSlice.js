@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { updateUser } from '../../api/user'
+import { setUser } from '../../api/auth'
 
 export const updateUserThunk = createAsyncThunk(
     'editUser/updateUser',
-    async ({ id, data, token }, { rejectWithValue }) => {
+    async ({ id, data, token }, { rejectWithValue, dispatch }) => {
         try {
             const response = await updateUser(id, data, token)
+            // Actualiza el usuario global
+            dispatch(setUser(response))
             return response
         } catch (error) {
             return rejectWithValue(error.mensaje || 'Error al actualizar usuario')
@@ -34,9 +37,10 @@ const editUserSlice = createSlice({
                 state.error = null
                 state.success = false
             })
-            .addCase(updateUserThunk.fulfilled, (state) => {
+            .addCase(updateUserThunk.fulfilled, (state, action) => {
                 state.loading = false
                 state.success = true
+                state.error = null
             })
             .addCase(updateUserThunk.rejected, (state, action) => {
                 state.loading = false

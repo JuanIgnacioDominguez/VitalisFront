@@ -1,7 +1,10 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
+    const user = useSelector(state => state.auth.user)
+
     return (
         <View className="flex-row items-center mb-4 mt-10">
         <Image
@@ -10,7 +13,7 @@ export default function Header() {
         />
         <View>
             <Text className="text-primary-light font-semibold text-base leading-5">Bienvenido de Vuelta!</Text>
-            <Text className="text-text-light text-sm">Luigi Adduci</Text>
+            <Text className="text-text-light text-sm">{user?.nombre || 'Usuario'}</Text>
         </View>
         </View>
     )

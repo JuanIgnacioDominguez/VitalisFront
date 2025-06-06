@@ -7,6 +7,7 @@ import { updateUserThunk, clearEditUserState } from '../../Redux/slices/EditUser
 import { useTheme } from '../../context/ThemeContext'
 import CustomPopup from '../../components/PopUps/CustomPopup'
 import { Picker } from '@react-native-picker/picker'
+import { setUser } from '../../api/auth' 
 
 
 const obrasSociales = [
@@ -34,6 +35,7 @@ export default function EditUser({ navigation }) {
     useEffect(() => {
         if (success) {
             setShowSuccessPopup(true)
+            dispatch(setUser({ nombre, email, dni, obraSocial, nroAfiliado, telefono }))
             dispatch(clearEditUserState())
         }
         if (error) {
