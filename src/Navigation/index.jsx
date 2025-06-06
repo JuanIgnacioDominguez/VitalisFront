@@ -21,6 +21,7 @@ import Rating from '../views/UserViews/Rating'
 import Faq from '../views/UserViews/Faq'
 import Settings from '../views/UserViews/Settings'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
+import AppointmentsSchedule from '../views/AppointmentsViews/AppointmentsSchedule'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -58,6 +59,7 @@ export default function Navigation() {
                 <Stack.Screen name="Rating" component={Rating} />
                 <Stack.Screen name="Faq" component={Faq} />
                 <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="AppointmentsSchedule" component={AppointmentsSchedule} />
             </Stack.Navigator>
         </NavigationContainer>
     )
