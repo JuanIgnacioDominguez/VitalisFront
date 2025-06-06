@@ -6,7 +6,7 @@ import {
 } from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
 
-const specialties = [
+export const specialties = [
     { label: 'Pediatra', icon: UserGroupIcon },
     { label: 'Psiquiatra', icon: AcademicCapIcon },
     { label: 'Ginecologo', icon: UserIcon },
@@ -27,7 +27,9 @@ export default function SpecialtiesGrid() {
                 className="w-[22%] h-[21%] aspect-square bg-components-light rounded-xl justify-center items-center mb-3"
                 activeOpacity={0.8}
                 onPress={() => {
-                    if (item.label !== 'Ver mas') {
+                    if (item.label === 'Ver mas') {
+                        navigation.navigate('AllSpecialties')
+                    } else {
                         navigation.navigate('SpecialtyDoctors', { specialty: item.label })
                     }
                 }}
