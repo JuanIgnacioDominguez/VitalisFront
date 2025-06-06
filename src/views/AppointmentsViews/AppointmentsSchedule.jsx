@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
+import { useSelector } from 'react-redux'
 import HeaderSection from '../../components/AppointmentsSchedule/HeaderSection'
 import ProfessionalHeader from '../../components/AppointmentsSchedule/ProfessionalHeader'
 import MonthSelector from '../../components/AppointmentsSchedule/MonthSelector'
@@ -17,6 +18,8 @@ const MONTHS_ES = [
 export default function AppointmentsSchedule({ route, navigation }) {
     const { professional } = route.params
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [showObraSocialPopup, setShowObraSocialPopup] = useState(false)
+    const user = useSelector(state => state.auth.user)
     const {
         darkMode,
         selectedMonth,
@@ -36,13 +39,34 @@ export default function AppointmentsSchedule({ route, navigation }) {
     } = useAppointmentScheduler(professional, navigation)
 
     const handleBook = async () => {
-        const result = await originalHandleBook()
-        if (result !== false) { 
-            setShowSuccessPopup(true)
+        // Validación frontend antes de reservar
+        if (
+            !user?.obraSocial ||
+            !user?.nroAfiliado ||
+            user.obraSocial.trim() === '' ||
+            user.nroAfiliado.trim() === ''
+        ) {
+            setShowObraSocialPopup(true)
             setTimeout(() => {
-                setShowSuccessPopup(false)
-                navigation.navigate('MainTabs', { screen: 'Appointments' })
+                setShowObraSocialPopup(false)
+                navigation.navigate('EditUser')
             }, 2000)
+            return
+        }
+
+        try {
+            const result = await originalHandleBook()
+            if (result !== false) { 
+                setShowSuccessPopup(true)
+                setTimeout(() => {
+                    setShowSuccessPopup(false)
+                    navigation.navigate('MainTabs', { screen: 'Appointments' })
+                }, 2000)
+            }
+        } catch (e) {
+            // Si igual hay error, mostrar mensaje genérico
+            const msg = e?.response?.data || ''
+            alert(msg || 'No se pudo reservar el turno. Verifica tus datos.')
         }
     }
 
@@ -87,6 +111,15 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 message="Tu turno fue reservado con éxito."
                 color="#008080"
                 borderColor="#7AD7F0"
+                buttonText={null}
+            />
+            <CustomPopup
+                visible={showObraSocialPopup}
+                onClose={() => setShowObraSocialPopup(false)}
+                title="Necesitas vincular tu obra social"
+                message="Debes cargar tu obra social y número de afiliado para sacar un turno."
+                color="#F76C6C"
+                borderColor="#F76C6C"
                 buttonText={null}
             />
         </View>
