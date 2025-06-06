@@ -10,7 +10,8 @@ export default function SpecialtyDoctorsList({
     specialtyLabels,
     onDoctorPress,
     favorites,
-    onToggleFavorite
+    onToggleFavorite,
+    specialty 
 }) {
     if (loading) {
         return <Text className="text-primary-light text-center mt-10">Cargando...</Text>

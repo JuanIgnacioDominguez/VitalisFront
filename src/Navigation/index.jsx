@@ -12,6 +12,7 @@ import Register from '../views/Register'
 import EditUser from '../views/UserViews/EditUser'
 import AppointmentDetail from '../views/AppointmentsViews/AppointmentDetail'
 import SpecialtyDoctors from '../views/HomeViews/SpecialtyDoctors'
+import AllSpecialties from '../views/HomeViews/AllSpecialties'
 import ForgotPassword from '../views/ForgotPassword'
 import VerifyCode from '../views/VerifyCode'
 import ResetPassword from '../views/ResetPassword'
@@ -53,6 +54,7 @@ export default function Navigation() {
                 <Stack.Screen name="EditUser" component={EditUser} />
                 <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} />
                 <Stack.Screen name="SpecialtyDoctors" component={SpecialtyDoctors} />
+                <Stack.Screen name="AllSpecialties" component={AllSpecialties} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="VerifyCode" component={VerifyCode} />
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />

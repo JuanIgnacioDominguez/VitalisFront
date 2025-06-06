@@ -65,6 +65,7 @@ function SpecialtyDoctors({ route, navigation }) {
                     onDoctorPress={doctor => navigation.navigate('AppointmentsSchedule', { professional: doctor })}
                     favorites={favorites}
                     onToggleFavorite={handleToggleFavorite}
+                    specialty={route.params.specialty} // <-- pásalo como prop
                 />
             </View>
         </View>
