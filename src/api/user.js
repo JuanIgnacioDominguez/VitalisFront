@@ -57,3 +57,43 @@ export async function changePassword(userId, currentPassword, newPassword, token
         throw error.response?.data || { mensaje: error.message || 'Error al cambiar contraseña' }
     }
 }
+
+export async function requestDeleteCode(userId, token) {
+    try {
+        const response = await axios.post(
+            `${API_HOST}users/${userId}/request-delete-code`,
+            {},
+            {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : undefined,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        return response.data
+    } catch (error) {
+        throw error.response?.data || { mensaje: error.message || 'Error al solicitar código de eliminación' }
+    }
+}
+
+export async function deleteUserWithCode(userId, code, token) {
+    try {
+        const url = `${API_HOST}users/${userId}`;
+        const headers = {
+            Authorization: token ? `Bearer ${token}` : undefined,
+            'Content-Type': 'application/json'
+        };
+        const params = { code };
+        const response = await axios.delete(
+            url,
+            {
+                headers,
+                params
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { mensaje: error.message || 'Error al borrar usuario' }
+    }
+}

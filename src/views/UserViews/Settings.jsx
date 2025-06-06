@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { View, Text, Switch, TouchableOpacity, ScrollView, Image } from 'react-native'
 import UserMenuItem from '../../components/User/UserMenuItem'
 import { useTheme } from '../../context/ThemeContext'
+import CustomPopup from '../../components/PopUps/CustomPopup' 
+import { useSelector } from 'react-redux'
+import { requestDeleteCode } from '../../api/user'
 
 const chevronThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-right.png'
 const chevronDownThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-down.png'
@@ -11,6 +14,10 @@ export default function Settings({ navigation }) {
     const { darkMode, setDarkMode } = useTheme()
     const [showLanguages, setShowLanguages] = useState(false)
     const [selectedLanguage, setSelectedLanguage] = useState('Español')
+    const [showDeletePopup, setShowDeletePopup] = useState(false)
+    const userId = useSelector(state => state.auth.user?.id)
+    const token = useSelector(state => state.auth.token)
+    const userEmail = useSelector(state => state.auth.user?.email)
 
     return (
         <View className={`flex-1 mt-10 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
@@ -69,10 +76,39 @@ export default function Settings({ navigation }) {
                     <UserMenuItem
                         icon="https://img.icons8.com/ios-filled/48/008080/user-male-delete.png"
                         label="Borrar Cuenta"
-                        onPress={() => {}}
+                        onPress={() => setShowDeletePopup(true)}
                     />
                 </View>
             </ScrollView>
+            <CustomPopup
+                visible={showDeletePopup}
+                onClose={() => setShowDeletePopup(false)}
+                title="¡Atención!"
+                message="¿Estás seguro de que deseas borrar tu cuenta?"
+                color="#F76C6C"
+                borderColor="#F76C6C"
+                buttonText="Continuar"
+                onButtonPress={async () => {
+                    try {
+                        console.log('Solicitando código de borrado para userId:', userId)
+                        console.log('Token enviado:', token)
+                        const response = await requestDeleteCode(userId, token)
+                        console.log('Respuesta del backend:', response)
+                        navigation.navigate('VerifyDeleteCode', { email: userEmail })
+                    } catch (e) {
+                        console.log('Error al solicitar código de borrado:', e)
+                        if (e?.response) {
+                            console.log('Status:', e.response.status)
+                            console.log('Data:', e.response.data)
+                            alert(`No se pudo enviar el código de borrado. Detalle: ${e.response.data?.mensaje || JSON.stringify(e.response.data)}`)
+                        } else {
+                            alert(`No se pudo enviar el código de borrado. Error: ${e?.mensaje || e?.message || e}`)
+                        }
+                    }
+                }}
+                secondButtonText="Volver"
+                onSecondButtonPress={() => setShowDeletePopup(false)}
+            />
         </View>
     )
 }

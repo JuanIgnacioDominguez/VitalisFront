@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
 
-export default function CustomPopup({ visible, onClose, title, message, color = '#008080', borderColor = '#7AD7F0', buttonText = 'Volver' }) {
+export default function CustomPopup({ visible, onClose, title, message, color = '#008080', borderColor = '#7AD7F0', buttonText = 'Volver', secondButtonText, onButtonPress, onSecondButtonPress }) {
     return (
         <Modal
             visible={visible}
@@ -47,26 +47,49 @@ export default function CustomPopup({ visible, onClose, title, message, color = 
                     }}>
                         {message}
                     </Text>
-                    {buttonText && (
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: color,
-                                borderRadius: 12,
-                                paddingVertical: 12,
-                                width: 200
-                            }}
-                            onPress={onClose}
-                        >
-                            <Text style={{
-                                color: '#fff',
-                                fontWeight: 'bold',
-                                fontSize: 18,
-                                textAlign: 'center'
-                            }}>
-                                {buttonText}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
+                    <View>
+                        {buttonText && (
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: color,
+                                    borderRadius: 12,
+                                    paddingVertical: 12,
+                                    width: 200,
+                                    marginBottom: secondButtonText ? 12 : 0
+                                }}
+                                onPress={onButtonPress || onClose}
+                            >
+                                <Text style={{
+                                    color: '#fff',
+                                    fontWeight: 'bold',
+                                    fontSize: 18,
+                                    textAlign: 'center'
+                                }}>
+                                    {buttonText}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                        {secondButtonText && (
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: '#008080',
+                                    borderRadius: 12,
+                                    paddingVertical: 12,
+                                    width: 200
+                                }}
+                                onPress={onSecondButtonPress || onClose}
+                            >
+                                <Text style={{
+                                    color: '#fff',
+                                    fontWeight: 'bold',
+                                    fontSize: 18,
+                                    textAlign: 'center'
+                                }}>
+                                    {secondButtonText}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
                 </View>
             </View>
         </Modal>

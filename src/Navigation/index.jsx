@@ -23,6 +23,7 @@ import Settings from '../views/UserViews/Settings'
 import ChangePassword from '../views/UserViews/ChangePassword'
 import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import AppointmentsSchedule from '../views/AppointmentsViews/AppointmentsSchedule'
+import VerifyDeleteCode from '../views/DeleteAccount/VerifyDeleteCode'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -62,6 +63,7 @@ export default function Navigation() {
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="ChangePassword" component={ChangePassword} />
                 <Stack.Screen name="AppointmentsSchedule" component={AppointmentsSchedule} />
+                <Stack.Screen name="VerifyDeleteCode" component={VerifyDeleteCode} />
             </Stack.Navigator>
         </NavigationContainer>
     )
