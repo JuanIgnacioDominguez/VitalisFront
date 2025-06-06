@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import { verifyResetCode } from '../api/auth'
+import CustomPopup from '../components/PopUps/CustomPopup'
 
 export default function VerifyCode({ navigation, route }) {
     const { email } = route.params
     const [code, setCode] = useState('')
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
 
     const handleVerify = async () => {
-        if (code.length !== 6) return Alert.alert('Error', 'El código debe tener 6 dígitos')
+        if (code.length !== 6) {
+            setShowErrorPopup(true)
+            return
+        }
         try {
             await verifyResetCode(email, code)
-            navigation.navigate('ResetPassword', { email, code }) 
+            setShowSuccessPopup(true)
         } catch (e) {
-            Alert.alert('Error', 'Código incorrecto o expirado')
+            setShowErrorPopup(true)
         }
     }
 
@@ -24,7 +30,6 @@ export default function VerifyCode({ navigation, route }) {
             style={{ width: 120, height: 120, marginBottom: 8 }}
             resizeMode="contain"
             />
-            <Text className="text-primary-light text-3xl font-bold mb-2">Vitalis</Text>
             <Text className="text-xl text-secondary-light font-bold mb-2">Verificar Código</Text>
             <Text className="text-center text-base text-primary-light mb-4">
             Ingresa el código de 4 dígitos que enviamos a tu correo
@@ -48,6 +53,27 @@ export default function VerifyCode({ navigation, route }) {
         <TouchableOpacity onPress={() => {/* reenviar código */}}>
             <Text className="text-primary-light text-center underline">Reenviar Código</Text>
         </TouchableOpacity>
+        <CustomPopup
+            visible={showErrorPopup}
+            onClose={() => setShowErrorPopup(false)}
+            title="Código incorrecto"
+            message="El código ingresado es incorrecto o expiró. Intenta nuevamente."
+            color="#F76C6C"
+            borderColor="#F76C6C"
+            buttonText="Volver"
+        />
+        <CustomPopup
+            visible={showSuccessPopup}
+            onClose={() => {
+                setShowSuccessPopup(false)
+                navigation.navigate('ResetPassword', { email, code })
+            }}
+            title="¡Código correcto!"
+            message="El código fue verificado correctamente. Ahora puedes cambiar tu contraseña."
+            color="#008080"
+            borderColor="#7AD7F0"
+            buttonText="Continuar"
+        />
         </View>
     )
 }

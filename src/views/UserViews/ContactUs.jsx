@@ -6,6 +6,7 @@ import { sendContactMessage } from '../../api/user'
 import { useSelector } from 'react-redux' 
 import { API_HOST } from '../../utils/constants'
 import { useTheme } from '../../context/ThemeContext'
+import CustomPopup from '../../components/PopUps/CustomPopup'
 
 export default function ContactUs({ navigation }) {
     const [nombre, setNombre] = useState('')
@@ -14,21 +15,33 @@ export default function ContactUs({ navigation }) {
     const [loading, setLoading] = useState(false)
     const token = useSelector(state => state.auth.token)
     const { darkMode } = useTheme()
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [popupMessage, setPopupMessage] = useState('')
 
     const handleSend = async () => {
         if (!nombre || !email || !mensaje) {
-            Alert.alert('Error', 'Completa todos los campos')
+            setPopupMessage('Completa todos los campos')
+            setShowErrorPopup(true)
+            return
+        }
+        // Validación de email simple
+        const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
+        if (!emailRegex.test(email)) {
+            setPopupMessage('Ingrese un email válido (gmail, hotmail, outlook, yahoo)')
+            setShowErrorPopup(true)
             return
         }
         setLoading(true)
         try {
-            await sendContactMessage({ nombre, email, mensaje, token }) 
-            Alert.alert('¡Enviado!', 'Tu mensaje fue enviado correctamente')
+            await sendContactMessage({ nombre, email, mensaje, token })
+            setShowSuccessPopup(true)
             setNombre('')
             setEmail('')
             setMensaje('')
         } catch (e) {
-            Alert.alert('Error', 'No se pudo enviar el mensaje')
+            setPopupMessage('No se pudo enviar el mensaje')
+            setShowErrorPopup(true)
         }
         setLoading(false)
     }
@@ -85,6 +98,24 @@ export default function ContactUs({ navigation }) {
                     </View>
                 </KeyboardAvoidingView>
             </ScrollView>
+            <CustomPopup
+                visible={showErrorPopup}
+                onClose={() => setShowErrorPopup(false)}
+                title="Error"
+                message={popupMessage}
+                color="#F76C6C"
+                borderColor="#F76C6C"
+                buttonText="Volver"
+            />
+            <CustomPopup
+                visible={showSuccessPopup}
+                onClose={() => setShowSuccessPopup(false)}
+                title="¡Mensaje enviado!"
+                message="Tu mensaje fue enviado correctamente. Pronto nos pondremos en contacto."
+                color="#008080"
+                borderColor="#7AD7F0"
+                buttonText="Aceptar"
+            />
         </View>
     )
 }

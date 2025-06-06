@@ -5,6 +5,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ArrowLeftIcon, PencilIcon } from 'react-native-heroicons/outline'
 import { updateUserThunk, clearEditUserState } from '../../Redux/slices/EditUserSlice'
 import { useTheme } from '../../context/ThemeContext'
+import CustomPopup from '../../components/PopUps/CustomPopup'
+import { Picker } from '@react-native-picker/picker'
+
+
+const obrasSociales = [
+    "OSDE", "Swiss Medical", "Galeno", "Medicus", "Omint",
+    "Sancor Salud", "Federada Salud", "Accord Salud", "OSPACA", "OSPAT"
+]
+
 
 export default function EditUser({ navigation }) {
     const dispatch = useDispatch()
@@ -16,24 +25,53 @@ export default function EditUser({ navigation }) {
     const [dni, setDni] = useState(user?.dni || '')
     const [obraSocial, setObraSocial] = useState(user?.obraSocial || '')
     const [nroAfiliado, setNroAfiliado] = useState(user?.nroAfiliado || '')
+    const [telefono, setTelefono] = useState(user?.telefono || '')
     const { darkMode } = useTheme()
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [popupMessage, setPopupMessage] = useState('')
 
     useEffect(() => {
         if (success) {
-            Alert.alert('Éxito', 'Perfil actualizado correctamente')
+            setShowSuccessPopup(true)
             dispatch(clearEditUserState())
-            navigation.goBack()
         }
         if (error) {
-            Alert.alert('Error', error)
+            setPopupMessage(error)
+            setShowErrorPopup(true)
             dispatch(clearEditUserState())
         }
     }, [success, error])
 
     const handleSave = () => {
+        if (!nombre || !email || !dni || !obraSocial || !nroAfiliado || !telefono) {
+            setPopupMessage('Completa todos los campos obligatorios')
+            setShowErrorPopup(true)
+            return
+        }
+        if (dni.length !== 8) {
+            setPopupMessage('El DNI debe tener 8 dígitos')
+            setShowErrorPopup(true)
+            return
+        }
+        if (nroAfiliado.length !== 10) {
+            setPopupMessage('El N° de Afiliado debe tener 10 dígitos')
+            setShowErrorPopup(true)
+            return
+        }
+        if (telefono.length !== 10) {
+            setPopupMessage('El número de teléfono debe tener 10 dígitos')
+            setShowErrorPopup(true)
+            return
+        }
+        if (!obrasSociales.includes(obraSocial)) {
+            setPopupMessage('Selecciona una obra social válida')
+            setShowErrorPopup(true)
+            return
+        }
         dispatch(updateUserThunk({
             id: user.id,
-            data: { nombre, email, dni, obraSocial, nroAfiliado },
+            data: { nombre, email, dni, obraSocial, nroAfiliado, telefono },
             token
         }))
     }
@@ -83,20 +121,45 @@ export default function EditUser({ navigation }) {
                     <EditUserInput
                         label="DNI"
                         value={dni}
-                        onChangeText={setDni}
+                        onChangeText={text => {
+                            const filtered = text.replace(/[^0-9]/g, '').slice(0, 8)
+                            setDni(filtered)
+                        }}
                         placeholder="DNI"
                         keyboardType="numeric"
                     />
                     <EditUserInput
-                        label="Tipo de Obra Social"
-                        value={obraSocial}
-                        onChangeText={setObraSocial}
-                        placeholder="Osde"
+                        label="Teléfono"
+                        value={telefono}
+                        onChangeText={text => {
+                            const filtered = text.replace(/[^0-9]/g, '').slice(0, 10)
+                            setTelefono(filtered)
+                        }}
+                        placeholder="Ej: 1123456789"
+                        keyboardType="numeric"
                     />
+                    <View style={{ marginBottom: 16 }}>
+                        <Text className="text-base font-bold mb-1">Tipo de Obra Social</Text>
+                        <View className="border-2 border-primary-light rounded-lg bg-background-light">
+                            <Picker
+                                selectedValue={obraSocial}
+                                onValueChange={setObraSocial}
+                                style={{ color: darkMode ? '#fff' : '#008080' }}
+                            >
+                                <Picker.Item label="Seleccionar obra social" value="" />
+                                {obrasSociales.map(os => (
+                                    <Picker.Item key={os} label={os} value={os} />
+                                ))}
+                            </Picker>
+                        </View>
+                    </View>
                     <EditUserInput
                         label="N° de Afiliado"
                         value={nroAfiliado}
-                        onChangeText={setNroAfiliado}
+                        onChangeText={text => {
+                            const filtered = text.replace(/[^0-9]/g, '').slice(0, 10)
+                            setNroAfiliado(filtered)
+                        }}
                         placeholder="10938402"
                         keyboardType="numeric"
                     />
@@ -115,6 +178,27 @@ export default function EditUser({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            <CustomPopup
+                visible={showErrorPopup}
+                onClose={() => setShowErrorPopup(false)}
+                title="Error"
+                message={popupMessage || "No se pudieron realizar los cambios"}
+                color="#F76C6C"
+                borderColor="#F76C6C"
+                buttonText="Volver"
+            />
+            <CustomPopup
+                visible={showSuccessPopup}
+                onClose={() => {
+                    setShowSuccessPopup(false)
+                    navigation.goBack()
+                }}
+                title="¡Cambios guardados!"
+                message="Los cambios se realizaron correctamente."
+                color="#008080"
+                borderColor="#7AD7F0"
+                buttonText="Volver"
+            />
         </View>
     )
 }

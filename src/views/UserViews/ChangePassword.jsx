@@ -4,6 +4,7 @@ import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { useTheme } from '../../context/ThemeContext'
 import { changePassword } from '../../api/user'
 import { useSelector } from 'react-redux'
+import CustomPopup from '../../components/PopUps/CustomPopup'
 
 const icon = 'https://img.icons8.com/ios-filled/50/008080/lock-2.png'
 
@@ -15,27 +16,38 @@ export default function ChangePassword({ navigation }) {
     const [showCurrent, setShowCurrent] = useState(false)
     const [showNew, setShowNew] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [popupMessage, setPopupMessage] = useState('')
     const userId = useSelector(state => state.auth.user?.id)
     const token = useSelector(state => state.auth.token)
 
     const handleSave = async () => {
         if (!current || !newPass || !confirm) {
-            Alert.alert('Error', 'Completa todos los campos')
+            setPopupMessage('Completa todos los campos')
+            setShowErrorPopup(true)
             return
         }
         if (newPass !== confirm) {
-            Alert.alert('Error', 'Las contraseñas nuevas no coinciden')
+            setPopupMessage('Las contraseñas nuevas no coinciden')
+            setShowErrorPopup(true)
             return
         }
         try {
-            console.log('Intentando cambiar contraseña...')
             await changePassword(userId, current, newPass, token)
-            console.log('Contraseña cambiada con éxito')
-            Alert.alert('Éxito', 'Contraseña cambiada correctamente')
-            navigation.goBack()
+            setShowSuccessPopup(true)
         } catch (e) {
-            console.log('Error al cambiar contraseña:', e)
-            Alert.alert('Error', e?.mensaje || e?.message || JSON.stringify(e) || 'No se pudo cambiar la contraseña')
+            if (
+                e?.mensaje?.toLowerCase().includes('actual') ||
+                e?.mensaje?.toLowerCase().includes('incorrecta') ||
+                e?.message?.toLowerCase().includes('actual') ||
+                e?.message?.toLowerCase().includes('incorrecta')
+            ) {
+                setPopupMessage('La contraseña actual no es correcta')
+            } else {
+                setPopupMessage(e?.mensaje || e?.message || 'No se pudo cambiar la contraseña')
+            }
+            setShowErrorPopup(true)
         }
     }
 
@@ -132,6 +144,27 @@ export default function ChangePassword({ navigation }) {
                     <Text className="text-white text-lg font-bold text-center">Guardar Cambios</Text>
                 </TouchableOpacity>
             </ScrollView>
+            <CustomPopup
+                visible={showErrorPopup}
+                onClose={() => setShowErrorPopup(false)}
+                title="Error"
+                message={popupMessage}
+                color="#F76C6C"
+                borderColor="#F76C6C"
+                buttonText="Volver"
+            />
+            <CustomPopup
+                visible={showSuccessPopup}
+                onClose={() => {
+                    setShowSuccessPopup(false)
+                    navigation.goBack()
+                }}
+                title="¡Contraseña cambiada!"
+                message="La contraseña fue cambiada correctamente."
+                color="#008080"
+                borderColor="#7AD7F0"
+                buttonText="Aceptar"
+            />
         </View>
     )
 }

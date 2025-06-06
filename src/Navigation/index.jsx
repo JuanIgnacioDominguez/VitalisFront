@@ -60,6 +60,8 @@ export default function Navigation() {
                 <Stack.Screen name="Rating" component={Rating} />
                 <Stack.Screen name="Faq" component={Faq} />
                 <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="ChangePassword" component={ChangePassword} />
+                <Stack.Screen name="AppointmentsSchedule" component={AppointmentsSchedule} />
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { requestPasswordReset } from '../api/auth'
 import { Ionicons } from '@expo/vector-icons' 
+import CustomPopup from '../components/PopUps/CustomPopup'
 
 export default function ForgotPassword({ navigation }) {
     const [email, setEmail] = useState('')
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [popupMessage, setPopupMessage] = useState('')
 
     const handleSendCode = async () => {
-        if (!email) return Alert.alert('Error', 'Ingresa tu correo electrónico')
+        if (!email) {
+            setPopupMessage('Ingresa tu correo electrónico')
+            setShowErrorPopup(true)
+            return
+        }
         try {
-            const res = await requestPasswordReset(email)
-            Alert.alert('Éxito', 'Código enviado correctamente')
-            navigation.navigate('VerifyCode', { email })
+            await requestPasswordReset(email)
+            setShowSuccessPopup(true)
         } catch (e) {
-            Alert.alert(
-                'Error',
-                `No se pudo enviar el código\n${e?.message || ''}\n${e?.code ? 'Código: ' + e.code : ''}`
-            )
+            setPopupMessage('El correo no está registrado o es incorrecto.')
+            setShowErrorPopup(true)
         }
     }
 
@@ -56,6 +61,27 @@ export default function ForgotPassword({ navigation }) {
             >
                 <Text className="text-white text-lg font-bold text-center">Enviar Código</Text>
             </TouchableOpacity>
+            <CustomPopup
+                visible={showErrorPopup}
+                onClose={() => setShowErrorPopup(false)}
+                title="Error"
+                message={popupMessage}
+                color="#F76C6C"
+                borderColor="#F76C6C"
+                buttonText="Volver"
+            />
+            <CustomPopup
+                visible={showSuccessPopup}
+                onClose={() => {
+                    setShowSuccessPopup(false)
+                    navigation.navigate('VerifyCode', { email })
+                }}
+                title="¡Código enviado!"
+                message="Te enviamos un código de verificación a tu correo."
+                color="#008080"
+                borderColor="#7AD7F0"
+                buttonText="Continuar"
+            />
         </View>
     )
 }

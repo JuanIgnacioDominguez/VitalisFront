@@ -4,21 +4,31 @@ import LoginHeader from '../components/Login/LoginHeader'
 import LoginInput from '../components/Login/LoginInput'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../api/auth'
+import LoginErrorModal from '../components/PopUps/LoginErrorModal'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [showErrorModal, setShowErrorModal] = useState(false)
     const dispatch = useDispatch()
     const { user, loading, error } = useSelector(state => state.auth)
 
     const handleLogin = () => {
+        const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
+        if (!emailRegex.test(email)) {
+            setShowErrorModal(true)
+            return
+        }
         dispatch(loginUser({ email, password }))
     }
 
     useEffect(() => {
         if (user && !loading && !error) {
             navigation.navigate('MainTabs', { screen: 'Home' })
+        }
+        if (error) {
+            setShowErrorModal(true)
         }
     }, [user, loading, error])
 
@@ -57,16 +67,21 @@ export default function Login({ navigation }) {
                     {loading ? 'Ingresando...' : 'Iniciar Sesion'}
                 </Text>
             </TouchableOpacity>
-            {error && (
-                <Text className="text-red-500 text-center mb-2">{error}</Text>
-            )}
             <View className="flex-row justify-center mt-2">
                 <Text className="text-xs text-primary-light">No tienes Cuenta? </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                     <Text className="text-xs text-primary-light font-bold underline">Registrate</Text>
                 </TouchableOpacity>
             </View>
+            <LoginErrorModal
+                visible={showErrorModal}
+                onClose={() => setShowErrorModal(false)}
+                message={
+                    !/^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i.test(email)
+                        ? 'Ingrese un email válido (gmail, hotmail, outlook, yahoo)'
+                        : error
+                }
+            />
         </View>
     )
-
 }

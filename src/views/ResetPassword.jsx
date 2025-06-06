@@ -1,23 +1,33 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import { resetPassword } from '../api/auth'
+import CustomPopup from '../components/PopUps/CustomPopup'
 
 export default function ResetPassword({ navigation, route }) {
     const { email, code } = route.params 
     const [password, setPassword] = useState('')
     const [confirm, setConfirm] = useState('')
+    const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+    const [popupMessage, setPopupMessage] = useState('')
 
     const handleReset = async () => {
-        if (!password || password.length < 6)
-            return Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres')
-        if (password !== confirm)
-            return Alert.alert('Error', 'Las contraseñas no coinciden')
+        if (!password || password.length < 6) {
+            setPopupMessage('La contraseña debe tener al menos 6 caracteres')
+            setShowErrorPopup(true)
+            return
+        }
+        if (password !== confirm) {
+            setPopupMessage('Las contraseñas no coinciden')
+            setShowErrorPopup(true)
+            return
+        }
         try {
-            await resetPassword(email, password, code) 
-            Alert.alert('Éxito', 'Contraseña restablecida correctamente')
-            navigation.navigate('Login')
+            await resetPassword(email, password, code)
+            setShowSuccessPopup(true)
         } catch (e) {
-            Alert.alert('Error', 'No se pudo restablecer la contraseña')
+            setPopupMessage('No se pudo restablecer la contraseña')
+            setShowErrorPopup(true)
         }
     }
 
@@ -56,6 +66,27 @@ export default function ResetPassword({ navigation, route }) {
         >
             <Text className="text-white text-lg font-bold text-center">Restablecer Contraseña</Text>
         </TouchableOpacity>
+        <CustomPopup
+            visible={showErrorPopup}
+            onClose={() => setShowErrorPopup(false)}
+            title="Error"
+            message={popupMessage}
+            color="#F76C6C"
+            borderColor="#F76C6C"
+            buttonText="Volver"
+        />
+        <CustomPopup
+            visible={showSuccessPopup}
+            onClose={() => {
+                setShowSuccessPopup(false)
+                navigation.navigate('Login')
+            }}
+            title="¡Contraseña cambiada!"
+            message="Tu contraseña fue restablecida correctamente. Ya puedes iniciar sesión."
+            color="#008080"
+            borderColor="#7AD7F0"
+            buttonText="Iniciar sesión"
+        />
         </View>
     )
 }
