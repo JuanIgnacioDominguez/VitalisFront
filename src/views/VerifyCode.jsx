@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { verifyResetCode } from '../api/auth'
 import CustomPopup from '../components/PopUps/CustomPopup'
 

@@ -3,7 +3,6 @@ import { View, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchFavorites, toggleFavorite } from '../Redux/slices/favoritesSlice'
 import FavoritesList from '../components/Favorites/FavoritesList'
-import BottomNavbar from '../components/BotomNavbar/BottomNavbar'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../context/ThemeContext'
 
