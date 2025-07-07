@@ -93,7 +93,11 @@ export default function EditUser({ navigation }) {
                 <View className="items-center mt-2 mb-4">
                     <View className="relative">
                         <Image
-                            source={{ uri: user?.foto || 'https://randomuser.me/api/portraits/men/1.jpg' }}
+                            source={{
+                                uri: user?.foto || user?.imagen 
+                                    ? `data:image/jpeg;base64,${user.foto || user.imagen}`
+                                    : 'https://randomuser.me/api/portraits/men/1.jpg'
+                            }}
                             className="w-24 h-24 rounded-full mb-2"
                         />
                         <TouchableOpacity

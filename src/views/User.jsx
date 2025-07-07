@@ -25,7 +25,7 @@ export default function User({ navigation }) {
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
-                <UserHeader nombre={user?.nombre || 'Usuario'} />
+                <UserHeader nombre={user?.nombre || 'Usuario'} user={user} />
                 <View className="px-8">
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/user.png"
