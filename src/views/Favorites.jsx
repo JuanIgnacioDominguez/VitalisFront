@@ -34,7 +34,7 @@ export default function Favorites() {
             <FavoritesList
                 doctors={favoriteDoctors}
                 onPressDoctor={doctor => {
-                    if (doctor) navigation.navigate('AppointmentDetail', { appointment: doctor })
+                    if (doctor) navigation.navigate('AppointmentsSchedule', { professional: doctor })
                     else navigation.navigate('MainTabs', { screen: 'Home' })
                 }}
                 onToggleFavorite={handleToggleFavorite}
