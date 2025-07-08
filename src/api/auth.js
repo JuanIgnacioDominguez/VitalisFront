@@ -6,7 +6,13 @@ export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${API_HOST}auth/register`, userData)
+            const response = await axios.post(`${API_HOST}auth/register`, {
+                email: userData.email,
+                password: userData.password,
+                nombre: userData.nombre,
+                telefono: userData.telefono,
+                codigoVerificacion: userData.codigoVerificacion
+            })
             return response.data
         } catch (error) {
             if (error.response) {
@@ -43,6 +49,12 @@ export const loginUser = createAsyncThunk(
 export const requestPasswordReset = async (email) => {
     console.log('Enviando email para restablecer contraseña:', email)
     const res = await axios.post(`${API_HOST}auth/request-password-reset`, { email })
+    return res.data
+}
+
+export const requestVerificationCode = async (email) => {
+    console.log('Enviando código de verificación a:', email)
+    const res = await axios.post(`${API_HOST}auth/request-verification-code`, { email })
     return res.data
 }
 

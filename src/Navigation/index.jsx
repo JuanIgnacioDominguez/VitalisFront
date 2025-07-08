@@ -9,6 +9,7 @@ import Favorites from '../views/Favorites'
 import FirstView from '../views/FirstView'
 import Login from '../views/Login'
 import Register from '../views/Register'
+import VerifyEmailRegister from '../views/VerifyEmailRegister'
 import EditUser from '../views/UserViews/EditUser'
 import AppointmentDetail from '../views/AppointmentsViews/AppointmentDetail'
 import SpecialtyDoctors from '../views/HomeViews/SpecialtyDoctors'
@@ -50,6 +51,7 @@ export default function Navigation() {
                 <Stack.Screen name="FirstView" component={FirstView} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="VerifyEmailRegister" component={VerifyEmailRegister} />
                 <Stack.Screen name="MainTabs" component={MainTabs} />
                 <Stack.Screen name="EditUser" component={EditUser} />
                 <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} />

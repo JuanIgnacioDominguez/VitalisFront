@@ -16,7 +16,6 @@ export default function Register({ navigation }) {
     const { registerSuccess, loading, error } = useSelector(state => state.auth)
 
     const [showErrorPopup, setShowErrorPopup] = useState(false)
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
 
     const handleRegister = () => {
@@ -32,28 +31,24 @@ export default function Register({ navigation }) {
             setShowErrorPopup(true)
             return
         }
-        dispatch(registerUser({
+        if (phone.length !== 10) {
+            setPopupMessage('El número de teléfono debe tener 10 dígitos')
+            setShowErrorPopup(true)
+            return
+        }
+        if (password.length < 6) {
+            setPopupMessage('La contraseña debe tener al menos 6 caracteres')
+            setShowErrorPopup(true)
+            return
+        }
+        
+        navigation.navigate('VerifyEmailRegister', {
             email,
             password,
             nombre: fullName,
             telefono: phone
-        }))
+        })
     }
-
-    useEffect(() => {
-        if (registerSuccess && !loading && !error) {
-            setShowSuccessPopup(true)
-            setTimeout(() => {
-                setShowSuccessPopup(false)
-                dispatch(clearRegisterSuccess())
-                navigation.navigate('Login')
-            }, 2000)
-        }
-        if (error) {
-            setPopupMessage(error)
-            setShowErrorPopup(true)
-        }
-    }, [registerSuccess, loading, error])
 
     const handlePhoneChange = (text) => {
         const filtered = text.replace(/[^0-9]/g, '').slice(0, 10)
@@ -121,15 +116,6 @@ export default function Register({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText="Volver"
-            />
-            <CustomPopup
-                visible={showSuccessPopup}
-                onClose={() => {}}
-                title="¡Usuario registrado!"
-                message="Tu cuenta fue creada con éxito. Ahora puedes iniciar sesión."
-                color="#008080"
-                borderColor="#7AD7F0"
-                buttonText={null}
             />
         </View>
     )
