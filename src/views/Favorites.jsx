@@ -30,17 +30,19 @@ export default function Favorites() {
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <Text className={`text-2xl font-bold text-center mt-12 mb-6 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                {t('favoritesView')}
-            </Text>
-            <FavoritesList
-                doctors={favoriteDoctors}
-                onPressDoctor={doctor => {
-                    if (doctor) navigation.navigate('AppointmentsSchedule', { professional: doctor })
-                    else navigation.navigate('MainTabs', { screen: 'Home' })
-                }}
-                onToggleFavorite={handleToggleFavorite}
-            />
+            <View className="flex-1 px-5">
+                <Text className={`text-2xl font-bold text-center mt-12 mb-6 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+                    {t('favoritesView')}
+                </Text>
+                <FavoritesList
+                    doctors={favoriteDoctors}
+                    onPressDoctor={doctor => {
+                        if (doctor) navigation.navigate('AppointmentsSchedule', { professional: doctor })
+                        else navigation.navigate('MainTabs', { screen: 'Home' })
+                    }}
+                    onToggleFavorite={handleToggleFavorite}
+                />
+            </View>
         </View>
     )
 }

@@ -5,7 +5,7 @@ import DoctorSearchCard from '../Home/DoctorSearchCard'
 export default function FavoritesList({ doctors, onPressDoctor, onToggleFavorite }) {
     if (doctors.length === 0) {
         return (
-        <View className="flex-1 items-center justify-center mt-20 px-6">
+        <View className="flex-1 items-center justify-center mt-20 px-6p">
             <Text className="text-primary-light text-lg font-bold mb-4">¡No tienes favoritos aún!</Text>
             <View className="bg-quaternary-light rounded-full w-36 h-36 items-center justify-center mb-6">
             <Text style={{ fontSize: 80 }} className="text-primary-light">💔</Text>
@@ -28,16 +28,21 @@ export default function FavoritesList({ doctors, onPressDoctor, onToggleFavorite
     }
 
     return (
-        <ScrollView contentContainerStyle={{ paddingBottom: 90 }}>
-        {doctors.map(doctor => (
-            <DoctorSearchCard
-            key={doctor.id}
-            doctor={doctor}
-            isFavorite={true}
-            onFavorite={() => onToggleFavorite(doctor)}
-            onPress={() => onPressDoctor(doctor)}
-            />
-        ))}
+        <ScrollView
+            contentContainerStyle={{
+                paddingBottom: 90,
+                alignItems: 'center', 
+            }}
+        >
+            {doctors.map(doctor => (
+                <DoctorSearchCard
+                    key={doctor.id}
+                    doctor={doctor}
+                    isFavorite={true}
+                    onFavorite={() => onToggleFavorite(doctor)}
+                    onPress={() => onPressDoctor(doctor)}
+                />
+            ))}
         </ScrollView>
     )
 }
