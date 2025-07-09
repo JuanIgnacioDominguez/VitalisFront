@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
+import { useTranslation } from '../../hooks/useTranslation'
 
 function chunkArray(array, size) {
     const result = []
@@ -10,8 +11,10 @@ function chunkArray(array, size) {
 }
 
 export default function TimeSlots({ allTimeSlots, reservedTimes, selectedSlot, setSelectedSlot, darkMode, loading }) {
+    const { t } = useTranslation()
+    
     if (loading) {
-        return <Text className="text-center mt-4 text-primary-light">Cargando horarios...</Text>
+        return <Text className="text-center mt-4 text-primary-light">{t('loadingSchedules')}</Text>
     }
 
     const timeRows = chunkArray(allTimeSlots, 4)

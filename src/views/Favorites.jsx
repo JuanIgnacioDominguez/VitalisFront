@@ -5,10 +5,12 @@ import { fetchFavorites, toggleFavorite } from '../Redux/slices/favoritesSlice'
 import FavoritesList from '../components/Favorites/FavoritesList'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../context/ThemeContext'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function Favorites() {
     const dispatch = useDispatch()
     const navigation = useNavigation()
+    const { t } = useTranslation()
     const userId = useSelector(state => state.auth.user?.id)
     const favorites = useSelector(state => state.favorites.list)
     const professionals = useSelector(state => state.professionals.list)
@@ -29,7 +31,7 @@ export default function Favorites() {
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <Text className={`text-2xl font-bold text-center mt-12 mb-6 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                Vista de favoritos
+                {t('favoritesView')}
             </Text>
             <FavoritesList
                 doctors={favoriteDoctors}

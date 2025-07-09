@@ -5,6 +5,7 @@ import RegisterHeader from '../components/Register/RegisterHeader'
 import RegisterInput from '../components/Register/RegisterInput'
 import { registerUser, clearRegisterSuccess } from '../api/auth' 
 import CustomPopup from '../components/PopUps/CustomPopup'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function Register({ navigation }) {
     const [email, setEmail] = useState('')
@@ -14,6 +15,7 @@ export default function Register({ navigation }) {
     const [phone, setPhone] = useState('')
     const dispatch = useDispatch()
     const { registerSuccess, loading, error } = useSelector(state => state.auth)
+    const { t } = useTranslation()
 
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
@@ -21,23 +23,23 @@ export default function Register({ navigation }) {
     const handleRegister = () => {
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
         if (!emailRegex.test(email)) {
-            setPopupMessage('Ingrese un email válido (gmail, hotmail, outlook, yahoo)')
+            setPopupMessage(t('validEmailError'))
             setShowErrorPopup(true)
             return
         }
         const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
         if (!nameRegex.test(fullName)) {
-            setPopupMessage('El nombre no puede tener caracteres especiales ni números')
+            setPopupMessage(t('nameValidationError'))
             setShowErrorPopup(true)
             return
         }
         if (phone.length !== 10) {
-            setPopupMessage('El número de teléfono debe tener 10 dígitos')
+            setPopupMessage(t('phoneValidationError'))
             setShowErrorPopup(true)
             return
         }
         if (password.length < 6) {
-            setPopupMessage('La contraseña debe tener al menos 6 caracteres')
+            setPopupMessage(t('passwordMinError'))
             setShowErrorPopup(true)
             return
         }
@@ -59,17 +61,17 @@ export default function Register({ navigation }) {
         <View className="flex-1 bg-background-light px-6">
             <RegisterHeader />
             <RegisterInput
-                label="Email:"
+                label={`${t('email')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"
-                placeholder="ejemplo@mail.com"
+                placeholder={t('placeholders.email')}
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
             />
             <RegisterInput
-                label="Contraseña:"
+                label={`${t('password')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
-                placeholder="Contraseña"
+                placeholder={t('placeholders.password')}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
@@ -78,14 +80,14 @@ export default function Register({ navigation }) {
                 isPassword
             />
             <RegisterInput
-                label="Nombre Completo:"
+                label={`${t('fullName')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/user.png"
-                placeholder="Nombre Completo"
+                placeholder={t('fullName')}
                 value={fullName}
                 onChangeText={setFullName}
             />
             <RegisterInput
-                label="Telefono:"
+                label={`${t('phone')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/phone.png"
                 placeholder="1121571748"
                 value={phone}
@@ -99,23 +101,23 @@ export default function Register({ navigation }) {
                 disabled={loading}
             >
                 <Text className="text-white text-base font-bold text-center">
-                    {loading ? 'Creando...' : 'Crear Cuenta'}
+                    {loading ? t('creating') : t('createAccount')}
                 </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">
-                <Text className="text-xs text-primary-light">Ya tienes cuenta? </Text>
+                <Text className="text-xs text-primary-light">{t('alreadyHaveAccount')} </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text className="text-xs text-primary-light font-bold underline">Inicia Sesión</Text>
+                    <Text className="text-xs text-primary-light font-bold underline">{t('signIn')}</Text>
                 </TouchableOpacity>
             </View>
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
+                title={t('error')}
                 message={popupMessage}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText="Volver"
+                buttonText={t('back')}
             />
         </View>
     )

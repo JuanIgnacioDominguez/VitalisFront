@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
 import { useSelector } from 'react-redux'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function Header() {
     const user = useSelector(state => state.auth.user)
+    const { t } = useTranslation()
 
     return (
         <View className="flex-row items-center mb-4 mt-10">
@@ -16,8 +18,8 @@ export default function Header() {
                 className="w-12 h-12 rounded-full mr-3 border-2 border-primary-light"
             />
             <View>
-                <Text className="text-primary-light font-semibold text-base leading-5">Bienvenido de Vuelta!</Text>
-                <Text className="text-text-light text-sm">{user?.nombre || 'Usuario'}</Text>
+                <Text className="text-primary-light font-semibold text-base leading-5">{t('welcomeMessage')}</Text>
+                <Text className="text-text-light text-sm">{user?.nombre || t('user')}</Text>
             </View>
         </View>
     )

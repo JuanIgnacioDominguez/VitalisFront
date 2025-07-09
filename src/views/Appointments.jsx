@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { useUserAppointments } from '../hooks/Appointments/useUserAppointments'
 import { useAppointmentsList } from '../hooks/Appointments/useAppointmentsList'
 import { useTheme } from '../context/ThemeContext'
+import { useTranslation } from '../hooks/useTranslation'
 import AppointmentsHeader from '../components/Appointments/AppointmentsHeader'
 import AppointmentsEmpty from '../components/Appointments/AppointmentsEmpty'
 import AppointmentsList from '../components/Appointments/AppointmentsList'
@@ -13,7 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAppointmentsThunk } from '../Redux/slices/appointmentsSlice'
 
 export default function Appointments({ navigation }) {
-    const [tab, setTab] = useState('Pendientes')
+    const { t } = useTranslation()
+    const [tab, setTab] = useState(t('pending'))
     const { appointments, loading, error } = useUserAppointments()
     const { darkMode } = useTheme()
     const filteredAppointments = useAppointmentsList(appointments, tab)

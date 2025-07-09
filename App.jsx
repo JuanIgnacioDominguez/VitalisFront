@@ -5,17 +5,20 @@ import { store } from './src/Redux/store'
 import Navigation from './src/Navigation'
 import { ThemeProvider } from './src/context/ThemeContext'
 import { NetworkProvider } from './src/context/NetworkContext'
+import { LanguageProvider } from './src/context/LanguageContext'
 import NetworkPopup from './src/components/PopUps/NetworkPopup'
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <NetworkProvider>
-        <Provider store={store}>
-          <Navigation />
-          <NetworkPopup />
-        </Provider>
-      </NetworkProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <NetworkProvider>
+          <Provider store={store}>
+            <Navigation />
+            <NetworkPopup />
+          </Provider>
+        </NetworkProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   )
 }

@@ -3,21 +3,24 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import AccordionItem from '../../components/Faq/AccordionItem'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function Faq({ navigation }) {
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
+    
     const faqList = [
         {
-        question: '¿Cómo restablezco mi contraseña?',
-        answer: 'Ve a la pantalla de inicio de sesión y toca "¿Olvidaste tu contraseña?". Sigue los pasos indicados.'
+            question: t('faqQuestions.resetPassword'),
+            answer: t('faqQuestions.resetPasswordAnswer')
         },
         {
-        question: '¿Dónde encuentro mis turnos?',
-        answer: 'Puedes ver tus turnos en la sección "Mis turnos" del menú principal.'
+            question: t('faqQuestions.findAppointments'),
+            answer: t('faqQuestions.findAppointmentsAnswer')
         },
         {
-        question: '¿Cómo contacto con soporte?',
-        answer: 'En el menú "Contactanos", encontrarás la opción para contactar directamente con soporte.'
+            question: t('faqQuestions.contactSupport'),
+            answer: t('faqQuestions.contactSupportAnswer')
         },
     ]
 
@@ -29,7 +32,7 @@ export default function Faq({ navigation }) {
                 <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>
             <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                Ayuda
+                {t('faq')}
             </Text>
             </View>
 

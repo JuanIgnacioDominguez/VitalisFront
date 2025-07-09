@@ -6,29 +6,8 @@ import SpecialtyHeader from '../../components/SpecialityDoctors/SpecialtyHeader'
 import SpecialtyDoctorsList from '../../components/SpecialityDoctors/SpecialtyDoctorsList'
 import { fetchFavorites, toggleFavorite } from '../../Redux/slices/favoritesSlice'
 import { useTheme } from '../../context/ThemeContext'
-
-const specialtyLabels = {
-    CARDIOLOGO: "Cardiólogo",
-    PEDIATRA: "Pediatra",
-    PSIQUIATRA: "Psiquiatra",
-    GINECOLOGO: "Ginecólogo",
-    TRAUMATOLOGO: "Traumatólogo",
-    UROLOGO: "Urólogo",
-    DERMATOLOGO: "Dermatólogo",
-    NEUROLOGO: "Neurólogo",
-    OTORRINOLARINGOLOGO: "Otorrinolaringólogo",
-    OFTALMOLOGO: "Oftalmólogo",
-    NEFROLOGO: "Nefrólogo",
-    ENDOCRINOLOGO: "Endocrinólogo",
-    ONCOLOGO: "Oncólogo",
-    INTERNISTA: "Internista",
-    ANESTESIOLOGO: "Anestesiólogo",
-    GASTROENTEROLOGO: "Gastroenterólogo",
-    NEUMOLOGO: "Neumólogo",
-    REUMATOLOGO: "Reumatólogo",
-    CIRUJANO_GENERAL: "Cirujano general",
-    MEDICO_GENERAL: "Médico general"
-}
+import { useTranslation } from '../../hooks/useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 function SpecialtyDoctors({ route, navigation }) {
     const { specialty } = route.params
@@ -39,6 +18,7 @@ function SpecialtyDoctors({ route, navigation }) {
     const favorites = useSelector(state => state.favorites.list)
     const dispatch = useDispatch()
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
 
     useEffect(() => {
         if (userId) dispatch(fetchFavorites(userId))
@@ -55,17 +35,16 @@ function SpecialtyDoctors({ route, navigation }) {
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <SpecialtyHeader title={specialty} onBack={navigation.goBack} />
+            <SpecialtyHeader title={getSpecialtyTranslation(specialty, t)} onBack={navigation.goBack} />
             <View className="flex-1 px-5">
                 <SpecialtyDoctorsList
                     doctors={filteredDoctors}
                     loading={loading}
                     error={error}
-                    specialtyLabels={specialtyLabels}
                     onDoctorPress={doctor => navigation.navigate('AppointmentsSchedule', { professional: doctor })}
                     favorites={favorites}
                     onToggleFavorite={handleToggleFavorite}
-                    specialty={route.params.specialty} // <-- pásalo como prop
+                    specialty={route.params.specialty}
                 />
             </View>
         </View>

@@ -1,14 +1,17 @@
 import React from 'react'
 import { View, TextInput, TouchableOpacity } from 'react-native'
 import { MagnifyingGlassIcon, XMarkIcon } from 'react-native-heroicons/outline'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function SearchBar({ value, onChangeText }) {
+    const { t } = useTranslation()
+    
     return (
         <View className="flex-row items-center bg-components-light rounded-xl px-2 py-1 mb-4">
             <MagnifyingGlassIcon size={24} color="#006A71" />
             <TextInput
                 className="ml-2 flex-1 text-base text-primary-light"
-                placeholder="Encuentra tu doctor favorito..."
+                placeholder={t('searchDoctor')}
                 placeholderTextColor="#7A8D8F"
                 value={value}
                 onChangeText={onChangeText}

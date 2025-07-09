@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from '../../hooks/useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 import {
     UserGroupIcon, AcademicCapIcon, UserIcon, HeartIcon,
     HandRaisedIcon, BeakerIcon, SparklesIcon,
@@ -10,26 +12,26 @@ import {
 } from 'react-native-heroicons/outline'
 
 const SPECIALTIES = [
-    { key: "CARDIOLOGO", label: "Cardiólogo", icon: HeartIcon },
-    { key: "PEDIATRA", label: "Pediatra", icon: UserGroupIcon },
-    { key: "PSIQUIATRA", label: "Psiquiatra", icon: AcademicCapIcon },
-    { key: "GINECOLOGO", label: "Ginecólogo", icon: UserIcon },
-    { key: "TRAUMATOLOGO", label: "Traumatólogo", icon: HandRaisedIcon },
-    { key: "UROLOGO", label: "Urólogo", icon: BeakerIcon },
-    { key: "DERMATOLOGO", label: "Dermatólogo", icon: SparklesIcon },
-    { key: "NEUROLOGO", label: "Neurólogo", icon: UserIcon }, 
-    { key: "OTORRINOLARINGOLOGO", label: "Otorrinolaringólogo", icon: UserIcon },
-    { key: "OFTALMOLOGO", label: "Oftalmólogo", icon: EyeIcon },
-    { key: "NEFROLOGO", label: "Nefrólogo", icon: UserIcon },
-    { key: "ENDOCRINOLOGO", label: "Endocrinólogo", icon: GlobeAltIcon },
-    { key: "ONCOLOGO", label: "Oncólogo", icon: ShieldCheckIcon },
-    { key: "INTERNISTA", label: "Internista", icon: UserCircleIcon },
-    { key: "ANESTESIOLOGO", label: "Anestesiólogo", icon: UserIcon }, 
-    { key: "GASTROENTEROLOGO", label: "Gastroenterólogo", icon: UserIcon },
-    { key: "NEUMOLOGO", label: "Neumólogo", icon: UserIcon },
-    { key: "REUMATOLOGO", label: "Reumatólogo", icon: WrenchScrewdriverIcon },
-    { key: "CIRUJANO_GENERAL", label: "Cirujano general", icon: WrenchScrewdriverIcon },
-    { key: "MEDICO_GENERAL", label: "Médico general", icon: UserCircleIcon }
+    { key: "CARDIOLOGO", icon: HeartIcon },
+    { key: "PEDIATRA", icon: UserGroupIcon },
+    { key: "PSIQUIATRA", icon: AcademicCapIcon },
+    { key: "GINECOLOGO", icon: UserIcon },
+    { key: "TRAUMATOLOGO", icon: HandRaisedIcon },
+    { key: "UROLOGO", icon: BeakerIcon },
+    { key: "DERMATOLOGO", icon: SparklesIcon },
+    { key: "NEUROLOGO", icon: UserIcon }, 
+    { key: "OTORRINOLARINGOLOGO", icon: UserIcon },
+    { key: "OFTALMOLOGO", icon: EyeIcon },
+    { key: "NEFROLOGO", icon: UserIcon },
+    { key: "ENDOCRINOLOGO", icon: GlobeAltIcon },
+    { key: "ONCOLOGO", icon: ShieldCheckIcon },
+    { key: "INTERNISTA", icon: UserCircleIcon },
+    { key: "ANESTESIOLOGO", icon: UserIcon }, 
+    { key: "GASTROENTEROLOGO", icon: UserIcon },
+    { key: "NEUMOLOGO", icon: UserIcon },
+    { key: "REUMATOLOGO", icon: WrenchScrewdriverIcon },
+    { key: "CIRUJANO_GENERAL", icon: WrenchScrewdriverIcon },
+    { key: "MEDICO_GENERAL", icon: UserCircleIcon }
 ]
 
 function chunkArray(array, size) {
@@ -42,6 +44,7 @@ function chunkArray(array, size) {
 
 export default function AllSpecialties() {
     const navigation = useNavigation()
+    const { t } = useTranslation()
     const specialtiesRows = chunkArray(SPECIALTIES, 3)
 
     return (
@@ -51,7 +54,7 @@ export default function AllSpecialties() {
                     <ArrowLeftIcon size={28} color="#006A71" />
                 </TouchableOpacity>
                 <Text className="text-2xl font-bold text-primary-light text-center flex-1 mr-8">
-                    Todas las Especialidades
+                    {t('allSpecialties')}
                 </Text>
             </View>
             <ScrollView>
@@ -65,7 +68,9 @@ export default function AllSpecialties() {
                                 onPress={() => navigation.navigate('SpecialtyDoctors', { specialty: item.key })}
                             >
                                 <item.icon size={32} color="#006A71" />
-                                <Text className="text-primary-light text-base font-semibold mt-2 text-center">{item.label}</Text>
+                                <Text className="text-primary-light text-base font-semibold mt-2 text-center">
+                                    {getSpecialtyTranslation(item.key, t)}
+                                </Text>
                             </TouchableOpacity>
                         ))}
                         {Array.from({ length: 3 - row.length }).map((_, i) => (

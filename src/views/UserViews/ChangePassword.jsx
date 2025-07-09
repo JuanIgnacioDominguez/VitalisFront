@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, Alert, ScrollView } from 'react-native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import { changePassword } from '../../api/user'
 import { useSelector } from 'react-redux'
 import CustomPopup from '../../components/PopUps/CustomPopup'
@@ -10,6 +11,7 @@ const icon = 'https://img.icons8.com/ios-filled/50/008080/lock-2.png'
 
 export default function ChangePassword({ navigation }) {
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
     const [current, setCurrent] = useState('')
     const [newPass, setNewPass] = useState('')
     const [confirm, setConfirm] = useState('')
@@ -24,12 +26,12 @@ export default function ChangePassword({ navigation }) {
 
     const handleSave = async () => {
         if (!current || !newPass || !confirm) {
-            setPopupMessage('Completa todos los campos')
+            setPopupMessage(t('completeAllFields'))
             setShowErrorPopup(true)
             return
         }
         if (newPass !== confirm) {
-            setPopupMessage('Las contraseñas nuevas no coinciden')
+            setPopupMessage(t('passwordsDoNotMatch'))
             setShowErrorPopup(true)
             return
         }

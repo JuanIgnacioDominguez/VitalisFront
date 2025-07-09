@@ -9,7 +9,8 @@ import BestDoctors from '../components/Home/BestDoctors'
 import DoctorSearchResults from '../components/Home/DoctorSearchResults'
 import { fetchProfessionals } from '../Redux/slices/professionalsSlice'
 import { fetchFavorites, toggleFavorite } from '../Redux/slices/favoritesSlice'
-import { useTheme } from '../context/ThemeContext' 
+import { useTheme } from '../context/ThemeContext'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function Home({ navigation }) {
     const [search, setSearch] = useState('')
@@ -17,7 +18,8 @@ export default function Home({ navigation }) {
     const { list: professionals, loading, error } = useSelector(state => state.professionals)
     const userId = useSelector(state => state.auth.user?.id)
     const favorites = useSelector(state => state.favorites.list)
-    const { darkMode } = useTheme() 
+    const { darkMode } = useTheme()
+    const { t } = useTranslation() 
 
     useEffect(() => {
         dispatch(fetchProfessionals())

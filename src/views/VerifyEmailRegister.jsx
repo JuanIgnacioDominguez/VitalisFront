@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import RegisterHeader from '../components/Register/RegisterHeader'
 import { registerUser, clearRegisterSuccess, requestVerificationCode } from '../api/auth'
 import CustomPopup from '../components/PopUps/CustomPopup'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function VerifyEmailRegister({ route, navigation }) {
     const { email, password, nombre, telefono } = route.params
@@ -12,6 +13,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
     const [timer, setTimer] = useState(60)
     const dispatch = useDispatch()
     const { registerSuccess, loading, error } = useSelector(state => state.auth)
+    const { t } = useTranslation()
 
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
@@ -24,7 +26,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
                 console.log(`Código de verificación solicitado para: ${email}`)
             } catch (error) {
                 console.error('Error al solicitar código:', error)
-                setPopupMessage('Error al enviar código de verificación')
+                setPopupMessage(t('codeRequestError'))
                 setShowErrorPopup(true)
             }
         }
@@ -74,7 +76,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
         const verificationCode = code.join('')
         
         if (verificationCode.length !== 6) {
-            setPopupMessage('Por favor, ingrese el código completo de 6 dígitos')
+            setPopupMessage(t('completeCodeError'))
             setShowErrorPopup(true)
             return
         }
@@ -108,7 +110,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
             }, 1000)
         } catch (error) {
             console.error('Error al reenviar código:', error)
-            setPopupMessage('Error al reenviar código de verificación')
+            setPopupMessage(t('codeResendError'))
             setShowErrorPopup(true)
         }
     }
@@ -119,11 +121,11 @@ export default function VerifyEmailRegister({ route, navigation }) {
             
             <View className="flex-1 justify-center items-center">
                 <Text className="text-primary-light text-2xl font-bold text-center mb-2">
-                    Verificar Mail
+                    {t('verifyEmail')}
                 </Text>
                 
                 <Text className="text-secondary-light text-center mb-8 px-4">
-                    Por favor, ingrese el código de 6 dígitos enviado a su correo
+                    {t('verifyCodeMessage')}
                 </Text>
                 <View className="flex-row justify-center mb-8">
                     {code.map((digit, index) => (
@@ -145,7 +147,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
                     disabled={loading}
                 >
                     <Text className="text-white text-base font-bold text-center">
-                        {loading ? 'Confirmando...' : 'Confirmar'}
+                        {loading ? t('confirming') : t('confirm')}
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -155,7 +157,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
                     activeOpacity={0.7}
                 >
                     <Text className="text-primary-light text-base">
-                        {resendDisabled ? `Reenviar Código (${timer}s)` : 'Reenviar Código'}
+                        {resendDisabled ? t('resendCodeTimer').replace('{timer}', timer) : t('resendCode')}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -163,18 +165,18 @@ export default function VerifyEmailRegister({ route, navigation }) {
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
+                title={t('error')}
                 message={popupMessage}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText="Volver"
+                buttonText={t('back')}
             />
             
             <CustomPopup
                 visible={showSuccessPopup}
                 onClose={() => {}}
-                title="¡Cuenta creada con éxito!"
-                message="Tu cuenta fue creada exitosamente. Ahora puedes iniciar sesión."
+                title={t('accountCreatedTitle')}
+                message={t('accountCreatedMessage')}
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText={null}

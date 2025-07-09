@@ -5,37 +5,46 @@ import {
   HandRaisedIcon, BeakerIcon, SparklesIcon, EllipsisHorizontalIcon
 } from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
-
-export const specialties = [
-    { label: 'Pediatra', icon: UserGroupIcon },
-    { label: 'Psiquiatra', icon: AcademicCapIcon },
-    { label: 'Ginecologo', icon: UserIcon },
-    { label: 'Cardiologo', icon: HeartIcon },
-    { label: 'Traumatologo', icon: HandRaisedIcon },
-    { label: 'Urologo', icon: BeakerIcon },
-    { label: 'Dermatologo', icon: SparklesIcon },
-    { label: 'Ver mas', icon: EllipsisHorizontalIcon },
-]
+import { useTranslation } from '../../hooks/useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 export default function SpecialtiesGrid() {
     const navigation = useNavigation()
+    const { t, language } = useTranslation()
+    
+    const specialties = [
+        { key: 'PEDIATRA', icon: UserGroupIcon },
+        { key: 'PSIQUIATRA', icon: AcademicCapIcon },
+        { key: 'GINECOLOGO', icon: UserIcon },
+        { key: 'CARDIOLOGO', icon: HeartIcon },
+        { key: 'TRAUMATOLOGO', icon: HandRaisedIcon },
+        { key: 'UROLOGO', icon: BeakerIcon },
+        { key: 'DERMATOLOGO', icon: SparklesIcon },
+        { key: 'VER_MAS', icon: EllipsisHorizontalIcon },
+    ]
+    
     return (
         <View className="flex-row flex-wrap justify-between mb-2">
         {specialties.map((item, idx) => (
             <TouchableOpacity
-                key={item.label}
+                key={item.key}
                 className="w-[22%] h-[21%] aspect-square bg-components-light rounded-xl justify-center items-center mb-3"
                 activeOpacity={0.8}
                 onPress={() => {
-                    if (item.label === 'Ver mas') {
+                    if (item.key === 'VER_MAS') {
                         navigation.navigate('AllSpecialties')
                     } else {
-                        navigation.navigate('SpecialtyDoctors', { specialty: item.label })
+                        navigation.navigate('SpecialtyDoctors', { specialty: item.key })
                     }
                 }}
             >
                 <item.icon size={28} color="#006A71" />
-                <Text className="text-primary-light text-xs font-semibold mt-1 text-center">{item.label}</Text>
+                <Text className="text-primary-light text-xs font-semibold mt-1 text-center">
+                    {item.key === 'VER_MAS' 
+                        ? t('seeMore')
+                        : getSpecialtyTranslation(item.key, t)
+                    }
+                </Text>
             </TouchableOpacity>
         ))}
         </View>

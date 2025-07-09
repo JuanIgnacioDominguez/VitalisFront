@@ -1,10 +1,13 @@
 import React from 'react'
 import { View, Image, Text } from 'react-native'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function UserHeader({ nombre, user }) {
+    const { t } = useTranslation()
+    
     return (
         <View className="items-center mt-10 mb-6">
-            <Text className="text-3xl font-bold text-primary-light mb-4">Perfil</Text>
+            <Text className="text-3xl font-bold text-primary-light mb-4">{t('profile')}</Text>
             <Image
                 source={{
                     uri: user?.foto || user?.imagen 

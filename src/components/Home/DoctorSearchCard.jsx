@@ -2,8 +2,12 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { HeartIcon as HeartOutline } from 'react-native-heroicons/outline'
 import { HeartIcon as HeartSolid } from 'react-native-heroicons/solid'
+import { useTranslation } from '../../hooks/useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 export default function DoctorSearchCard({ doctor, isFavorite, onFavorite, onPress }) {
+    const { t } = useTranslation()
+    
     return (
         <TouchableOpacity
         className="bg-[#C6DBDA] rounded-2xl flex-row items-center px-4 py-3 mb-4"
@@ -20,7 +24,7 @@ export default function DoctorSearchCard({ doctor, isFavorite, onFavorite, onPre
         />
         <View className="flex-1">
             <Text className="text-primary-light font-bold text-base">{doctor.name}</Text>
-            <Text className="text-secondary-light text-xs">{doctor.specialty}</Text>
+            <Text className="text-secondary-light text-xs">{getSpecialtyTranslation(doctor.specialty, t)}</Text>
         </View>
         <TouchableOpacity onPress={onFavorite} activeOpacity={0.7}>
             {isFavorite ? (

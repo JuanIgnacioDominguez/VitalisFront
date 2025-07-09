@@ -6,6 +6,7 @@ import { sendContactMessage } from '../../api/user'
 import { useSelector } from 'react-redux' 
 import { API_HOST } from '../../utils/constants'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import CustomPopup from '../../components/PopUps/CustomPopup'
 
 export default function ContactUs({ navigation }) {
@@ -15,20 +16,21 @@ export default function ContactUs({ navigation }) {
     const [loading, setLoading] = useState(false)
     const token = useSelector(state => state.auth.token)
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
 
     const handleSend = async () => {
         if (!nombre || !email || !mensaje) {
-            setPopupMessage('Completa todos los campos')
+            setPopupMessage(t('completeAllFields'))
             setShowErrorPopup(true)
             return
         }
         // Validación de email simple
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
         if (!emailRegex.test(email)) {
-            setPopupMessage('Ingrese un email válido (gmail, hotmail, outlook, yahoo)')
+            setPopupMessage(t('invalidEmail'))
             setShowErrorPopup(true)
             return
         }
@@ -54,21 +56,21 @@ export default function ContactUs({ navigation }) {
                         <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
                     <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                        Contactanos
+                        {t('contactUs')}
                     </Text>
                 </View>
                 <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                     <View className="px-6">
                         <TextInput
                             className={`border-2 rounded-lg px-4 py-3 mb-4 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
-                            placeholder="Nombre"
+                            placeholder={t('placeholders.name')}
                             placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={nombre}
                             onChangeText={setNombre}
                         />
                         <TextInput
                             className={`border-2 rounded-lg px-4 py-3 mb-4 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
-                            placeholder="ejemplo@mail.com"
+                            placeholder={t('placeholders.email')}
                             placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={email}
                             onChangeText={setEmail}
@@ -77,7 +79,7 @@ export default function ContactUs({ navigation }) {
                         />
                         <TextInput
                             className={`border-2 rounded-lg px-4 py-3 mb-8 ${darkMode ? 'border-primary-dark bg-background-dark text-text-dark' : 'border-primary-light bg-background-light text-primary-light'}`}
-                            placeholder="Cuéntanos lo que quieras"
+                            placeholder={t('placeholders.message')}
                             placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                             value={mensaje}
                             onChangeText={setMensaje}
@@ -92,7 +94,7 @@ export default function ContactUs({ navigation }) {
                             activeOpacity={0.8}
                         >
                             <Text className="text-white text-lg font-bold text-center">
-                                {loading ? 'Enviando...' : 'Enviar'}
+                                {loading ? t('sending') : t('send')}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -101,20 +103,20 @@ export default function ContactUs({ navigation }) {
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
+                title={t('error')}
                 message={popupMessage}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText="Volver"
+                buttonText={t('back')}
             />
             <CustomPopup
                 visible={showSuccessPopup}
                 onClose={() => setShowSuccessPopup(false)}
-                title="¡Mensaje enviado!"
-                message="Tu mensaje fue enviado correctamente. Pronto nos pondremos en contacto."
+                title={t('deleteCodeSent')}
+                message={t('deleteCodeSentMessage')}
                 color="#008080"
                 borderColor="#7AD7F0"
-                buttonText="Aceptar"
+                buttonText={t('accept')}
             />
         </View>
     )

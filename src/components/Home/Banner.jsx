@@ -2,10 +2,12 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function Banner() {
   const user = useSelector(state => state.auth.user)
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   const shouldShowBanner = !user?.obraSocial || !user?.nroAfiliado || 
                           user.obraSocial.trim() === '' || user.nroAfiliado.trim() === ''
@@ -22,14 +24,14 @@ export default function Banner() {
     <View className="bg-primary-light rounded-2xl flex-row items-center p-4 mb-6">
       <View className="flex-1">
         <Text className="text-white text-xl font-bold mb-2 leading-7">
-          Tu salud es nuestra{'\n'}Prioridad
+          {t('bannerTitle')}
         </Text>
         <TouchableOpacity 
           className="bg-warning rounded-lg px-4 py-2 mt-2 self-start"
           onPress={handlePress}
           activeOpacity={0.8}
         >
-          <Text className="text-primary-light font-semibold text-base">Cargar obra Social</Text>
+          <Text className="text-primary-light font-semibold text-base">{t('loadInsurance')}</Text>
         </TouchableOpacity>
       </View>
       <Image

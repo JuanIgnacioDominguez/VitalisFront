@@ -2,11 +2,13 @@ import React, { useMemo } from 'react'
 import { View, Text } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from '../../hooks/useTranslation'
 import DoctorCard from './DoctorCard'
 
 export default function BestDoctors() {
   const navigation = useNavigation()
   const { list: professionals } = useSelector(state => state.professionals)
+  const { t } = useTranslation()
 
   const randomDoctors = useMemo(() => {
     if (professionals.length === 0) return []
@@ -21,7 +23,7 @@ export default function BestDoctors() {
 
   return (
     <View className="mb-2">
-      <Text className="text-primary-light text-xl font-bold mb-3">Mejores Doctores</Text>
+      <Text className="text-primary-light text-xl font-bold mb-3">{t('bestDoctors')}</Text>
       <View className="flex-row flex-wrap justify-between">
         {randomDoctors.map(doctor => (
           <DoctorCard 

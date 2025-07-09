@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ArrowLeftIcon, PencilIcon } from 'react-native-heroicons/outline'
 import { updateUserThunk, clearEditUserState } from '../../Redux/slices/EditUserSlice'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import CustomPopup from '../../components/PopUps/CustomPopup'
 import { Picker } from '@react-native-picker/picker'
 import { setUser } from '../../api/auth' 
@@ -18,6 +19,7 @@ const obrasSociales = [
 
 export default function EditUser({ navigation }) {
     const dispatch = useDispatch()
+    const { t } = useTranslation()
     const user = useSelector(state => state.auth.user)
     const token = useSelector(state => state.auth.token)
     const { loading, error, success } = useSelector(state => state.editUser)
@@ -47,27 +49,27 @@ export default function EditUser({ navigation }) {
 
     const handleSave = () => {
         if (!nombre || !email || !dni || !obraSocial || !nroAfiliado || !telefono) {
-            setPopupMessage('Completa todos los campos obligatorios')
+            setPopupMessage(t('completeAllFields'))
             setShowErrorPopup(true)
             return
         }
         if (dni.length !== 8) {
-            setPopupMessage('El DNI debe tener 8 dígitos')
+            setPopupMessage(t('dniMustBe8Digits'))
             setShowErrorPopup(true)
             return
         }
         if (nroAfiliado.length !== 10) {
-            setPopupMessage('El N° de Afiliado debe tener 10 dígitos')
+            setPopupMessage(t('affiliateMustBe10Digits'))
             setShowErrorPopup(true)
             return
         }
         if (telefono.length !== 10) {
-            setPopupMessage('El número de teléfono debe tener 10 dígitos')
+            setPopupMessage(t('phoneMustBe10Digits'))
             setShowErrorPopup(true)
             return
         }
         if (!obrasSociales.includes(obraSocial)) {
-            setPopupMessage('Selecciona una obra social válida')
+            setPopupMessage(t('selectValidInsurance'))
             setShowErrorPopup(true)
             return
         }
@@ -86,7 +88,7 @@ export default function EditUser({ navigation }) {
                         <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
                     <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                        Editar Perfil
+                        {t('editProfile')}
                     </Text>
                 </View>
 
@@ -112,20 +114,20 @@ export default function EditUser({ navigation }) {
 
                 <View className="px-6">
                     <EditUserInput
-                        label="Nombre"
+                        label={t('name')}
                         value={nombre}
                         onChangeText={setNombre}
                         placeholder="Nombre Completo"
                     />
                     <EditUserInput
-                        label="Correo Electronico"
+                        label={t('email')}
                         value={email}
                         onChangeText={setEmail}
                         placeholder="ejemplo@mail.com"
                         keyboardType="email-address"
                     />
                     <EditUserInput
-                        label="DNI"
+                        label={t('dni')}
                         value={dni}
                         onChangeText={text => {
                             const filtered = text.replace(/[^0-9]/g, '').slice(0, 8)
@@ -135,7 +137,7 @@ export default function EditUser({ navigation }) {
                         keyboardType="numeric"
                     />
                     <EditUserInput
-                        label="Teléfono"
+                        label={t('phone')}
                         value={telefono}
                         onChangeText={text => {
                             const filtered = text.replace(/[^0-9]/g, '').slice(0, 10)
@@ -145,14 +147,14 @@ export default function EditUser({ navigation }) {
                         keyboardType="numeric"
                     />
                     <View style={{ marginBottom: 16 }}>
-                        <Text className="text-base font-bold mb-1">Tipo de Obra Social</Text>
+                        <Text className="text-base font-bold mb-1">{t('insuranceType')}</Text>
                         <View className="border-2 border-primary-light rounded-lg bg-background-light">
                             <Picker
                                 selectedValue={obraSocial}
                                 onValueChange={setObraSocial}
                                 style={{ color: darkMode ? '#fff' : '#008080' }}
                             >
-                                <Picker.Item label="Seleccionar obra social" value="" />
+                                <Picker.Item label={t('selectInsurance')} value="" />
                                 {obrasSociales.map(os => (
                                     <Picker.Item key={os} label={os} value={os} />
                                 ))}
@@ -160,7 +162,7 @@ export default function EditUser({ navigation }) {
                         </View>
                     </View>
                     <EditUserInput
-                        label="N° de Afiliado"
+                        label={t('affiliateNumber')}
                         value={nroAfiliado}
                         onChangeText={text => {
                             const filtered = text.replace(/[^0-9]/g, '').slice(0, 10)
@@ -179,7 +181,7 @@ export default function EditUser({ navigation }) {
                         disabled={loading}
                     >
                         <Text className="text-white text-lg font-bold text-center">
-                            {loading ? 'Guardando...' : 'Guardar Cambios'}
+                            {loading ? t('saving') : t('saveChanges')}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -187,11 +189,11 @@ export default function EditUser({ navigation }) {
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
-                message={popupMessage || "No se pudieron realizar los cambios"}
+                title={t('error')}
+                message={popupMessage || t('couldNotMakeChanges')}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText="Volver"
+                buttonText={t('goBack')}
             />
             <CustomPopup
                 visible={showSuccessPopup}
@@ -199,11 +201,11 @@ export default function EditUser({ navigation }) {
                     setShowSuccessPopup(false)
                     navigation.goBack()
                 }}
-                title="¡Cambios guardados!"
-                message="Los cambios se realizaron correctamente."
+                title={t('changesSaved')}
+                message={t('changesCompletedSuccessfully')}
                 color="#008080"
                 borderColor="#7AD7F0"
-                buttonText="Volver"
+                buttonText={t('goBack')}
             />
         </View>
     )

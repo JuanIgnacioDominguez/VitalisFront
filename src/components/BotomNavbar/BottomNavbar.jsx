@@ -7,16 +7,18 @@ import {
     UserIcon
 } from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
-
-const tabs = [
-    { label: 'Menu', icon: HomeIcon, route: 'Home' },
-    { label: 'Turnos', icon: CalendarDaysIcon, route: 'Appointments' },
-    { label: 'Favoritos', icon: HeartIcon, route: 'Favorites' },
-    { label: 'Perfil', icon: UserIcon, route: 'User' }
-]
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function BottomNavbar() {
     const navigation = useNavigation()
+    const { t } = useTranslation()
+    
+    const tabs = [
+        { label: t('home'), icon: HomeIcon, route: 'Home' },
+        { label: t('appointments'), icon: CalendarDaysIcon, route: 'Appointments' },
+        { label: t('favorites'), icon: HeartIcon, route: 'Favorites' },
+        { label: t('user'), icon: UserIcon, route: 'User' }
+    ]
 
     return (
         <SafeAreaView>

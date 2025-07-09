@@ -7,12 +7,14 @@ import { logout } from '../api/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LogOut from '../components/PopUps/LogOut'
 import { useTheme } from '../context/ThemeContext'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function User({ navigation }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
     const [showModal, setShowModal] = useState(false)
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
 
     const handleLogout = async () => {
         setShowModal(false)
@@ -29,37 +31,37 @@ export default function User({ navigation }) {
                 <View className="px-8">
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/user.png"
-                    label="Perfil"
+                    label={t('profile')}
                     onPress={() => navigation.navigate('EditUser')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/star.png"
-                    label="Calificación"
+                    label={t('rating')}
                     onPress={() => navigation.navigate('Rating')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
-                    label="Políticas De Privacidad"
+                    label={t('privacyPolicy')}
                     onPress={() => navigation.navigate('PrivacyPolicy')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/settings.png"
-                    label="Ajustes"
+                    label={t('settings')}
                     onPress={() => navigation.navigate('Settings')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/help.png"
-                    label="Ayuda"
+                    label={t('help')}
                     onPress={() => navigation.navigate('Faq')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"
-                    label="Contactanos"
+                    label={t('contactUs')}
                     onPress={() => navigation.navigate('ContactUs')}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/logout-rounded-left.png"
-                    label="Cerrar Sesión"
+                    label={t('logout')}
                     onPress={() => setShowModal(true)}
                 />
                 </View>

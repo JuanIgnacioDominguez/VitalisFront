@@ -2,19 +2,22 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import DoctorSearchCard from '../Home/DoctorSearchCard'
 import PropTypes from 'prop-types'
+import { useTranslation } from '../../hooks/useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 export default function SpecialtyDoctorsList({
     doctors,
     loading,
     error,
-    specialtyLabels,
     onDoctorPress,
     favorites,
     onToggleFavorite,
     specialty 
 }) {
+    const { t } = useTranslation()
+    
     if (loading) {
-        return <Text className="text-primary-light text-center mt-10">Cargando...</Text>
+        return <Text className="text-primary-light text-center mt-10">{t('loading')}</Text>
     }
     if (error) {
         return <Text className="text-red-500 text-center mt-10">{error}</Text>
@@ -22,7 +25,7 @@ export default function SpecialtyDoctorsList({
     if (doctors.length === 0) {
         return (
             <Text className="text-primary-light text-center mt-10">
-                No hay doctores de esta especialidad.
+                {t('noDoctorsSpecialty')}
             </Text>
         )
     }
@@ -36,7 +39,7 @@ export default function SpecialtyDoctorsList({
                     onFavorite={() => onToggleFavorite(doctor)}
                     onPress={() => onDoctorPress(doctor)}
                 >
-                    <Text>{specialtyLabels[doctor.specialty] || doctor.specialty}</Text>
+                    <Text>{getSpecialtyTranslation(doctor.specialty, t)}</Text>
                 </DoctorSearchCard>
             ))}
         </View>
@@ -47,8 +50,8 @@ SpecialtyDoctorsList.propTypes = {
     doctors: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.string,
-    specialtyLabels: PropTypes.object.isRequired,
     onDoctorPress: PropTypes.func.isRequired,
     favorites: PropTypes.array,
     onToggleFavorite: PropTypes.func,
+    specialty: PropTypes.string.isRequired,
 }

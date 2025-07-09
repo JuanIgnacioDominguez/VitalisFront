@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginUser} from '../api/auth'
 import LoginErrorModal from '../components/PopUps/LoginErrorModal'
 import { clearAuthError } from '../Redux/slices/AuthSlice'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -14,6 +15,7 @@ export default function Login({ navigation }) {
     const [showErrorModal, setShowErrorModal] = useState(false)
     const dispatch = useDispatch()
     const { user, loading, error } = useSelector(state => state.auth)
+    const { t } = useTranslation()
 
     const handleLogin = () => {
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
@@ -37,17 +39,17 @@ export default function Login({ navigation }) {
         <View className="flex-1 bg-background-light px-6">
             <LoginHeader />
             <LoginInput
-                label="Email:"
+                label={`${t('email')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"
-                placeholder="ejemplo@mail.com"
+                placeholder={t('placeholders.email')}
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
             />
             <LoginInput
-                label="Contraseña:"
+                label={`${t('password')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
-                placeholder="Contraseña"
+                placeholder={t('placeholders.password')}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
@@ -56,7 +58,7 @@ export default function Login({ navigation }) {
                 isPassword
             />
             <TouchableOpacity className="mb-6 mt-1" onPress={() => navigation.navigate('ForgotPassword')}>
-                <Text className="text-xs text-primary-light text-right">Olvidé mi Contraseña</Text>
+                <Text className="text-xs text-primary-light text-right">{t('forgotPassword')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 className="bg-primary-light rounded-lg w-full py-3 mb-3"
@@ -65,13 +67,13 @@ export default function Login({ navigation }) {
                 disabled={loading}
             >
                 <Text className="text-white font-bold text-center text-lg">
-                    {loading ? 'Ingresando...' : 'Iniciar Sesion'}
+                    {loading ? t('loading') : t('login')}
                 </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">
-                <Text className="text-xs text-primary-light">No tienes Cuenta? </Text>
+                <Text className="text-xs text-primary-light">{t('dontHaveAccount')} </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                    <Text className="text-xs text-primary-light font-bold underline">Registrate</Text>
+                    <Text className="text-xs text-primary-light font-bold underline">{t('signUp')}</Text>
                 </TouchableOpacity>
             </View>
             <LoginErrorModal
@@ -82,9 +84,9 @@ export default function Login({ navigation }) {
                 }}
                 message={
                     !/^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i.test(email)
-                        ? 'Ingrese un email válido (gmail, hotmail, outlook, yahoo)'
+                        ? t('invalidEmail')
                         : (error && (error.toLowerCase().includes('credencial') || error.toLowerCase().includes('contraseña') || error.toLowerCase().includes('password')))
-                            ? 'Mail o contraseña incorrecta'
+                            ? t('incorrectCredentials')
                             : error
                 }
             />
