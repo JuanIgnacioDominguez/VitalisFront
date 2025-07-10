@@ -22,7 +22,7 @@ export default function BottomNavbar() {
 
     return (
         <SafeAreaView>
-            <View className="bg-primary-light flex-row justify-between px-2 py-1 h-[56px] border-t border-quaternary-light">
+            <View className="bg-primary-light flex-row justify-between px-2 py-1 h-[56px]">
                 {tabs.map((tab, idx) => (
                     <TouchableOpacity
                         key={tab.label}
