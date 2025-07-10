@@ -49,7 +49,7 @@ export default function AppointmentsSchedule({ route, navigation }) {
             setTimeout(() => {
                 setShowObraSocialPopup(false)
                 navigation.navigate('EditUser')
-            }, 2000)
+            }, 5000)
             return
         }
 
@@ -60,7 +60,7 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 setTimeout(() => {
                     setShowSuccessPopup(false)
                     navigation.navigate('MainTabs', { screen: 'Appointments' })
-                }, 2000)
+                }, 5000)
             }
         } catch (e) {
             const msg = e?.response?.data || ''

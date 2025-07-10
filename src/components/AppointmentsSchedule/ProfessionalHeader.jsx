@@ -12,8 +12,18 @@ export default function ProfessionalHeader({ professional, darkMode }) {
                 }
                 className="w-20 h-20 rounded-full mb-1"
             />
-            <Text className={`text-lg font-bold ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>{professional.name}</Text>
-            <Text className={`text-sm ${darkMode ? 'text-secondary-dark' : 'text-secondary-light'}`}>{professional.specialty}</Text>
+            <Text 
+                className="text-lg font-bold"
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+            >
+                {professional.name}
+            </Text>
+            <Text 
+                className="text-sm"
+                style={{ color: darkMode ? '#A0A0A0' : '#666' }}
+            >
+                {professional.specialty}
+            </Text>
         </View>
     )
 }

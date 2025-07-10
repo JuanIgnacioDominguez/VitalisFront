@@ -11,7 +11,10 @@ export default function HeaderSection({ navigation, darkMode }) {
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>
-            <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+            <Text 
+                className="text-2xl font-bold flex-1 text-center mr-8"
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+            >
                 {t('scheduleAppointment')}
             </Text>
         </View>

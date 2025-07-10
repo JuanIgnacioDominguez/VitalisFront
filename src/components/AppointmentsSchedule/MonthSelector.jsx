@@ -15,13 +15,22 @@ export default function MonthSelector({ selectedMonth, selectedYear, darkMode, h
                 disabled={selectedYear === today.getFullYear() && selectedMonth === today.getMonth()}
                 className="p-1"
             >
-                <ChevronLeftIcon size={20} color={(selectedYear === today.getFullYear() && selectedMonth === today.getMonth()) ? "#ccc" : "#006A71"} />
+                <ChevronLeftIcon 
+                    size={20} 
+                    color={(selectedYear === today.getFullYear() && selectedMonth === today.getMonth()) 
+                        ? "#ccc" 
+                        : (darkMode ? "#07919A" : "#006A71")
+                    } 
+                />
             </TouchableOpacity>
-            <Text className={`mx-2 text-base font-bold ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+            <Text 
+                className="mx-2 text-base font-bold"
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+            >
                 {monthsArray[selectedMonth]} {selectedYear}
             </Text>
             <TouchableOpacity onPress={handleNextMonth} className="p-1">
-                <ChevronRightIcon size={20} color="#006A71" />
+                <ChevronRightIcon size={20} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>
         </View>
     )

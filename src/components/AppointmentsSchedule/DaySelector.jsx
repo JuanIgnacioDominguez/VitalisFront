@@ -9,7 +9,7 @@ export default function DaySelector({ daysOfMonth, selectedDate, setSelectedDate
                     key={day.value}
                     className={`items-center mx-1 px-2 py-1 rounded-2xl shadow-sm
                         ${selectedDate === day.value
-                            ? 'bg-primary-light'
+                            ? (darkMode ? 'bg-primary-dark' : 'bg-primary-light')
                             : (darkMode ? 'bg-components-dark' : 'bg-white')}
                     `}
                     style={{
@@ -25,8 +25,26 @@ export default function DaySelector({ daysOfMonth, selectedDate, setSelectedDate
                     onPress={() => !day.isToday && setSelectedDate(day.value)}
                     activeOpacity={day.isToday ? 1 : 0.85}
                 >
-                    <Text className={`text-xs mb-0.5 ${selectedDate === day.value ? 'text-white' : 'text-secondary-light'}`}>{day.label}</Text>
-                    <Text className={`font-bold ${selectedDate === day.value ? 'text-white' : (darkMode ? 'text-primary-dark' : 'text-primary-light')}`}>{day.day}</Text>
+                    <Text 
+                        className="text-xs mb-0.5"
+                        style={{ 
+                            color: selectedDate === day.value 
+                                ? 'white' 
+                                : (darkMode ? '#A0A0A0' : '#666')
+                        }}
+                    >
+                        {day.label}
+                    </Text>
+                    <Text 
+                        className="font-bold"
+                        style={{ 
+                            color: selectedDate === day.value 
+                                ? 'white' 
+                                : (darkMode ? '#E6E6E6' : '#008080')
+                        }}
+                    >
+                        {day.day}
+                    </Text>
                 </TouchableOpacity>
             ))}
         </ScrollView>

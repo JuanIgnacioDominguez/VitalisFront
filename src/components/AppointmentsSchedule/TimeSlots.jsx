@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import { useTranslation } from '../../hooks/useTranslation'
 
-function chunkArray(array, size) {
+const chunkArray = (array, size) => {
     const result = []
     for (let i = 0; i < array.length; i += size) {
         result.push(array.slice(i, i + size))
@@ -14,7 +14,14 @@ export default function TimeSlots({ allTimeSlots, reservedTimes, selectedSlot, s
     const { t } = useTranslation()
     
     if (loading) {
-        return <Text className="text-center mt-4 text-primary-light">{t('loadingSchedules')}</Text>
+        return (
+            <Text 
+                className="text-center mt-4"
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+            >
+                {t('loadingSchedules')}
+            </Text>
+        )
     }
 
     const timeRows = chunkArray(allTimeSlots, 4)
@@ -46,15 +53,22 @@ export default function TimeSlots({ allTimeSlots, reservedTimes, selectedSlot, s
                                 disabled={isReserved}
                                 activeOpacity={isReserved ? 1 : 0.85}
                             >
-                                <Text className={`font-bold text-base text-center ${isSelected ? 'text-white' : (darkMode ? 'text-primary-dark' : 'text-primary-light')}`}>
+                                <Text 
+                                    className="font-bold text-base text-center"
+                                    style={{ 
+                                        color: isSelected 
+                                            ? 'white' 
+                                            : (darkMode ? '#E6E6E6' : '#008080')
+                                    }}
+                                >
                                     {time}
                                 </Text>
                             </TouchableOpacity>
                         )
                     })}
                     {/* Si la fila tiene menos de 4, agrega espacios vacíos para alinear */}
-                    {Array.from({ length: 4 - row.length }).map((_, i) => (
-                        <View key={i} className="w-[22%] aspect-square" />
+                    {Array.from({ length: 4 - row.length }).map((_, emptyIdx) => (
+                        <View key={`empty-${emptyIdx}`} className="w-[22%] aspect-square" />
                     ))}
                 </View>
             ))}
