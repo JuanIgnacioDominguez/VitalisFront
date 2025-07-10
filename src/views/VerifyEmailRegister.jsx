@@ -76,6 +76,10 @@ export default function VerifyEmailRegister({ route, navigation }) {
     }, [registerSuccess, loading, error])
 
     const handleCodeChange = (value, index) => {
+        if (!/^\d*$/.test(value)) {
+            return 
+        }
+
         const newCode = [...code]
         newCode[index] = value
         setCode(newCode)
@@ -152,9 +156,9 @@ export default function VerifyEmailRegister({ route, navigation }) {
                             className={`w-12 h-12 rounded-lg text-center text-xl font-bold mx-2 border ${darkMode ? 'bg-quaternary-dark border-primary-dark' : 'bg-white border-gray-300'}`}
                             style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                             value={digit}
-                            onChangeText={(value) => handleCodeChange(value.slice(-1), index)}
+                            onChangeText={(value) => handleCodeChange(value, index)}
                             onKeyPress={(e) => handleKeyPress(e, index)}
-                            keyboardType="numeric"
+                            keyboardType="number-pad"
                             maxLength={1}
                             placeholder=""
                             selectTextOnFocus={true}
