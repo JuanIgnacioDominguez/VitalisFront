@@ -116,6 +116,7 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText={null}
+                darkMode={darkMode}
             />
             <CustomPopup
                 visible={showObraSocialPopup}
@@ -125,6 +126,7 @@ export default function AppointmentsSchedule({ route, navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText={null}
+                darkMode={darkMode}
             />
         </View>
     )

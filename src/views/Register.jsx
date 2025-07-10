@@ -134,6 +134,7 @@ export default function Register({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText={t('back')}
+                darkMode={darkMode}
             />
         </View>
     )

@@ -108,6 +108,7 @@ export default function ContactUs({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText={t('back')}
+                darkMode={darkMode}
             />
             <CustomPopup
                 visible={showSuccessPopup}
@@ -116,7 +117,8 @@ export default function ContactUs({ navigation }) {
                 message={t('deleteCodeSentMessage')}
                 color="#008080"
                 borderColor="#7AD7F0"
-                buttonText={t('accept')}
+                buttonText={t('back')}
+                darkMode={darkMode}
             />
         </View>
     )

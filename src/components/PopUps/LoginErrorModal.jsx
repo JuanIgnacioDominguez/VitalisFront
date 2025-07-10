@@ -31,7 +31,7 @@ export default function LoginErrorModal({ visible, onClose, message, darkMode })
                         resizeMode="contain"
                     />
                     <Text style={{
-                        color: darkMode ? '#BFB9AD' : '#333',
+                        color: '#F76C6C',
                         fontSize: 20,
                         fontWeight: 'bold',
                         textAlign: 'center',
@@ -40,7 +40,7 @@ export default function LoginErrorModal({ visible, onClose, message, darkMode })
                         Error de inicio de sesión
                     </Text>
                     <Text style={{
-                        color: darkMode ? '#BFB9AD' : '#333',
+                        color: darkMode ? '#E6E6E6' : '#333',
                         fontSize: 16,
                         textAlign: 'center',
                         marginBottom: 24

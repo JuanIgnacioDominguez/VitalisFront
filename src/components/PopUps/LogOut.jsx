@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
 
-export default function LogOut({ visible, onClose, onLogout }) {
+export default function LogOut({ visible, onClose, onLogout, darkMode = false }) {
     return (
         <Modal
             visible={visible}
@@ -16,7 +16,7 @@ export default function LogOut({ visible, onClose, onLogout }) {
                 alignItems: 'center'
             }}>
                 <View style={{
-                    backgroundColor: '#F8F6F2',
+                    backgroundColor: darkMode ? '#121212' : '#F8F6F2',
                     borderRadius: 16,
                     padding: 24,
                     alignItems: 'center',
@@ -31,7 +31,7 @@ export default function LogOut({ visible, onClose, onLogout }) {
                         resizeMode="contain"
                     />
                     <Text style={{
-                        color: '#008080',
+                        color: darkMode ? '#07919A' : '#008080',
                         fontWeight: 'bold',
                         fontSize: 20,
                         textAlign: 'center',
@@ -60,7 +60,7 @@ export default function LogOut({ visible, onClose, onLogout }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{
-                            backgroundColor: '#008080',
+                            backgroundColor: darkMode ? '#07919A' : '#008080',
                             borderRadius: 12,
                             paddingVertical: 12,
                             width: 200

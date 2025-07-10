@@ -154,6 +154,7 @@ export default function ChangePassword({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText="Volver"
+                darkMode={darkMode}
             />
             <CustomPopup
                 visible={showSuccessPopup}
@@ -166,6 +167,7 @@ export default function ChangePassword({ navigation }) {
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText="Aceptar"
+                darkMode={darkMode}
             />
         </View>
     )

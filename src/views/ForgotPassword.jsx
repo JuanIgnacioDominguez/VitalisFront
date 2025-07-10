@@ -20,12 +20,11 @@ export default function ForgotPassword({ navigation }) {
             setShowErrorPopup(true)
             return
         }
-        // Aquí iría la lógica para enviar el email de recuperación
         setShowSuccessPopup(true)
     }
 
     return (
-        <View className={`flex-1 px-6 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+        <View className={`flex-1 px-6 justify-center  ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <TouchableOpacity 
                 className="absolute top-12 left-6"
                 onPress={() => navigation.goBack()}
@@ -77,6 +76,7 @@ export default function ForgotPassword({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText="Volver"
+                darkMode={darkMode}
             />
             <CustomPopup
                 visible={showSuccessPopup}
@@ -89,6 +89,7 @@ export default function ForgotPassword({ navigation }) {
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText="Entendido"
+                darkMode={darkMode}
             />
         </View>
     )

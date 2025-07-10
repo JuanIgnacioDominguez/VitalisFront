@@ -1,7 +1,19 @@
 import React from 'react'
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
 
-export default function CustomPopup({ visible, onClose, title, message, color = '#008080', borderColor = '#7AD7F0', buttonText = 'Volver', secondButtonText, onButtonPress, onSecondButtonPress }) {
+export default function CustomPopup({ 
+    visible, 
+    onClose, 
+    title, 
+    message, 
+    color = '#008080', 
+    borderColor = '#7AD7F0', 
+    buttonText = 'Volver', 
+    secondButtonText, 
+    onButtonPress, 
+    onSecondButtonPress,
+    darkMode = false 
+}) {
     return (
         <Modal
             visible={visible}
@@ -16,7 +28,7 @@ export default function CustomPopup({ visible, onClose, title, message, color = 
                 alignItems: 'center'
             }}>
                 <View style={{
-                    backgroundColor: '#F8F6F2',
+                    backgroundColor: darkMode ? '#121212' : '#F8F6F2',
                     borderRadius: 16,
                     padding: 24,
                     alignItems: 'center',
@@ -40,7 +52,7 @@ export default function CustomPopup({ visible, onClose, title, message, color = 
                         {title}
                     </Text>
                     <Text style={{
-                        color: '#333',
+                        color: darkMode ? '#E6E6E6' : '#333',
                         fontSize: 16,
                         textAlign: 'center',
                         marginBottom: 24
@@ -72,7 +84,7 @@ export default function CustomPopup({ visible, onClose, title, message, color = 
                         {secondButtonText && (
                             <TouchableOpacity
                                 style={{
-                                    backgroundColor: '#008080',
+                                    backgroundColor: darkMode ? '#07919A' : '#008080',
                                     borderRadius: 12,
                                     paddingVertical: 12,
                                     width: 200

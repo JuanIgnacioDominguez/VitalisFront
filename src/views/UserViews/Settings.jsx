@@ -132,6 +132,7 @@ export default function Settings({ navigation }) {
                 }}
                 secondButtonText={t('back')}
                 onSecondButtonPress={() => setShowDeletePopup(false)}
+                darkMode={darkMode}
             />
         </View>
     )

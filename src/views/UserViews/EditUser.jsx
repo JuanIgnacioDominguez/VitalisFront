@@ -197,6 +197,7 @@ export default function EditUser({ navigation }) {
                 color="#F76C6C"
                 borderColor="#F76C6C"
                 buttonText={t('goBack')}
+                darkMode={darkMode}
             />
             <CustomPopup
                 visible={showSuccessPopup}
@@ -209,6 +210,7 @@ export default function EditUser({ navigation }) {
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText={t('goBack')}
+                darkMode={darkMode}
             />
         </View>
     )

@@ -12,6 +12,7 @@ export default function ResetPassword({ navigation, route }) {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
     const user = useSelector(state => state.auth.user)
+    const darkMode = useSelector(state => state.auth.darkMode)
 
     const handleReset = async () => {
         if (!password || password.length < 6) {
@@ -76,6 +77,7 @@ export default function ResetPassword({ navigation, route }) {
             color="#F76C6C"
             borderColor="#F76C6C"
             buttonText="Volver"
+            darkMode={darkMode}
         />
         <CustomPopup
             visible={showSuccessPopup}
@@ -92,6 +94,7 @@ export default function ResetPassword({ navigation, route }) {
             color="#008080"
             borderColor="#7AD7F0"
             buttonText={user ? "Ir a Ajustes" : "Iniciar sesión"}
+            darkMode={darkMode}
         />
         </View>
     )
