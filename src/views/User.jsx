@@ -27,42 +27,49 @@ export default function User({ navigation }) {
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
-                <UserHeader nombre={user?.nombre || 'Usuario'} user={user} />
+                <UserHeader nombre={user?.nombre || 'Usuario'} user={user} darkMode={darkMode} />
                 <View className="px-8">
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/user.png"
                     label={t('profile')}
                     onPress={() => navigation.navigate('EditUser')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/star.png"
                     label={t('rating')}
                     onPress={() => navigation.navigate('Rating')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/lock-2.png"
                     label={t('privacyPolicy')}
                     onPress={() => navigation.navigate('PrivacyPolicy')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/settings.png"
                     label={t('settings')}
                     onPress={() => navigation.navigate('Settings')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/help.png"
                     label={t('help')}
                     onPress={() => navigation.navigate('Faq')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"
                     label={t('contactUs')}
                     onPress={() => navigation.navigate('ContactUs')}
+                    darkMode={darkMode}
                 />
                 <UserMenuItem
                     icon="https://img.icons8.com/ios-filled/50/008080/logout-rounded-left.png"
                     label={t('logout')}
                     onPress={() => setShowModal(true)}
+                    darkMode={darkMode}
                 />
                 </View>
             </ScrollView>
@@ -70,6 +77,7 @@ export default function User({ navigation }) {
                 visible={showModal}
                 onClose={() => setShowModal(false)}
                 onLogout={handleLogout}
+                darkMode={darkMode}
             />
         </View>
     )
