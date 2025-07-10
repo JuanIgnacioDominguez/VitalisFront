@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from '../../hooks/useTranslation'
 import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
-export default function SpecialtiesGrid() {
+export default function SpecialtiesGrid({ darkMode }) {
     const navigation = useNavigation()
     const { t, language } = useTranslation()
     
@@ -28,7 +28,7 @@ export default function SpecialtiesGrid() {
         {specialties.map((item, idx) => (
             <TouchableOpacity
                 key={item.key}
-                className="w-[22%] h-[21%] aspect-square bg-components-light rounded-xl justify-center items-center mb-3"
+                className={`w-[22%] h-[21%] aspect-square rounded-xl justify-center items-center mb-3 ${darkMode ? 'bg-components-dark' : 'bg-components-light'}`}
                 activeOpacity={0.8}
                 onPress={() => {
                     if (item.key === 'VER_MAS') {
@@ -38,8 +38,8 @@ export default function SpecialtiesGrid() {
                     }
                 }}
             >
-                <item.icon size={28} color="#006A71" />
-                <Text className="text-primary-light text-xs font-semibold mt-1 text-center">
+                <item.icon size={28} color={darkMode ? "#BFB9AD" : "#000000"} />
+                <Text className={`text-xs font-semibold mt-1 text-center ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
                     {item.key === 'VER_MAS' 
                         ? t('seeMore')
                         : getSpecialtyTranslation(item.key, t)

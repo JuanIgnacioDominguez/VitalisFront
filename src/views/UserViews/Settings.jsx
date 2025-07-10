@@ -22,7 +22,6 @@ export default function Settings({ navigation }) {
     const token = useSelector(state => state.auth.token)
     const userEmail = useSelector(state => state.auth.user?.email)
 
-    // Cargar el idioma guardado al montar el componente
     useEffect(() => {
         loadSavedLanguage()
     }, [])
@@ -53,6 +52,7 @@ export default function Settings({ navigation }) {
                             icon="https://img.icons8.com/ios-filled/48/008080/light-on.png"
                             label={t('darkMode')}
                             hideArrow
+                            darkMode={darkMode}
                         />
                         <Switch
                             value={darkMode}
@@ -67,6 +67,7 @@ export default function Settings({ navigation }) {
                             label={getCurrentLanguageLabel()}
                             onPress={() => setShowLanguages(!showLanguages)}
                             hideArrow
+                            darkMode={darkMode}
                             rightComponent={
                                 <Image
                                     source={{ uri: showLanguages ? chevronDownThin : chevronThin }}
@@ -75,12 +76,16 @@ export default function Settings({ navigation }) {
                             }
                         />
                         {showLanguages && (
-                            <View style={{ marginLeft: 56, marginBottom: 16 }}>
+                            <View className={`ml-14 mb-4 ${darkMode ? 'bg-components-dark' : 'bg-white'} rounded-lg p-4`}>
                                 <TouchableOpacity onPress={() => handleLanguageChange('es')}>
-                                    <Text style={{ color: '#008080', fontSize: 16, paddingVertical: 4 }}>{t('spanish')}</Text>
+                                    <Text className={`text-base py-1 ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
+                                        {t('spanish')}
+                                    </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => handleLanguageChange('en')}>
-                                    <Text style={{ color: '#008080', fontSize: 16, paddingVertical: 4 }}>{t('english')}</Text>
+                                    <Text className={`text-base py-1 ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
+                                        {t('english')}
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -89,11 +94,13 @@ export default function Settings({ navigation }) {
                         icon="https://img.icons8.com/ios-filled/48/008080/key.png"
                         label={t('changePassword')}
                         onPress={() => navigation.navigate('ChangePassword')}
+                        darkMode={darkMode}
                     />
                     <UserMenuItem
                         icon="https://img.icons8.com/ios-filled/48/008080/trash--v1.png"
                         label={t('deleteAccount')}
                         onPress={() => setShowDeletePopup(true)}
+                        darkMode={darkMode}
                     />
                 </View>
             </ScrollView>

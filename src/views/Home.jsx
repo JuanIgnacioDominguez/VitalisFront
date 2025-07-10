@@ -46,8 +46,8 @@ export default function Home({ navigation }) {
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <View className="flex-1 p-5 pb-20">
-                <Header />
-                <SearchBar value={search} onChangeText={setSearch} />
+                <Header darkMode={darkMode} />
+                <SearchBar value={search} onChangeText={setSearch} darkMode={darkMode} />
                 {search.length > 0 ? (
                     <DoctorSearchResults
                         doctors={filteredDoctors}
@@ -56,12 +56,13 @@ export default function Home({ navigation }) {
                         favorites={favorites}
                         onFavorite={handleFavorite}
                         onPress={handleDoctorPress}
+                        darkMode={darkMode}
                     />
                 ) : (
                     <>
-                        <Banner />
-                        <SpecialtiesGrid />
-                        <BestDoctors />
+                        <Banner darkMode={darkMode} />
+                        <SpecialtiesGrid darkMode={darkMode} />
+                        <BestDoctors darkMode={darkMode} />
                     </>
                 )}
             </View>

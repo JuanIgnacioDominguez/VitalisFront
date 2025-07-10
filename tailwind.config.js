@@ -23,15 +23,15 @@ module.exports = {
         'default-light': '#FFFFFF',
 
         // MODO OSCURO
-        'text-dark': '#FFFFFF',
-        'selected-dark': '#FFFFFF',
-        'primary-dark': '#07919A',
-        'secondary-dark': '#67CED1',
-        'tertiary-dark': '#A7E6E8',
-        'quaternary-dark': '#E3E7E6',
-        'components-dark': '#0A263D',
-        'background-dark': '#121212',
-        'default-dark': '#FFFFFF',
+        'text-dark'        : '#BFB9AD',   
+        'selected-dark'    : '#4F7E81',  
+        'primary-dark'     : '#2D5E60',   
+        'secondary-dark'   : '#4F7E81',   
+        'tertiary-dark'    : '#A7C6C8',   
+        'quaternary-dark'  : '#1C3B3D',   
+        'components-dark'  : '#006A71',   
+        'background-dark'  : '#121212',   
+        'default-dark'     : '#F2EFE7',
 
         // SECUNDARIOS
         error: '#F05C5F',
