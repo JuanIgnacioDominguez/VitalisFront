@@ -20,7 +20,6 @@ export default function Appointments({ navigation }) {
     const { darkMode } = useTheme()
     const filteredAppointments = useAppointmentsList(appointments, tab)
 
-    // NUEVO: refrescar al volver a la pantalla
     const isFocused = useIsFocused()
     const dispatch = useDispatch()
     const userId = useSelector(state => state.auth.user?.id)
