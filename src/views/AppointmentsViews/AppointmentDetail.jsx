@@ -1,8 +1,12 @@
 import React from 'react'
-import { View, Text, Image, ScrollView, TouchableOpacity, Alert, Dimensions } from 'react-native'
-import { ArrowLeftIcon } from 'react-native-heroicons/outline'
+import { View, ScrollView, Alert, Dimensions } from 'react-native'
 import { useTheme } from '../../context/ThemeContext'
 import { useCancelAppointment } from '../../hooks/Appointments/useCancelAppointment'
+import AppointmentHeader from '../../components/AppointmentsDetails/AppointmentHeader'
+import AppointmentDoctorInfo from '../../components/AppointmentsDetails/AppointmentDoctorInfo'
+import AppointmentInfoBlock from '../../components/AppointmentsDetails/AppointmentInfoBlock'
+import AppointmentNotes from '../../components/AppointmentsDetails/AppointmentNotes'
+import AppointmentCancelButton from '../../components/AppointmentsDetails/AppointmentCancelButton'
 import { formatHourEs } from '../../utils/appointments'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -11,12 +15,10 @@ export default function AppointmentDetail({ route, navigation }) {
     const { appointment } = route.params
     const { darkMode } = useTheme()
     const { cancelAppointment, loading } = useCancelAppointment()
+
     const ubicacion = 'Clínica Vitalis, Av. Rivadavia 742'
     const sector = 'Sector C, consultorio 221'
-    const estado =
-        appointment.status === 'completed'
-            ? 'Completado'
-            : 'Confirmado'
+    const estado = appointment.status === 'completed' ? 'Completado' : 'Confirmado'
     const notas = 'El paciente debe traer estudios de control previos.'
 
     const fechaFormateada = (() => {
@@ -51,72 +53,48 @@ export default function AppointmentDetail({ route, navigation }) {
     }
 
     return (
-        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', paddingBottom: 30 }}>
-                <View className="flex-row items-center px-6 pt-10 pb-2">
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
-                    </TouchableOpacity>
-                    <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>
-                        Turno Programado
-                    </Text>
-                </View>
-                <View
-                    className="flex-1 justify-center"
+        <View className={`flex-1 mt-3 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+            <AppointmentHeader
+                    onBack={() => navigation.goBack()}
+                    title="Turno Programado"
+                    darkMode={darkMode}
+                />
+            <ScrollView
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    paddingBottom: 30,
+                    alignItems: 'center',
+                    justifyContent: "center"
+                }}
+            >
+                <View className=" flex justify-center rounded-2xl mt-10 mb-10 p-6 shadow-sm"
                     style={{
-                        alignItems: 'center',
-                        width: '100%',
+                        backgroundColor: '#E6ECEB',
+                        width: SCREEN_WIDTH > 500 ? 420 : SCREEN_WIDTH - 24,
+                        marginVertical: 15,
+                        padding: 24,
+                        borderRadius: 16,
                     }}
                 >
-                    <View
-                        className="rounded-2xl mt-2 p-6 shadow-sm"
-                        style={{
-                            backgroundColor: '#E6ECEB',
-                            width: SCREEN_WIDTH - 32,
-                            minHeight: 540,
-                            marginHorizontal: 16,
-                        }}
-                    >
-                        <View className="flex-row items-center mb-4">
-                            <Image
-                                source={
-                                    appointment.image
-                                        ? { uri: appointment.image }
-                                        : { uri: 'https://ui-avatars.com/api/?name=Doctor' }
-                                }
-                                className="w-16 h-16 rounded-full mr-4 border-2 border-primary-light"
-                            />
-                            <View>
-                                <Text className="text-xl font-bold text-primary-light">{appointment.doctorName || appointment.doctor}</Text>
-                                <Text className="text-base text-secondary-light">{appointment.specialty}</Text>
-                                <Text className="text-base text-secondary-light">MP {appointment.professionalId}</Text>
-                            </View>
-                        </View>
-                        <Text className="font-bold text-primary-light mb-1">Fecha y hora</Text>
-                        <Text className="mb-3 text-primary-light">{fechaFormateada}{'\n'}{horaFormateada}</Text>
-                        <Text className="font-bold text-primary-light mb-1">Ubicación</Text>
-                        <Text className="mb-3 text-primary-light">{ubicacion}</Text>
-                        <Text className="font-bold text-primary-light mb-1">Sector</Text>
-                        <Text className="mb-3 text-primary-light">{sector}</Text>
-                        <Text className="font-bold text-primary-light mb-1">Estado</Text>
-                        <Text className="mb-3 text-primary-light">{estado}</Text>
-                        <Text className="font-bold text-primary-light mb-1">Notas adicionales</Text>
-                        <Text className="mb-3 text-primary-light">{notas}</Text>
-                        {/* Solo mostrar el botón si el estado es pending */}
-                        {appointment.status !== 'completed' && (
-                            <TouchableOpacity
-                                className="rounded-xl py-3 mt-4"
-                                style={{ backgroundColor: '#F76C6C' }}
-                                onPress={handleCancel}
-                                disabled={loading}
-                                activeOpacity={0.85}
-                            >
-                                <Text className="text-white text-center text-lg font-bold">
-                                    {loading ? 'Cancelando...' : 'Cancelar turno'}
-                                </Text>
-                            </TouchableOpacity>
-                        )}
-                    </View>
+                    <AppointmentDoctorInfo
+                        doctorName={appointment.doctorName || appointment.doctor}
+                        specialty={appointment.specialty}
+                        professionalId={appointment.professionalId}
+                        image={appointment.image}
+                    />
+                    <View style={{ marginBottom: 30 }} />
+                    <AppointmentInfoBlock label="Fecha y hora" value={`${fechaFormateada}\n${horaFormateada}`} />
+                    <View style={{ marginBottom: 30 }} />
+                    <AppointmentInfoBlock label="Ubicación" value={ubicacion} />
+                    <View style={{ marginBottom: 30 }} />
+                    <AppointmentInfoBlock label="Sector" value={sector} />
+                    <View style={{ marginBottom: 30 }} />
+                    <AppointmentInfoBlock label="Estado" value={estado} />
+                    <View style={{ marginBottom: 30 }} />
+                    <AppointmentNotes notes={notas} />
+                    {appointment.status !== 'completed' && (
+                        <AppointmentCancelButton onCancel={handleCancel} loading={loading} />
+                    )}
                 </View>
             </ScrollView>
         </View>
