@@ -23,14 +23,14 @@ module.exports = {
         'default-light': '#FFFFFF',
 
         // MODO OSCURO
-        'text-dark'        : '#BFB9AD',   
+        'text-dark'        : '#E6E6E6',   
         'selected-dark'    : '#4F7E81',  
         'primary-dark'     : '#2D5E60',   
         'secondary-dark'   : '#4F7E81',   
         'tertiary-dark'    : '#A7C6C8',   
         'quaternary-dark'  : '#1C3B3D',   
         'components-dark'  : '#006A71',   
-        'background-dark'  : '#121212',   
+        'background-dark'  : '#1D1D1D',   
         'default-dark'     : '#F2EFE7',
 
         // SECUNDARIOS

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Modal, Image } from 'react-native'
 
-export default function LoginErrorModal({ visible, onClose, message }) {
+export default function LoginErrorModal({ visible, onClose, message, darkMode }) {
     return (
         <Modal
             visible={visible}
@@ -16,7 +16,7 @@ export default function LoginErrorModal({ visible, onClose, message }) {
                 alignItems: 'center'
             }}>
                 <View style={{
-                    backgroundColor: '#F8F6F2',
+                    backgroundColor: darkMode ? '#121212' : '#F8F6F2',
                     borderRadius: 16,
                     padding: 24,
                     alignItems: 'center',
@@ -31,16 +31,16 @@ export default function LoginErrorModal({ visible, onClose, message }) {
                         resizeMode="contain"
                     />
                     <Text style={{
-                        color: '#F76C6C',
-                        fontWeight: 'bold',
+                        color: darkMode ? '#BFB9AD' : '#333',
                         fontSize: 20,
+                        fontWeight: 'bold',
                         textAlign: 'center',
                         marginBottom: 16
                     }}>
                         Error de inicio de sesión
                     </Text>
                     <Text style={{
-                        color: '#333',
+                        color: darkMode ? '#BFB9AD' : '#333',
                         fontSize: 16,
                         textAlign: 'center',
                         marginBottom: 24

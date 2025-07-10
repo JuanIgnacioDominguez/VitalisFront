@@ -7,6 +7,7 @@ import { loginUser} from '../api/auth'
 import LoginErrorModal from '../components/PopUps/LoginErrorModal'
 import { clearAuthError } from '../Redux/slices/AuthSlice'
 import { useTranslation } from '../hooks/useTranslation'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -16,6 +17,7 @@ export default function Login({ navigation }) {
     const dispatch = useDispatch()
     const { user, loading, error } = useSelector(state => state.auth)
     const { t } = useTranslation()
+    const { darkMode } = useTheme()
 
     const handleLogin = () => {
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
@@ -36,8 +38,8 @@ export default function Login({ navigation }) {
     }, [user, loading, error])
 
     return (
-        <View className="flex-1 bg-background-light px-6">
-            <LoginHeader />
+        <View className={`flex-1 px-6 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+            <LoginHeader darkMode={darkMode} />
             <LoginInput
                 label={`${t('email')}:`}
                 icon="https://img.icons8.com/ios-filled/50/008080/new-post.png"
@@ -45,6 +47,7 @@ export default function Login({ navigation }) {
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
+                darkMode={darkMode}
             />
             <LoginInput
                 label={`${t('password')}:`}
@@ -56,12 +59,18 @@ export default function Login({ navigation }) {
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
                 isPassword
+                darkMode={darkMode}
             />
             <TouchableOpacity className="mb-6 mt-1" onPress={() => navigation.navigate('ForgotPassword')}>
-                <Text className="text-xs text-primary-light text-right">{t('forgotPassword')}</Text>
+                <Text 
+                    className="text-sm text-right"
+                    style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+                >
+                    {t('forgotPassword')}
+                </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                className="bg-primary-light rounded-lg w-full py-3 mb-3"
+                className={`rounded-lg w-full py-3 mb-3 ${darkMode ? 'bg-primary-dark' : 'bg-primary-light'}`}
                 activeOpacity={0.8}
                 onPress={handleLogin}
                 disabled={loading}
@@ -71,9 +80,19 @@ export default function Login({ navigation }) {
                 </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">
-                <Text className="text-xs text-primary-light">{t('dontHaveAccount')} </Text>
+                <Text 
+                    className="text-sm"
+                    style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+                >
+                    {t('dontHaveAccount ')} 
+                </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                    <Text className="text-xs text-primary-light font-bold underline">{t('signUp')}</Text>
+                    <Text 
+                        className="text-sm font-bold underline"
+                        style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+                    >
+                        {t('signUp')}
+                    </Text>
                 </TouchableOpacity>
             </View>
             <LoginErrorModal
@@ -89,6 +108,7 @@ export default function Login({ navigation }) {
                             ? t('incorrectCredentials')
                             : error
                 }
+                darkMode={darkMode}
             />
         </View>
     )

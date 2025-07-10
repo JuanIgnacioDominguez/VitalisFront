@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
-import { requestPasswordReset } from '../api/auth'
-import { Ionicons } from '@expo/vector-icons' 
+import { ArrowLeftIcon } from 'react-native-heroicons/outline'
+import { useTheme } from '../context/ThemeContext'
+import { useTranslation } from '../hooks/useTranslation'
 import CustomPopup from '../components/PopUps/CustomPopup'
 
 export default function ForgotPassword({ navigation }) {
@@ -9,29 +10,27 @@ export default function ForgotPassword({ navigation }) {
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
+    const { darkMode } = useTheme()
+    const { t } = useTranslation()
 
-    const handleSendCode = async () => {
-        if (!email) {
-            setPopupMessage('Ingresa tu correo electrónico')
+    const handleSend = () => {
+        const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
+        if (!emailRegex.test(email)) {
+            setPopupMessage(t('invalidEmail'))
             setShowErrorPopup(true)
             return
         }
-        try {
-            await requestPasswordReset(email)
-            setShowSuccessPopup(true)
-        } catch (e) {
-            setPopupMessage('El correo no está registrado o es incorrecto.')
-            setShowErrorPopup(true)
-        }
+        // Aquí iría la lógica para enviar el email de recuperación
+        setShowSuccessPopup(true)
     }
 
     return (
-        <View className="flex-1 bg-background-light px-6 justify-center">
-            <TouchableOpacity
-                style={{ position: 'absolute', top: 40, left: 20, zIndex: 10 }}
-                onPress={() => navigation.navigate('Login')}
+        <View className={`flex-1 px-6 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+            <TouchableOpacity 
+                className="absolute top-12 left-6"
+                onPress={() => navigation.goBack()}
             >
-                <Ionicons name="arrow-back" size={28} color="#008080" />
+                <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>
 
             <View className="items-center mb-8">
@@ -40,27 +39,36 @@ export default function ForgotPassword({ navigation }) {
                     style={{ width: 120, height: 120, marginBottom: 8 }}
                     resizeMode="contain"
                 />
-                <Text className="text-xl text-secondary-light font-bold mb-2">Recuperar Contraseña</Text>
-                <Text className="text-center text-base text-primary-light mb-4">
+                <Text className={`text-xl font-bold mb-2 ${darkMode ? 'text-dark' : 'text-secondary-light'}`}>
+                    Recuperar Contraseña
+                </Text>
+                <Text className={`text-center text-base mb-4 ${darkMode ? 'text-dark' : 'text-primary-light'}`}>
                     Ingresa tu correo y te enviaremos un código de verificación para restablecer tu contraseña.
                 </Text>
             </View>
-            <Text className="text-base font-bold text-primary-light mb-1">Correo Electrónico</Text>
+            
+            <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>
+                Correo Electrónico
+            </Text>
             <TextInput
-                className="border-2 border-primary-light rounded-lg px-4 py-2 mb-6 text-primary-light bg-background-light"
+                className={`border-2 rounded-lg px-4 py-2 mb-6 ${darkMode ? 'border-primary-dark bg-tertiary-dark text-dark' : 'border-primary-light bg-white text-primary-light'}`}
                 placeholder="ejemplo@mail.com"
-                placeholderTextColor="#00808099"
+                placeholderTextColor={darkMode ? "#BFB9AD99" : "#00808099"}
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
             />
+            
             <TouchableOpacity
-                className="bg-primary-light rounded-lg py-3"
-                onPress={handleSendCode}
+                className={`rounded-lg py-3 ${darkMode ? 'bg-primary-dark' : 'bg-primary-light'}`}
+                onPress={handleSend}
             >
-                <Text className="text-white text-lg font-bold text-center">Enviar Código</Text>
+                <Text className="text-white text-lg font-bold text-center">
+                    Enviar Código
+                </Text>
             </TouchableOpacity>
+
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
@@ -74,13 +82,13 @@ export default function ForgotPassword({ navigation }) {
                 visible={showSuccessPopup}
                 onClose={() => {
                     setShowSuccessPopup(false)
-                    navigation.navigate('VerifyCode', { email })
+                    navigation.goBack()
                 }}
                 title="¡Código enviado!"
-                message="Te enviamos un código de verificación a tu correo."
+                message="Revisa tu correo electrónico para continuar con la recuperación."
                 color="#008080"
                 borderColor="#7AD7F0"
-                buttonText="Continuar"
+                buttonText="Entendido"
             />
         </View>
     )
