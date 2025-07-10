@@ -10,12 +10,10 @@ import CustomPopup from '../../components/PopUps/CustomPopup'
 import { Picker } from '@react-native-picker/picker'
 import { setUser } from '../../api/auth' 
 
-
 const obrasSociales = [
     "OSDE", "Swiss Medical", "Galeno", "Medicus", "Omint",
     "Sancor Salud", "Federada Salud", "Accord Salud", "OSPACA", "OSPAT"
 ]
-
 
 export default function EditUser({ navigation }) {
     const dispatch = useDispatch()
@@ -100,7 +98,7 @@ export default function EditUser({ navigation }) {
                                     ? `data:image/jpeg;base64,${user.foto || user.imagen}`
                                     : 'https://randomuser.me/api/portraits/men/1.jpg'
                             }}
-                            className="w-24 h-24 rounded-full mb-2"
+                            className={`w-24 h-24 rounded-full mb-2 border-2 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
                         />
                         <TouchableOpacity
                             className={`${darkMode ? 'bg-primary-dark' : 'bg-primary-light'} absolute bottom-2 right-2 rounded-full p-1`}
@@ -118,6 +116,7 @@ export default function EditUser({ navigation }) {
                         value={nombre}
                         onChangeText={setNombre}
                         placeholder="Nombre Completo"
+                        darkMode={darkMode}
                     />
                     <EditUserInput
                         label={t('email')}
@@ -125,6 +124,7 @@ export default function EditUser({ navigation }) {
                         onChangeText={setEmail}
                         placeholder="ejemplo@mail.com"
                         keyboardType="email-address"
+                        darkMode={darkMode}
                     />
                     <EditUserInput
                         label={t('dni')}
@@ -135,6 +135,7 @@ export default function EditUser({ navigation }) {
                         }}
                         placeholder="DNI"
                         keyboardType="numeric"
+                        darkMode={darkMode}
                     />
                     <EditUserInput
                         label={t('phone')}
@@ -145,14 +146,15 @@ export default function EditUser({ navigation }) {
                         }}
                         placeholder="Ej: 1123456789"
                         keyboardType="numeric"
+                        darkMode={darkMode}
                     />
                     <View style={{ marginBottom: 16 }}>
-                        <Text className="text-base font-bold mb-1">{t('insuranceType')}</Text>
-                        <View className="border-2 border-primary-light rounded-lg bg-background-light">
+                        <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>{t('insuranceType')}</Text>
+                        <View className={`border-2 rounded-lg ${darkMode ? 'border-primary-dark bg-components-dark' : 'border-primary-light bg-background-light'}`}>
                             <Picker
                                 selectedValue={obraSocial}
                                 onValueChange={setObraSocial}
-                                style={{ color: darkMode ? '#fff' : '#008080' }}
+                                style={{ color: darkMode ? '#BFB9B9' : '#008080' }}
                             >
                                 <Picker.Item label={t('selectInsurance')} value="" />
                                 {obrasSociales.map(os => (
@@ -170,6 +172,7 @@ export default function EditUser({ navigation }) {
                         }}
                         placeholder="10938402"
                         keyboardType="numeric"
+                        darkMode={darkMode}
                     />
                 </View>
 
