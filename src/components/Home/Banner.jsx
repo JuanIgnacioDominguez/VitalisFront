@@ -9,34 +9,53 @@ export default function Banner() {
   const navigation = useNavigation()
   const { t } = useTranslation()
 
-  const shouldShowBanner = !user?.obraSocial || !user?.nroAfiliado || 
+  const faltaObraSocial = !user?.obraSocial || !user?.nroAfiliado || 
                           user.obraSocial.trim() === '' || user.nroAfiliado.trim() === ''
 
   const handlePress = () => {
     navigation.navigate('EditUser')
   }
 
-  if (!shouldShowBanner) {
-    return null
-  }
-
   return (
-    <View className="bg-primary-light rounded-2xl flex-row items-center p-4 mb-6">
-      <View className="flex-1">
+    <View
+      className="bg-primary-light rounded-2xl flex-row items-center mb-4"
+      style={{ minHeight: 100, padding: 0}} // minHeight igual a h-28, padding igual a p-4
+    >
+      <View className="flex-1 pr-2 p-4">
         <Text className="text-white text-xl font-bold mb-2 leading-7">
           {t('bannerTitle')}
         </Text>
-        <TouchableOpacity 
-          className="bg-warning rounded-lg px-4 py-2 mt-2 self-start"
-          onPress={handlePress}
-          activeOpacity={0.8}
-        >
-          <Text className="text-primary-light font-semibold text-base">{t('loadInsurance')}</Text>
-        </TouchableOpacity>
+        {faltaObraSocial ? (
+          <TouchableOpacity 
+            className="bg-warning rounded-lg px-4 py-2 mt-2 self-start"
+            onPress={handlePress}
+            activeOpacity={0.8}
+          >
+            <Text className="text-primary-light font-semibold text-base">{t('loadInsurance')}</Text>
+          </TouchableOpacity>
+        ) : (
+          <>
+            <Text className="text-white text-base mt-2 font-semibold">
+              ¡Tu salud es nuestra Prioridad!
+            </Text>
+            <Text className="text-white text-base font-semibold">
+              ¡Gracias por elegirnos!
+            </Text>
+          </>
+        )}
       </View>
       <Image
-        source={{ uri: 'https://img.freepik.com/foto-gratis/doctor-mujer-sonriente-bata-laboratorio-estetoscopio_23-2148827716.jpg' }}
-        className="w-24 h-28 rounded-2xl ml-2"
+        source={
+          faltaObraSocial
+            ? require('../../../assets/doctorBanner1.png')
+            : require('../../../assets/DoctorBanner2.webp')
+        }
+        style={{
+          height: '100%',
+          width: 96, 
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+        }}
         resizeMode="cover"
       />
     </View>

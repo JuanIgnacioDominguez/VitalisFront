@@ -7,7 +7,7 @@ import AppointmentDoctorInfo from '../../components/AppointmentsDetails/Appointm
 import AppointmentInfoBlock from '../../components/AppointmentsDetails/AppointmentInfoBlock'
 import AppointmentNotes from '../../components/AppointmentsDetails/AppointmentNotes'
 import AppointmentCancelButton from '../../components/AppointmentsDetails/AppointmentCancelButton'
-import CancelAppointmentPopup from '../../components/PopUps/CancelAppointmentPopUp'
+import CancelAppointmentPopup from "../../components/PopUps/CancelAppointmentPopup"
 import CustomPopup from '../../components/PopUps/CustomPopup'
 import { formatHourEs } from '../../utils/appointments'
 
