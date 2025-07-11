@@ -3,13 +3,18 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import PropTypes from 'prop-types'
 
-export default function SpecialtyHeader({ title, onBack }) {
+export default function SpecialtyHeader({ title, onBack, darkMode }) {
     return (
-        <View className="flex-row items-center px-5 pt-12 pb-4 bg-background-light">
-            <TouchableOpacity onPress={onBack} className="mr-2">
-                <ArrowLeftIcon size={28} color="#006A71" />
+        <View className="flex-row items-center px-6 pt-12 pb-4">
+            <TouchableOpacity onPress={onBack}>
+                <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
             </TouchableOpacity>
-            <Text className="text-primary-light text-2xl font-bold">{title}</Text>
+            <Text 
+                className="text-2xl font-bold flex-1 text-center mr-8"
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+            >
+                {title}
+            </Text>
         </View>
     )
 }

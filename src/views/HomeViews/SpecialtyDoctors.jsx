@@ -35,7 +35,7 @@ function SpecialtyDoctors({ route, navigation }) {
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <SpecialtyHeader title={getSpecialtyTranslation(specialty, t)} onBack={navigation.goBack} />
+            <SpecialtyHeader title={getSpecialtyTranslation(specialty, t)} onBack={navigation.goBack} darkMode={darkMode} />
             <View className="flex-1 px-5">
                 <SpecialtyDoctorsList
                     doctors={filteredDoctors}
@@ -45,6 +45,7 @@ function SpecialtyDoctors({ route, navigation }) {
                     favorites={favorites}
                     onToggleFavorite={handleToggleFavorite}
                     specialty={route.params.specialty}
+                    darkMode={darkMode}
                 />
             </View>
         </View>
