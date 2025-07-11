@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <View className="flex-1 p-5 pb-20">
+            <View className="flex-1 p-5 pb-0">
                 <Header darkMode={darkMode} />
                 <SearchBar value={search} onChangeText={setSearch} darkMode={darkMode} />
                 {search.length > 0 ? (
