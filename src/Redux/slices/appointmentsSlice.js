@@ -21,6 +21,22 @@ export const fetchAppointmentsThunk = createAsyncThunk(
     }
 )
 
+export const updateExpiredAppointments = createAsyncThunk(
+    'appointments/updateExpired',
+    async ({ userId, token }, { rejectWithValue }) => {
+        try {
+            const res = await axios.put(`${API_HOST}appointments/user/${userId}/update-expired`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return res.data
+        } catch (e) {
+            return rejectWithValue('Error al actualizar turnos vencidos')
+        }
+    }
+)
+
 const appointmentsSlice = createSlice({
     name: 'appointments',
     initialState: {
@@ -30,28 +46,42 @@ const appointmentsSlice = createSlice({
     },
     reducers: {
         addAppointment: (state, action) => {
-        state.list.push(action.payload)
+            state.list.push(action.payload)
         },
         removeAppointment: (state, action) => {
-        state.list = state.list.filter(a => a.id !== action.payload)
+            state.list = state.list.filter(a => a.id !== action.payload)
         },
+        updateExpiredStatus: (state) => {
+            const now = new Date()
+            state.list.forEach(appointment => {
+                if (appointment.status === 'pending') {
+                    const appointmentDateTime = new Date(`${appointment.date}T${appointment.time}`)
+                    if (appointmentDateTime < now) {
+                        appointment.status = 'completed'
+                    }
+                }
+            })
+        }
     },
     extraReducers: builder => {
         builder
-        .addCase(fetchAppointmentsThunk.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        .addCase(fetchAppointmentsThunk.fulfilled, (state, action) => {
-            state.loading = false
-            state.list = action.payload
-        })
-        .addCase(fetchAppointmentsThunk.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
-        })
+            .addCase(fetchAppointmentsThunk.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchAppointmentsThunk.fulfilled, (state, action) => {
+                state.loading = false
+                state.list = action.payload
+            })
+            .addCase(fetchAppointmentsThunk.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+            .addCase(updateExpiredAppointments.fulfilled, (state, action) => {
+                state.list = action.payload
+            })
     }
 })
 
-export const { addAppointment, removeAppointment } = appointmentsSlice.actions
+export const { addAppointment, removeAppointment, updateExpiredStatus } = appointmentsSlice.actions
 export default appointmentsSlice.reducer

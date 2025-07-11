@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAppointmentsThunk } from '../../Redux/slices/appointmentsSlice'
+import { fetchAppointmentsThunk, updateExpiredAppointments } from '../../Redux/slices/appointmentsSlice'
 
 export function useUserAppointments() {
     const dispatch = useDispatch()
@@ -10,7 +10,10 @@ export function useUserAppointments() {
 
     useEffect(() => {
         if (userId && token) {
-            dispatch(fetchAppointmentsThunk({ userId, token }))
+            dispatch(updateExpiredAppointments({ userId, token }))
+                .then(() => {
+                    dispatch(fetchAppointmentsThunk({ userId, token }))
+                })
         }
     }, [dispatch, userId, token])
 

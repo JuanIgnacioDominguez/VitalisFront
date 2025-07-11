@@ -11,7 +11,7 @@ import Spinner from '../components/Appointments/Spinner'
 import ErrorMessage from '../components/Appointments/ErrorMessage'
 import { useIsFocused } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAppointmentsThunk } from '../Redux/slices/appointmentsSlice'
+import { fetchAppointmentsThunk, updateExpiredAppointments } from '../Redux/slices/appointmentsSlice'
 
 export default function Appointments({ navigation }) {
     const { t } = useTranslation()
@@ -27,9 +27,20 @@ export default function Appointments({ navigation }) {
 
     useEffect(() => {
         if (isFocused && userId && token) {
-            dispatch(fetchAppointmentsThunk({ userId, token }))
+            dispatch(updateExpiredAppointments({ userId, token }))
+                .then(() => {
+                    dispatch(fetchAppointmentsThunk({ userId, token }))
+                })
         }
     }, [isFocused, userId, token, dispatch])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            dispatch(updateExpiredAppointments({ userId, token }))
+        }, 300000) 
+
+        return () => clearInterval(interval)
+    }, [dispatch, userId, token])
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
