@@ -18,8 +18,8 @@ export default function Header({ darkMode }) {
                 className={`w-12 h-12 rounded-full mr-3 border-2 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
             />
             <View>
-                <Text className={`font-semibold text-base leading-5 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>{t('welcomeMessage')}</Text>
-                <Text className={`text-sm ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>{user?.nombre || t('user')}</Text>
+                <Text className={`font-semibold text-lg- leading-5 ${darkMode ? 'text-secondary-dark' : 'text-primary-light'}`}>{t('welcomeMessage')}</Text>
+                <Text className={`text-base ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>{user?.nombre || t('user')}</Text>
             </View>
         </View>
     )

@@ -13,7 +13,7 @@ export default function UserMenuItem({ icon, label, onPress, hideArrow, rightCom
                 <View className="bg-primary-light/10 rounded-full p-2 mr-4">
                     <Image source={{ uri: icon }} className="w-7 h-7" />
                 </View>
-                <Text className={`text-base ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>{label}</Text>
+                <Text className={`text-lg ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>{label}</Text>
             </View>
             {rightComponent ? rightComponent : (!hideArrow && (
                 <Image

@@ -39,7 +39,7 @@ export default function SpecialtiesGrid({ darkMode }) {
                 }}
             >
                 <item.icon size={28} color={darkMode ? "#BFB9AD" : "#000000"} />
-                <Text className={`text-xs font-semibold mt-1 text-center ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
+                <Text className={`text-sm font-semibold mt-1 text-center ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
                     {item.key === 'VER_MAS' 
                         ? t('seeMore')
                         : getSpecialtyTranslation(item.key, t)

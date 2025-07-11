@@ -19,7 +19,7 @@ export default function Banner() {
   return (
     <View
       className="bg-primary-light rounded-2xl flex-row items-center mb-4"
-      style={{ minHeight: 100, padding: 0}} // minHeight igual a h-28, padding igual a p-4
+      style={{ minHeight: 100, padding: 0}} 
     >
       <View className="flex-1 pr-2 p-4">
         <Text className="text-white text-xl font-bold mb-2 leading-7">
@@ -35,9 +35,6 @@ export default function Banner() {
           </TouchableOpacity>
         ) : (
           <>
-            <Text className="text-white text-base mt-2 font-semibold">
-              ¡Tu salud es nuestra Prioridad!
-            </Text>
             <Text className="text-white text-base font-semibold">
               ¡Gracias por elegirnos!
             </Text>
