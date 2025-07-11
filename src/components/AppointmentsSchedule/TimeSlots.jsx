@@ -44,6 +44,7 @@ export default function TimeSlots({ allTimeSlots, reservedTimes, selectedSlot, s
                                     ${isReserved ? 'opacity-40' : ''}
                                 `}
                                 style={{
+                                    marginHorizontal: 6,
                                     borderWidth: isSelected ? 2 : 1,
                                     borderColor: isSelected
                                         ? (darkMode ? '#07919A' : '#006A71')
