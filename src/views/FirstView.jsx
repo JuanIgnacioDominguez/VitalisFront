@@ -14,7 +14,7 @@ export default function FirstView({ navigation }) {
             <View className="flex-1 justify-center items-center">
                 <Image
                     source={require('../../assets/LogoApp.png')}
-                    className="w-100 h-100 mb-4"
+                    className="w-100 h-100 mb-10"
                     resizeMode="contain"
                 />
                 <TouchableOpacity
@@ -26,18 +26,11 @@ export default function FirstView({ navigation }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    className={`border-2 rounded-lg w-full py-3 mb-3 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
+                    className={`border-2 rounded-lg w-full py-3 mb-8 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
                     activeOpacity={0.8}
                     onPress={() => navigation.navigate('Register')}
                 >
                     <Text className={`font-bold text-center text-lg ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>{t('registerBtn')}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                    className={`border-2 rounded-lg w-full py-3 flex-row items-center justify-center mb-8 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`} 
-                    activeOpacity={0.8}
-                >
-                    <Text className={`text-lg font-bold ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>{t('continueWithGoogle')}</Text>
                 </TouchableOpacity>
             </View>
             <View className="flex-row justify-between w-full mb-7">

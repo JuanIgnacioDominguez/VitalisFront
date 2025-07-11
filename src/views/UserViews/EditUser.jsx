@@ -29,21 +29,26 @@ export default function EditUser({ navigation }) {
     const [telefono, setTelefono] = useState(user?.telefono || '')
     const { darkMode } = useTheme()
     const [showErrorPopup, setShowErrorPopup] = useState(false)
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
 
     useEffect(() => {
-        if (success) {
-            setShowSuccessPopup(true)
+        if (success) { 
             dispatch(setUser({ nombre, email, dni, obraSocial, nroAfiliado, telefono }))
+            
             dispatch(clearEditUserState())
+            
+            navigation.navigate('MainTabs', { 
+                screen: 'Home', 
+                params: { showProfileUpdated: true } 
+            })
         }
+        
         if (error) {
             setPopupMessage(error)
             setShowErrorPopup(true)
             dispatch(clearEditUserState())
         }
-    }, [success, error])
+    }, [success, error, navigation, dispatch, nombre, email, dni, obraSocial, nroAfiliado, telefono])
 
     const handleSave = () => {
         if (!nombre || !email || !dni || !obraSocial || !nroAfiliado || !telefono) {
@@ -189,6 +194,8 @@ export default function EditUser({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            
+            {/* ✅ Solo popup de error */}
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
@@ -196,19 +203,6 @@ export default function EditUser({ navigation }) {
                 message={popupMessage || t('couldNotMakeChanges')}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText={t('goBack')}
-                darkMode={darkMode}
-            />
-            <CustomPopup
-                visible={showSuccessPopup}
-                onClose={() => {
-                    setShowSuccessPopup(false)
-                    navigation.goBack()
-                }}
-                title={t('changesSaved')}
-                message={t('changesCompletedSuccessfully')}
-                color="#008080"
-                borderColor="#7AD7F0"
                 buttonText={t('goBack')}
                 darkMode={darkMode}
             />
