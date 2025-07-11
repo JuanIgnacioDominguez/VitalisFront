@@ -25,6 +25,7 @@ export function generateTimeSlots() {
         slots.push(`${hour.toString().padStart(2, '0')}:30`)
     }
     slots.push('18:00')
+    slots.push('18:30') // <-- AGREGADO: ahora también se muestra 18:30
     return slots
 }
 
