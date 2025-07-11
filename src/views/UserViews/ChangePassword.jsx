@@ -57,7 +57,7 @@ export default function ChangePassword({ navigation }) {
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'} pt-6`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, paddingBottom: 40 }}>
                 <View className="flex-row items-center mb-6">
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'User' })}>
                         <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
                     <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
@@ -175,7 +175,7 @@ export default function ChangePassword({ navigation }) {
                 visible={showSuccessPopup}
                 onClose={() => {
                     setShowSuccessPopup(false)
-                    navigation.goBack()
+                    navigation.navigate('MainTabs', { screen: 'User' })
                 }}
                 title="¡Contraseña cambiada!"
                 message="La contraseña fue cambiada correctamente."

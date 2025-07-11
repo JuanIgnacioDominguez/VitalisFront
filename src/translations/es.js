@@ -225,7 +225,7 @@ export const es = {
 
     // Verificación de código (para restablecer contraseña)
     verifyCode: "Verificar Código",
-    verifyCodeResetMessage: "Ingresa el código de 4 dígitos que enviamos a tu correo",
+    verifyCodeResetMessage: "Ingresa el código de 6 dígitos que enviamos a tu correo",
     confirmCode: "Confirmar Código",
     incorrectCodeTitle: "Código incorrecto",
     incorrectCodeMessage: "El código ingresado es incorrecto o expiró. Intenta nuevamente.",
