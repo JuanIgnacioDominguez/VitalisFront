@@ -14,17 +14,19 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [showErrorModal, setShowErrorModal] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [lastError, setLastError] = useState(null)
     const dispatch = useDispatch()
     const { user, loading, error } = useSelector(state => state.auth)
     const { t } = useTranslation()
     const { darkMode } = useTheme()
 
     const handleLogin = () => {
-        const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
-        if (!emailRegex.test(email)) {
-            setShowErrorModal(true)
-            return
-        }
+        setShowErrorModal(false)
+        setErrorMessage('')
+        setLastError(null)
+        
+        dispatch(clearAuthError())
         dispatch(loginUser({ email, password }))
     }
 
@@ -32,10 +34,26 @@ export default function Login({ navigation }) {
         if (user && !loading && !error) {
             navigation.navigate('MainTabs', { screen: 'Home' })
         }
-        if (error) {
+    }, [user, loading, error, navigation])
+
+    useEffect(() => {
+        if (error && error !== lastError && !showErrorModal) {
+            const backendErrorMessage = (error.toLowerCase().includes('credencial') || 
+                                        error.toLowerCase().includes('contraseña') || 
+                                        error.toLowerCase().includes('password'))
+                ? t('incorrectCredentials')
+                : error
+            
+            setErrorMessage(backendErrorMessage)
             setShowErrorModal(true)
+            setLastError(error)
         }
-    }, [user, loading, error])
+    }, [error, lastError, showErrorModal, t])
+
+    const handleCloseModal = () => {
+        setShowErrorModal(false)
+        setErrorMessage('')
+    }
 
     return (
         <View className={`flex-1 px-6 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
@@ -97,17 +115,8 @@ export default function Login({ navigation }) {
             </View>
             <LoginErrorModal
                 visible={showErrorModal}
-                onClose={() => {
-                    dispatch(clearAuthError())
-                    setShowErrorModal(false)
-                }}
-                message={
-                    !/^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i.test(email)
-                        ? t('invalidEmail')
-                        : (error && (error.toLowerCase().includes('credencial') || error.toLowerCase().includes('contraseña') || error.toLowerCase().includes('password')))
-                            ? t('incorrectCredentials')
-                            : error
-                }
+                onClose={handleCloseModal}
+                message={errorMessage}
                 darkMode={darkMode}
             />
         </View>
