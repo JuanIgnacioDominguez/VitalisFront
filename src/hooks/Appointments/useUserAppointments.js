@@ -5,11 +5,14 @@ import { fetchAppointmentsThunk } from '../../Redux/slices/appointmentsSlice'
 export function useUserAppointments() {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.auth.user?.id)
+    const token = useSelector(state => state.auth.token)
     const { list: appointments, loading, error } = useSelector(state => state.appointments)
 
     useEffect(() => {
-        if (userId) dispatch(fetchAppointmentsThunk(userId))
-    }, [dispatch, userId])
+        if (userId && token) {
+            dispatch(fetchAppointmentsThunk({ userId, token }))
+        }
+    }, [dispatch, userId, token])
 
     return { appointments, loading, error }
-} 
+}

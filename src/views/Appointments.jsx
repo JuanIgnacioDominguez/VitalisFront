@@ -23,12 +23,13 @@ export default function Appointments({ navigation }) {
     const isFocused = useIsFocused()
     const dispatch = useDispatch()
     const userId = useSelector(state => state.auth.user?.id)
+    const token = useSelector(state => state.auth.token)
 
     useEffect(() => {
-        if (isFocused && userId) {
-            dispatch(fetchAppointmentsThunk(userId))
+        if (isFocused && userId && token) {
+            dispatch(fetchAppointmentsThunk({ userId, token }))
         }
-    }, [isFocused, userId, dispatch])
+    }, [isFocused, userId, token, dispatch])
 
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>

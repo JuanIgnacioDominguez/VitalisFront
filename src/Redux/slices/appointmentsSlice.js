@@ -4,11 +4,18 @@ import { API_HOST } from '../../utils/constants'
 
 export const fetchAppointmentsThunk = createAsyncThunk(
     'appointments/fetchAll',
-    async (userId, { rejectWithValue }) => {
+    async ({ userId, token }, { rejectWithValue }) => {
         try {
-            const res = await axios.get(`${API_HOST}appointments?userId=${userId}`)
+            const res = await axios.get(`${API_HOST}appointments/user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             return res.data
         } catch (e) {
+            if (e.response?.status === 403) {
+                return rejectWithValue('No tienes permisos para ver estos turnos')
+            }
             return rejectWithValue('Error al cargar turnos')
         }
     }
