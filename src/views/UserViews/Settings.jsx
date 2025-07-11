@@ -36,9 +36,9 @@ export default function Settings({ navigation }) {
     }
 
     return (
-        <View className={`flex-1 mt-10 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 24, marginBottom: 16 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 48, marginBottom: 24 }}>
                     <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 16 }}>
                         <Image source={{ uri: backArrow }} style={{ width: 28, height: 28 }} />
                     </TouchableOpacity>
