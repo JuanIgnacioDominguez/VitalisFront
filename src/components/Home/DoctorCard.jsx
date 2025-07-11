@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useTranslation } from '../../hooks/useTranslation'
+import { useTheme } from '../../context/ThemeContext'
 import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 export default function DoctorCard({ name, specialty, image, onPress }) {
     const { t } = useTranslation()
+    const { darkMode } = useTheme()
     
     return (
         <TouchableOpacity
@@ -12,11 +14,11 @@ export default function DoctorCard({ name, specialty, image, onPress }) {
             activeOpacity={0.85}
             onPress={onPress}
         >
-            <View className="bg-white rounded-xl overflow-hidden shadow-sm">
+            <View className={`${darkMode ? 'bg-components-dark' : 'bg-white'} rounded-xl overflow-hidden shadow-sm`}>
                 <Image source={{ uri: image }} className="w-full h-24" resizeMode="cover" />
-                <View className="p-2 bg-primary-light rounded-b-xl">
-                    <Text className="text-white font-semibold text-base">{name}</Text>
-                    <Text className="text-white text-sm">{getSpecialtyTranslation(specialty, t)}</Text>
+                <View className={`p-2 rounded-b-xl ${darkMode ? 'bg-primary-dark' : 'bg-primary-light'}`}>
+                    <Text className={`font-semibold text-base ${darkMode ? 'text-text-dark' : 'text-white'}`}>{name}</Text>
+                    <Text className={`text-sm ${darkMode ? 'text-text-dark' : 'text-white'}`}>{getSpecialtyTranslation(specialty, t)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

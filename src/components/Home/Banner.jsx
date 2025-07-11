@@ -3,11 +3,13 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from '../../hooks/useTranslation'
+import { useTheme } from '../../context/ThemeContext'
 
 export default function Banner() {
   const user = useSelector(state => state.auth.user)
   const navigation = useNavigation()
   const { t } = useTranslation()
+  const { darkMode } = useTheme()
 
   const faltaObraSocial = !user?.obraSocial || !user?.nroAfiliado || 
                           user.obraSocial.trim() === '' || user.nroAfiliado.trim() === ''
@@ -18,24 +20,26 @@ export default function Banner() {
 
   return (
     <View
-      className="bg-primary-light rounded-2xl flex-row items-center mb-4"
+      className={`${darkMode ? 'bg-primary-dark' : 'bg-primary-light'} rounded-2xl flex-row items-center mb-4`}
       style={{ minHeight: 100, padding: 0}} 
     >
       <View className="flex-1 pr-2 p-4">
-        <Text className="text-white text-xl font-bold mb-2 leading-7">
+        <Text className={`text-xl font-bold mb-2 leading-7 ${darkMode ? 'text-text-dark' : 'text-white'}`}>
           {t('bannerTitle')}
         </Text>
         {faltaObraSocial ? (
           <TouchableOpacity 
-            className="bg-warning rounded-lg px-4 py-2 mt-2 self-start"
+            className={`${darkMode ? 'bg-warning' : 'bg-warning'} rounded-lg px-4 py-2 mt-2 self-start`}
             onPress={handlePress}
             activeOpacity={0.8}
           >
-            <Text className="text-primary-light font-semibold text-base">{t('loadInsurance')}</Text>
+            <Text className={`font-semibold text-base ${darkMode ? 'text-background-dark' : 'text-primary-light'}`}>
+              {t('loadInsurance')}
+            </Text>
           </TouchableOpacity>
         ) : (
           <>
-            <Text className="text-white text-base font-semibold">
+            <Text className={`text-base font-semibold ${darkMode ? 'text-text-dark' : 'text-white'}`}>
               ¡Gracias por elegirnos!
             </Text>
           </>

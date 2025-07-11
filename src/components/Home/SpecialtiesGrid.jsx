@@ -28,7 +28,7 @@ export default function SpecialtiesGrid({ darkMode }) {
         {specialties.map((item, idx) => (
             <TouchableOpacity
                 key={item.key}
-                className={`w-[22%] h-[21%] aspect-square rounded-xl justify-center items-center mb-3 ${darkMode ? 'bg-components-dark' : 'bg-components-light'}`}
+                className={`w-[22%] h-[21%] aspect-square rounded-xl justify-center items-center mb-3 ${darkMode ? 'bg-primary-dark' : 'bg-components-light'}`}
                 activeOpacity={0.8}
                 onPress={() => {
                     if (item.key === 'VER_MAS') {
