@@ -1,11 +1,21 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { View, Text } from 'react-native'
 
-export default function AppointmentInfoBlock({ label, value }) {
+export default function AppointmentInfoBlock({ label, value, darkMode }) {
     return (
-        <>
-            <Text className="font-bold text-primary-light mb-1">{label}</Text>
-            <Text className="mb-3 text-primary-light">{value}</Text>
-        </>
+        <View className="mb-4">
+            <Text 
+                className="text-base font-semibold mb-2"
+                style={{ color: darkMode ? '#07919A' : '#006A71' }}
+            >
+                {label}
+            </Text>
+            <Text 
+                className="text-base"
+                style={{ color: darkMode ? '#E6E6E6' : '#333' }}
+            >
+                {value}
+            </Text>
+        </View>
     )
 }

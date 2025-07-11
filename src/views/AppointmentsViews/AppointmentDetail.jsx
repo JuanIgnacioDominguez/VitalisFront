@@ -54,7 +54,7 @@ export default function AppointmentDetail({ route, navigation }) {
     }
 
     return (
-        <View className={`flex-1 mt-3 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+        <View className={`flex-1 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <AppointmentHeader
                 onBack={() => navigation.goBack()}
                 title="Turno Programado"
@@ -68,7 +68,7 @@ export default function AppointmentDetail({ route, navigation }) {
                     justifyContent: "center"
                 }}
             >
-                <View className=" flex justify-center rounded-2xl mt-10 mb-10 p-6 shadow-sm"
+                <View className=" flex justify-center rounded-2xl mt-4 mb-10 p-6 shadow-sm"
                     style={{
                         backgroundColor: darkMode ? '#232B2B' : '#E6ECEB',
                         width: SCREEN_WIDTH > 500 ? 420 : SCREEN_WIDTH - 24,
