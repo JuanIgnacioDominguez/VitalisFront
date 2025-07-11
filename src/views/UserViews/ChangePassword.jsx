@@ -54,7 +54,7 @@ export default function ChangePassword({ navigation }) {
     }
 
     return (
-        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light mt-6'}`}>
+        <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'} pt-6`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, paddingBottom: 40 }}>
                 <View className="flex-row items-center mb-6">
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -64,8 +64,11 @@ export default function ChangePassword({ navigation }) {
                         Contraseña
                     </Text>
                 </View>
-                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>Contraseña Actual</Text>
-                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-1 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}>
+
+                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+                    Contraseña Actual
+                </Text>
+                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-1 ${darkMode ? 'border-primary-dark bg-gray-800' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
@@ -86,20 +89,24 @@ export default function ChangePassword({ navigation }) {
                         />
                     </TouchableOpacity>
                 </View>
+
                 <TouchableOpacity
                     onPress={() => navigation.navigate('ForgotPassword')}
                     style={{ alignSelf: 'flex-end', marginBottom: 16 }}
                 >
-                    <Text className="text-xs" style={{ color: '#008080', textDecorationLine: 'underline' }}>
-                        Olvido Su Contraseña?
+                    <Text className="text-sm" style={{ color: '#008080', textDecorationLine: 'underline' }}>
+                        ¿Olvidó Su Contraseña?
                     </Text>
                 </TouchableOpacity>
-                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>Nueva Contraseña</Text>
-                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-4 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}>
+
+                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+                    Nueva Contraseña
+                </Text>
+                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-4 ${darkMode ? 'border-primary-dark bg-gray-800' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
-                        placeholder="NuevaContra"
+                        placeholder="Nueva Contraseña"
                         placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                         value={newPass}
                         onChangeText={setNewPass}
@@ -116,12 +123,15 @@ export default function ChangePassword({ navigation }) {
                         />
                     </TouchableOpacity>
                 </View>
-                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>Confirmar Nueva Contraseña</Text>
-                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-8 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}>
+
+                <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+                    Confirmar Nueva Contraseña
+                </Text>
+                <View className={`flex-row items-center border-2 rounded-lg px-3 mb-8 ${darkMode ? 'border-primary-dark bg-gray-800' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
-                        placeholder="NuevaContra"
+                        placeholder="Confirmar Contraseña"
                         placeholderTextColor={darkMode ? "#07919A99" : "#00808099"}
                         value={confirm}
                         onChangeText={setConfirm}
@@ -138,6 +148,7 @@ export default function ChangePassword({ navigation }) {
                         />
                     </TouchableOpacity>
                 </View>
+
                 <TouchableOpacity
                     className={`${darkMode ? 'bg-primary-dark' : 'bg-primary-light'} rounded-lg py-4`}
                     onPress={handleSave}
@@ -146,6 +157,7 @@ export default function ChangePassword({ navigation }) {
                     <Text className="text-white text-lg font-bold text-center">Guardar Cambios</Text>
                 </TouchableOpacity>
             </ScrollView>
+
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
@@ -156,6 +168,7 @@ export default function ChangePassword({ navigation }) {
                 buttonText="Volver"
                 darkMode={darkMode}
             />
+
             <CustomPopup
                 visible={showSuccessPopup}
                 onClose={() => {
