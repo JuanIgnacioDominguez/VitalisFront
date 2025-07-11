@@ -56,13 +56,10 @@ export default function ResetPassword({ navigation, route }) {
             <View className="items-center mb-8">
                 <Image
                     source={require('../../assets/LogoApp.png')}
-                    style={{ width: 120, height: 120, marginBottom: 8 }}
+                    style={{ width: 350, height: 350, marginBottom: 8 }}
                     resizeMode="contain"
                 />
-                <Text className={`text-xl font-bold mb-2 ${darkMode ? 'text-text-dark' : 'text-secondary-light'}`}>
-                    Nueva Contraseña
-                </Text>
-                <Text className={`text-center text-base mb-4 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
+                <Text className={`text-center text-base mt-4 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
                     Ingresa tu nueva contraseña para {email}
                 </Text>
             </View>
