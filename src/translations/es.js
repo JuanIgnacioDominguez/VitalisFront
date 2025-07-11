@@ -209,6 +209,7 @@ export const es = {
     nameValidationError: "El nombre no puede tener caracteres especiales ni números",
     phoneValidationError: "El número de teléfono debe tener 10 dígitos",
     passwordMinError: "La contraseña debe tener al menos 6 caracteres",
+    emailAlreadyRegistered: "Este correo electrónico ya está registrado. Por favor, usa otro email o inicia sesión.",
 
   // Verificación de email
     verifyEmail: "Verificar Mail",

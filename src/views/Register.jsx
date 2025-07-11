@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import RegisterHeader from '../components/Register/RegisterHeader'
 import RegisterInput from '../components/Register/RegisterInput'
-import { registerUser, clearRegisterSuccess } from '../api/auth' 
+import { registerUser, clearRegisterSuccess, checkEmail } from '../api/auth' 
 import CustomPopup from '../components/PopUps/CustomPopup'
 import { useTranslation } from '../hooks/useTranslation'
 import { useTheme } from '../context/ThemeContext'
@@ -14,15 +14,34 @@ export default function Register({ navigation }) {
     const [showPassword, setShowPassword] = useState(false)
     const [fullName, setFullName] = useState('')
     const [phone, setPhone] = useState('')
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
-    const { registerSuccess, loading, error } = useSelector(state => state.auth)
+    const { registerSuccess, error } = useSelector(state => state.auth)
     const { t } = useTranslation()
     const { darkMode } = useTheme()
 
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
 
-    const handleRegister = () => {
+    useEffect(() => {
+        if (error) {
+            if (
+                error.toLowerCase().includes('email') && 
+                (error.toLowerCase().includes('ya existe') || 
+                    error.toLowerCase().includes('registrado') ||
+                    error.toLowerCase().includes('already exists') ||
+                    error.toLowerCase().includes('duplicate'))
+            ) {
+                setPopupMessage(t('emailAlreadyRegistered'))
+            } else {
+                setPopupMessage(error)
+            }
+            setShowErrorPopup(true)
+        }
+    }, [error, t])
+
+    const handleRegister = async () => {
+        // Validaciones locales primero
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
         if (!emailRegex.test(email)) {
             setPopupMessage(t('validEmailError'))
@@ -45,13 +64,27 @@ export default function Register({ navigation }) {
             setShowErrorPopup(true)
             return
         }
-        
-        navigation.navigate('VerifyEmailRegister', {
-            email,
-            password,
-            nombre: fullName,
-            telefono: phone
-        })
+
+        setLoading(true)
+        try {
+            await checkEmail(email)
+            navigation.navigate('VerifyEmailRegister', {
+                email,
+                password,
+                nombre: fullName,
+                telefono: phone
+            })
+        } catch (error) {
+            const errorData = error?.response?.data
+            if (error?.response?.status === 409 || errorData?.codigo === 'EMAIL_EXISTS') {
+                setPopupMessage('Este correo electrónico ya está registrado. Por favor, usa otro email o inicia sesión.')
+            } else {
+                setPopupMessage(errorData?.mensaje || 'Error al verificar el email')
+            }
+            setShowErrorPopup(true)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const handlePhoneChange = (text) => {
@@ -107,7 +140,7 @@ export default function Register({ navigation }) {
                 disabled={loading}
             >
                 <Text className="text-white text-base font-bold text-center">
-                    {loading ? t('creating') : t('createAccount')}
+                    {loading ? 'Verificando...' : t('createAccount')}
                 </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">

@@ -213,9 +213,10 @@ export const en = {
   // Registration validations
   validEmailError: "Enter a valid email (gmail, hotmail, outlook, yahoo)",
   nameValidationError: "Name cannot contain special characters or numbers",
-  phoneValidationError: "Phone number must be 10 digits",
+  phoneValidationError: "Phone number must have 10 digits",
   passwordMinError: "Password must be at least 6 characters",
-  
+  emailAlreadyRegistered: "This email is already registered. Please use another email or sign in.",
+
   // Email verification
   verifyEmail: "Verify Email",
   verifyCodeMessage: "Please enter the 6-digit code sent to your email",

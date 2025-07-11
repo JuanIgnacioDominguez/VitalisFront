@@ -68,6 +68,15 @@ export const resetPassword = async (email, nueva, code) => {
     return res.data
 }
 
+export const checkEmail = async (email) => {
+    try {
+        const response = await axios.post(`${API_HOST}auth/check-email`, { email })
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
