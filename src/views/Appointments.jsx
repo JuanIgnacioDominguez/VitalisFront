@@ -11,12 +11,12 @@ import Spinner from '../components/Appointments/Spinner'
 import ErrorMessage from '../components/Appointments/ErrorMessage'
 import { useIsFocused } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAppointmentsThunk, updateExpiredAppointments } from '../Redux/slices/appointmentsSlice'
+import { updateExpiredAppointments, fetchAppointmentsThunk } from '../Redux/slices/appointmentsSlice'
 
 export default function Appointments({ navigation }) {
     const { t } = useTranslation()
     const [tab, setTab] = useState(t('pending'))
-    const { appointments, loading, error } = useUserAppointments()
+    const { appointments, loading, error } = useUserAppointments() 
     const { darkMode } = useTheme()
     const filteredAppointments = useAppointmentsList(appointments, tab)
 
@@ -29,14 +29,22 @@ export default function Appointments({ navigation }) {
         if (isFocused && userId && token) {
             dispatch(updateExpiredAppointments({ userId, token }))
                 .then(() => {
-                    dispatch(fetchAppointmentsThunk({ userId, token }))
+                    return dispatch(fetchAppointmentsThunk({ userId, token }))
+                })
+                .catch((error) => {
+                    console.error('Error en actualización inicial:', error)
                 })
         }
     }, [isFocused, userId, token, dispatch])
 
     useEffect(() => {
         const interval = setInterval(() => {
-            dispatch(updateExpiredAppointments({ userId, token }))
+            if (userId && token) {
+                dispatch(updateExpiredAppointments({ userId, token }))
+                    .catch((error) => {
+                        console.error('Error en actualización automática:', error)
+                    })
+            }
         }, 300000) 
 
         return () => clearInterval(interval)

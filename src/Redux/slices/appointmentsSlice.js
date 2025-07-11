@@ -25,11 +25,19 @@ export const updateExpiredAppointments = createAsyncThunk(
     'appointments/updateExpired',
     async ({ userId, token }, { rejectWithValue }) => {
         try {
-            const res = await axios.put(`${API_HOST}appointments/user/${userId}/update-expired`, {}, {
+            const now = new Date()
+            const currentDate = now.toISOString().split('T')[0]
+            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5)
+            
+            const res = await axios.put(`${API_HOST}appointments/user/${userId}/update-expired`, {
+                currentDate: currentDate,
+                currentTime: currentTime
+            }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+            
             return res.data
         } catch (e) {
             return rejectWithValue('Error al actualizar turnos vencidos')
@@ -51,17 +59,6 @@ const appointmentsSlice = createSlice({
         removeAppointment: (state, action) => {
             state.list = state.list.filter(a => a.id !== action.payload)
         },
-        updateExpiredStatus: (state) => {
-            const now = new Date()
-            state.list.forEach(appointment => {
-                if (appointment.status === 'pending') {
-                    const appointmentDateTime = new Date(`${appointment.date}T${appointment.time}`)
-                    if (appointmentDateTime < now) {
-                        appointment.status = 'completed'
-                    }
-                }
-            })
-        }
     },
     extraReducers: builder => {
         builder
@@ -83,5 +80,5 @@ const appointmentsSlice = createSlice({
     }
 })
 
-export const { addAppointment, removeAppointment, updateExpiredStatus } = appointmentsSlice.actions
+export const { addAppointment, removeAppointment } = appointmentsSlice.actions
 export default appointmentsSlice.reducer
