@@ -43,6 +43,7 @@ export default function Login({ navigation }) {
 
     const handleCloseModal = () => {
         setShowErrorModal(false)
+        dispatch(clearAuthError())
     }
 
     return (
