@@ -112,14 +112,14 @@ export default function Register({ navigation }) {
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">
                 <Text 
-                    className="text-sm "
+                    className="text-base "
                     style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                 >
                     {t('alreadyHaveAccount')} 
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text 
-                        className="text-sm font-bold underline"
+                        className="text-base font-bold underline"
                         style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                     >
                         {t('signIn')}

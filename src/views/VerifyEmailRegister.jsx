@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import RegisterHeader from '../components/Register/RegisterHeader'
+import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { registerUser, clearRegisterSuccess } from '../api/auth' 
 import { requestVerificationCode } from '../api/auth'
 import CustomPopup from '../components/PopUps/CustomPopup'
@@ -10,7 +10,7 @@ import { useTheme } from '../context/ThemeContext'
 
 export default function VerifyEmailRegister({ route, navigation }) {
     const { email, password, nombre, telefono } = route.params
-    const [code, setCode] = useState(['', '', '', '', '', ''])
+    const [code, setCode] = useState('')
     const [resendDisabled, setResendDisabled] = useState(true)
     const [timer, setTimer] = useState(60)
     const dispatch = useDispatch()
@@ -21,8 +21,6 @@ export default function VerifyEmailRegister({ route, navigation }) {
     const [showErrorPopup, setShowErrorPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
-
-    const inputRefs = useRef([])
 
     useEffect(() => {
         const requestCode = async () => {
@@ -38,10 +36,6 @@ export default function VerifyEmailRegister({ route, navigation }) {
     
         requestCode()
         startTimer()
-        
-        setTimeout(() => {
-            inputRefs.current[0]?.focus()
-        }, 100)
     }, [])
 
     const startTimer = () => {
@@ -75,39 +69,8 @@ export default function VerifyEmailRegister({ route, navigation }) {
         }
     }, [registerSuccess, loading, error])
 
-    const handleCodeChange = (value, index) => {
-        if (!/^\d*$/.test(value)) {
-            return 
-        }
-
-        const newCode = [...code]
-        newCode[index] = value
-        setCode(newCode)
-
-        if (value && index < 5) {
-            inputRefs.current[index + 1]?.focus()
-        }
-    }
-
-    const handleKeyPress = (e, index) => {
-        if (e.nativeEvent.key === 'Backspace') {
-            const newCode = [...code]
-            
-            if (code[index]) {
-                newCode[index] = ''
-                setCode(newCode)
-            } else if (index > 0) {
-                newCode[index - 1] = ''
-                setCode(newCode)
-                inputRefs.current[index - 1]?.focus()
-            }
-        }
-    }
-
     const handleConfirm = () => {
-        const verificationCode = code.join('')
-        
-        if (verificationCode.length !== 6) {
+        if (code.length !== 6) {
             setPopupMessage(t('completeCodeError'))
             setShowErrorPopup(true)
             return
@@ -118,7 +81,7 @@ export default function VerifyEmailRegister({ route, navigation }) {
             password,
             nombre,
             telefono,
-            codigoVerificacion: verificationCode
+            codigoVerificacion: code
         }))
     }
 
@@ -126,11 +89,8 @@ export default function VerifyEmailRegister({ route, navigation }) {
         try {
             await requestVerificationCode(email)
             console.log(`Código de verificación reenviado a: ${email}`)
-            setCode(['', '', '', '', '', '']) 
+            setCode('') 
             startTimer()
-            setTimeout(() => {
-                inputRefs.current[0]?.focus()
-            }, 100)
         } catch (error) {
             console.error('Error al reenviar código:', error)
             setPopupMessage(t('codeResendError'))
@@ -139,56 +99,61 @@ export default function VerifyEmailRegister({ route, navigation }) {
     }
 
     return (
-        <View className={`flex-1 px-6 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
-            <RegisterHeader darkMode={darkMode} />
-            <View className="flex-1 justify-center items-center">
+        <View className={`flex-1 px-6 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+            <TouchableOpacity 
+                onPress={() => navigation.goBack()}
+                className="absolute top-12 left-6 z-10"
+            >
+                <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
+            </TouchableOpacity>
+
+            <View className="items-center mb-8">
+                <Image
+                    source={require('../../assets/LogoApp.png')}
+                    style={{ width: 350, height: 350, marginBottom: 8 }}
+                    resizeMode="contain"
+                />
                 <Text 
-                    className="text-center mb-8 px-4"
+                    className="text-center text-lg mt-5"
                     style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                 >
                     {t('verifyCodeMessage')}
                 </Text>
-                <View className="flex-row justify-center mb-8">
-                    {code.map((digit, index) => (
-                        <TextInput
-                            key={index}
-                            ref={ref => inputRefs.current[index] = ref}
-                            className={`w-12 h-12 rounded-lg text-center text-xl font-bold mx-2 border ${darkMode ? 'bg-quaternary-dark border-primary-dark' : 'bg-white border-gray-300'}`}
-                            style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
-                            value={digit}
-                            onChangeText={(value) => handleCodeChange(value, index)}
-                            onKeyPress={(e) => handleKeyPress(e, index)}
-                            keyboardType="number-pad"
-                            maxLength={1}
-                            placeholder=""
-                            selectTextOnFocus={true}
-                        />
-                    ))}
-                </View>
-                <TouchableOpacity
-                    className={`rounded-lg w-full py-3 mb-4 ${darkMode ? 'bg-primary-dark' : 'bg-primary-light'}`}
-                    activeOpacity={0.8}
-                    onPress={handleConfirm}
-                    disabled={loading}
-                >
-                    <Text className="text-white text-base font-bold text-center">
-                        {loading ? t('confirming') : t('confirm')}
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    className={`${resendDisabled ? 'opacity-50' : ''}`}
-                    onPress={handleResendCode}
-                    disabled={resendDisabled}
-                    activeOpacity={0.7}
-                >
-                    <Text 
-                        className="text-base"
-                        style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
-                    >
-                        {resendDisabled ? t('resendCodeTimer').replace('{timer}', timer) : t('resendCode')}
-                    </Text>
-                </TouchableOpacity>
             </View>
+            
+            <TextInput
+                className={`border-2 rounded-lg px-4 py-2 mb-6 text-center text-2xl tracking-widest ${darkMode ? 'border-primary-dark bg-quaternary-dark' : 'border-primary-light bg-background-light'}`}
+                style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+                placeholder="______"
+                placeholderTextColor={darkMode ? "#A0A0A0" : "#00808099"}
+                value={code}
+                onChangeText={setCode}
+                keyboardType="number-pad"
+                maxLength={6}
+            />
+            
+            <TouchableOpacity
+                className={`rounded-lg py-3 mb-3 ${darkMode ? 'bg-primary-dark' : 'bg-primary-light'}`}
+                onPress={handleConfirm}
+                disabled={loading}
+            >
+                <Text className="text-white text-lg font-bold text-center">
+                    {loading ? t('confirming') : t('confirm')}
+                </Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+                onPress={handleResendCode}
+                disabled={resendDisabled}
+                className={`${resendDisabled ? 'opacity-50' : ''}`}
+            >
+                <Text 
+                    className="text-center underline"
+                    style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
+                >
+                    {resendDisabled ? t('resendCodeTimer').replace('{timer}', timer) : t('resendCode')}
+                </Text>
+            </TouchableOpacity>
             
             <CustomPopup
                 visible={showErrorPopup}

@@ -9,7 +9,7 @@ export default function RegisterHeader({ darkMode }) {
     const { t } = useTranslation()
     
     return (
-        <View className="items-center mt-10">
+        <View className="items-center mt-14">
             <Image
                 source={require('../../../assets/LogoApp.png')}
                 className="w-100 h-100 mb-4"

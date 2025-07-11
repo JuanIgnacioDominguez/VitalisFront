@@ -63,7 +63,7 @@ export default function Login({ navigation }) {
             />
             <TouchableOpacity className="mb-6 mt-1" onPress={() => navigation.navigate('ForgotPassword')}>
                 <Text 
-                    className="text-sm text-right"
+                    className="text-base text-right"
                     style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                 >
                     {t('forgotPassword')}
@@ -81,14 +81,14 @@ export default function Login({ navigation }) {
             </TouchableOpacity>
             <View className="flex-row justify-center mt-2">
                 <Text 
-                    className="text-sm"
+                    className="text-base"
                     style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                 >
-                    {t('dontHaveAccount ')} 
+                    {t('dontHaveAccount')} 
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                     <Text 
-                        className="text-sm font-bold underline"
+                        className="text-base font-bold underline"
                         style={{ color: darkMode ? '#E6E6E6' : '#008080' }}
                     >
                         {t('signUp')}

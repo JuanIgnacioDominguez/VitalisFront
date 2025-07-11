@@ -171,8 +171,8 @@ export const es = {
   // Autenticación adicional
     welcome: "Bienvenido",
     welcomeMessage: "¡Bienvenido de Vuelta!",
-    dontHaveAccount: "¿No tienes cuenta?",
-    alreadyHaveAccount: "¿Ya tienes cuenta?",
+    dontHaveAccount: "¿No tienes cuenta? ",
+    alreadyHaveAccount: "¿Ya tienes cuenta? ",
     signUp: "Regístrate",
     signIn: "Inicia Sesión",
 
@@ -202,7 +202,7 @@ export const es = {
     creating: "Creando...",
     fullName: "Nombre Completo",
     phone: "Teléfono",
-    alreadyHaveAccount: "¿Ya tienes cuenta?",
+    alreadyHaveAccount: "¿Ya tienes cuenta? ",
 
   // Validaciones de registro
     validEmailError: "Ingrese un email válido (gmail, hotmail, outlook, yahoo)",

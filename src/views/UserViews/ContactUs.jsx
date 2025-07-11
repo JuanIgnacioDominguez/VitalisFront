@@ -27,7 +27,6 @@ export default function ContactUs({ navigation }) {
             setShowErrorPopup(true)
             return
         }
-        // Validación de email simple
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
         if (!emailRegex.test(email)) {
             setPopupMessage(t('invalidEmail'))
@@ -36,12 +35,13 @@ export default function ContactUs({ navigation }) {
         }
         setLoading(true)
         try {
-            await sendContactMessage({ nombre, email, mensaje, token })
+            await sendContactMessage({ nombre, email, mensaje }, token)
             setShowSuccessPopup(true)
             setNombre('')
             setEmail('')
             setMensaje('')
         } catch (e) {
+            console.log('Error al enviar mensaje:', e)
             setPopupMessage('No se pudo enviar el mensaje')
             setShowErrorPopup(true)
         }
