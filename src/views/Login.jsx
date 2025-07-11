@@ -14,8 +14,7 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [showErrorModal, setShowErrorModal] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
-    const [lastError, setLastError] = useState(null)
+    const [errorHandled, setErrorHandled] = useState(false) 
     const dispatch = useDispatch()
     const { user, loading, error } = useSelector(state => state.auth)
     const { t } = useTranslation()
@@ -23,10 +22,9 @@ export default function Login({ navigation }) {
 
     const handleLogin = () => {
         setShowErrorModal(false)
-        setErrorMessage('')
-        setLastError(null)
-        
+        setErrorHandled(false) 
         dispatch(clearAuthError())
+        
         dispatch(loginUser({ email, password }))
     }
 
@@ -37,22 +35,14 @@ export default function Login({ navigation }) {
     }, [user, loading, error, navigation])
 
     useEffect(() => {
-        if (error && error !== lastError && !showErrorModal) {
-            const backendErrorMessage = (error.toLowerCase().includes('credencial') || 
-                                        error.toLowerCase().includes('contraseña') || 
-                                        error.toLowerCase().includes('password'))
-                ? t('incorrectCredentials')
-                : error
-            
-            setErrorMessage(backendErrorMessage)
+        if (error && !errorHandled && !showErrorModal) {
             setShowErrorModal(true)
-            setLastError(error)
+            setErrorHandled(true) 
         }
-    }, [error, lastError, showErrorModal, t])
+    }, [error, errorHandled, showErrorModal])
 
     const handleCloseModal = () => {
         setShowErrorModal(false)
-        setErrorMessage('')
     }
 
     return (
@@ -116,7 +106,7 @@ export default function Login({ navigation }) {
             <LoginErrorModal
                 visible={showErrorModal}
                 onClose={handleCloseModal}
-                message={errorMessage}
+                message={t('incorrectCredentials')}
                 darkMode={darkMode}
             />
         </View>

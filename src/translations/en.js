@@ -181,6 +181,7 @@ export const en = {
   
   // Validation messages
   completeAllFields: "Complete all fields",
+  allFieldsRequired: "All fields are required. Please complete all information.",
   passwordsDoNotMatch: "New passwords do not match",
   invalidEmail: "Enter a valid email (gmail, hotmail, outlook, yahoo)",
   incorrectCredentials: "Email or password incorrect",

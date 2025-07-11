@@ -177,6 +177,7 @@ export const es = {
     passwordsDoNotMatch: "Las contraseñas nuevas no coinciden",
     invalidEmail: "Ingrese un email válido (gmail, hotmail, outlook, yahoo)",
     incorrectCredentials: "Mail o contraseña incorrecta",
+    allFieldsRequired: "Todos los campos son obligatorios. Por favor, completa toda la información.",
 
   // Políticas de privacidad
     privacyPolicy: "Políticas de Privacidad",

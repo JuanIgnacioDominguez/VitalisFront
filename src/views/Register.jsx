@@ -41,7 +41,12 @@ export default function Register({ navigation }) {
     }, [error, t])
 
     const handleRegister = async () => {
-        // Validaciones locales primero
+        if (!email.trim() || !password.trim() || !fullName.trim() || !phone.trim()) {
+            setPopupMessage(t('allFieldsRequired'))
+            setShowErrorPopup(true)
+            return
+        }
+
         const emailRegex = /^[\w-.]+@((gmail|hotmail|outlook|yahoo)\.(com|es))$/i
         if (!emailRegex.test(email)) {
             setPopupMessage(t('validEmailError'))
