@@ -125,7 +125,37 @@ export const es = {
         findAppointments: "¿Dónde encuentro mis turnos?",
         findAppointmentsAnswer: "Puedes ver tus turnos en la sección \"Mis turnos\" del menú principal.",
         contactSupport: "¿Cómo contacto con soporte?",
-        contactSupportAnswer: "En el menú \"Contactanos\", encontrarás la opción para contactar directamente con soporte."
+        contactSupportAnswer: "En el menú \"Contactanos\", encontrarás la opción para contactar directamente con soporte.",
+
+        // NUEVAS PREGUNTAS Y RESPUESTAS
+        howToBook: "¿Cómo reservo un turno?",
+        howToBookAnswer: "Busca un profesional o especialidad, selecciona la fecha y horario disponible, y presiona 'Reservar turno'.",
+        cancelAppointment: "¿Cómo cancelo un turno reservado?",
+        cancelAppointmentAnswer: "En la sección 'Mis turnos', selecciona el turno y elige la opción 'Cancelar turno'.",
+        editProfile: "¿Cómo edito mis datos personales?",
+        editProfileAnswer: "Ve a la sección 'Usuario' y selecciona 'Editar Perfil' para modificar tus datos.",
+        addInsurance: "¿Cómo agrego o cambio mi obra social?",
+        addInsuranceAnswer: "En 'Editar Perfil', puedes cargar o modificar tu obra social y número de afiliado.",
+        seeFavorites: "¿Dónde veo mis médicos favoritos?",
+        seeFavoritesAnswer: "En el menú principal, selecciona 'Favoritos' para ver y gestionar tus médicos favoritos.",
+        notifications: "¿Recibiré notificaciones de mis turnos?",
+        notificationsAnswer: "Sí, la app te enviará recordatorios y notificaciones importantes sobre tus turnos.",
+        changeLanguage: "¿Puedo cambiar el idioma de la app?",
+        changeLanguageAnswer: "Sí, desde 'Ajustes' puedes seleccionar el idioma que prefieras.",
+        rateDoctor: "¿Puedo calificar a un médico después de la consulta?",
+        rateDoctorAnswer: "Sí, luego de tu consulta podrás dejar una calificación y comentario sobre el profesional.",
+        forgotEmail: "¿Qué hago si olvidé el correo con el que me registré?",
+        forgotEmailAnswer: "Contacta al soporte desde la sección 'Contactanos' para recibir ayuda.",
+        privacy: "¿Cómo se protege mi información personal?",
+        privacyAnswer: "Vitalis utiliza medidas de seguridad para proteger tus datos y no comparte tu información con terceros sin tu consentimiento.",
+        appFree: "¿La app tiene algún costo?",
+        appFreeAnswer: "No, Vitalis es completamente gratuita para los usuarios.",
+        multipleAppointments: "¿Puedo reservar más de un turno a la vez?",
+        multipleAppointmentsAnswer: "Sí, puedes reservar varios turnos con diferentes profesionales o en distintas fechas.",
+        specialties: "¿Qué especialidades médicas puedo encontrar?",
+        specialtiesAnswer: "Puedes encontrar una amplia variedad de especialidades, como cardiología, pediatría, psiquiatría, ginecología, entre otras.",
+        problemsWithBooking: "¿Qué hago si tengo problemas para reservar un turno?",
+        problemsWithBookingAnswer: "Verifica tu conexión a internet y tus datos personales. Si el problema persiste, contacta a soporte desde la app."
     },
 
   // Mensajes de popup y alertas

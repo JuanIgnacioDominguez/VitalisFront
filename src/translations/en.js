@@ -131,7 +131,37 @@ export const en = {
     findAppointments: "Where do I find my appointments?",
     findAppointmentsAnswer: "You can view your appointments in the \"My Appointments\" section of the main menu.",
     contactSupport: "How do I contact support?",
-    contactSupportAnswer: "In the \"Contact Us\" menu, you'll find the option to contact support directly."
+    contactSupportAnswer: "In the \"Contact Us\" menu, you'll find the option to contact support directly.",
+
+    // NEW FAQ ENTRIES
+    howToBook: "How do I book an appointment?",
+    howToBookAnswer: "Search for a professional or specialty, select the available date and time, and press 'Book appointment'.",
+    cancelAppointment: "How do I cancel a booked appointment?",
+    cancelAppointmentAnswer: "In the 'My Appointments' section, select the appointment and choose the 'Cancel appointment' option.",
+    editProfile: "How do I edit my personal information?",
+    editProfileAnswer: "Go to the 'User' section and select 'Edit Profile' to modify your data.",
+    addInsurance: "How do I add or change my insurance?",
+    addInsuranceAnswer: "In 'Edit Profile', you can add or modify your insurance and affiliate number.",
+    seeFavorites: "Where can I see my favorite doctors?",
+    seeFavoritesAnswer: "In the main menu, select 'Favorites' to view and manage your favorite doctors.",
+    notifications: "Will I receive notifications about my appointments?",
+    notificationsAnswer: "Yes, the app will send you reminders and important notifications about your appointments.",
+    changeLanguage: "Can I change the app language?",
+    changeLanguageAnswer: "Yes, from 'Settings' you can select your preferred language.",
+    rateDoctor: "Can I rate a doctor after the consultation?",
+    rateDoctorAnswer: "Yes, after your consultation you can leave a rating and comment about the professional.",
+    forgotEmail: "What if I forgot the email I registered with?",
+    forgotEmailAnswer: "Contact support from the 'Contact Us' section for help.",
+    privacy: "How is my personal information protected?",
+    privacyAnswer: "Vitalis uses security measures to protect your data and does not share your information with third parties without your consent.",
+    appFree: "Does the app have any cost?",
+    appFreeAnswer: "No, Vitalis is completely free for users.",
+    multipleAppointments: "Can I book more than one appointment at a time?",
+    multipleAppointmentsAnswer: "Yes, you can book several appointments with different professionals or on different dates.",
+    specialties: "What medical specialties can I find?",
+    specialtiesAnswer: "You can find a wide variety of specialties, such as cardiology, pediatrics, psychiatry, gynecology, among others.",
+    problemsWithBooking: "What should I do if I have problems booking an appointment?",
+    problemsWithBookingAnswer: "Check your internet connection and your personal data. If the problem persists, contact support from the app."
   },
   
   // Popup and alert messages

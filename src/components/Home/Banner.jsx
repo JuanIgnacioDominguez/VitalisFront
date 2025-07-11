@@ -39,7 +39,7 @@ export default function Banner() {
           </TouchableOpacity>
         ) : (
           <>
-            <Text className={`text-base font-semibold ${darkMode ? 'text-text-dark' : 'text-white'}`}>
+            <Text className={`text-base font-semibold mt-6 mb-1 ${darkMode ? 'text-text-dark' : 'text-white'}`}>
               ¡Gracias por elegirnos!
             </Text>
           </>
