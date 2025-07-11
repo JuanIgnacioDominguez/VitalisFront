@@ -24,7 +24,7 @@ export default function ForgotPassword({ navigation }) {
     }
 
     return (
-        <View className={`flex-1 px-6 justify-center  ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
+        <View className={`flex-1 px-6 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <TouchableOpacity 
                 className="absolute top-12 left-6"
                 onPress={() => navigation.goBack()}
@@ -35,13 +35,10 @@ export default function ForgotPassword({ navigation }) {
             <View className="items-center mb-8">
                 <Image
                     source={require('../../assets/LogoApp.png')}
-                    style={{ width: 120, height: 120, marginBottom: 8 }}
+                    style={{ width: 350, height: 350, marginBottom: 8 }}
                     resizeMode="contain"
                 />
-                <Text className={`text-xl font-bold mb-2 ${darkMode ? 'text-dark' : 'text-secondary-light'}`}>
-                    Recuperar Contraseña
-                </Text>
-                <Text className={`text-center text-base mb-4 ${darkMode ? 'text-dark' : 'text-primary-light'}`}>
+                <Text className={`text-center text-base mt-4 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
                     Ingresa tu correo y te enviaremos un código de verificación para restablecer tu contraseña.
                 </Text>
             </View>
@@ -50,7 +47,7 @@ export default function ForgotPassword({ navigation }) {
                 Correo Electrónico
             </Text>
             <TextInput
-                className={`border-2 rounded-lg px-4 py-2 mb-6 ${darkMode ? 'border-primary-dark bg-tertiary-dark text-dark' : 'border-primary-light bg-white text-primary-light'}`}
+                className={`border-2 rounded-lg px-4 py-2 mb-6 ${darkMode ? 'border-primary-dark bg-quaternary-dark text-text-dark' : 'border-primary-light bg-white text-primary-light'}`}
                 placeholder="ejemplo@mail.com"
                 placeholderTextColor={darkMode ? "#BFB9AD99" : "#00808099"}
                 value={email}

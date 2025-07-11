@@ -29,7 +29,7 @@ export default function VerifyCode({ navigation, route }) {
         <View className="items-center mb-8">
             <Image
             source={require('../../assets/LogoApp.png')}
-            style={{ width: 120, height: 120, marginBottom: 8 }}
+            style={{ width: 350, height: 350, marginBottom: 8 }}
             resizeMode="contain"
             />
             <Text className="text-xl text-secondary-light font-bold mb-2">{t('verifyCode')}</Text>
