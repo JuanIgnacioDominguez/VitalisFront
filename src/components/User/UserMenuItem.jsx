@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 export default function UserMenuItem({ icon, label, onPress, hideArrow, rightComponent, darkMode }) {
     return (
         <TouchableOpacity
-            className="flex-row items-center justify-between py-3"
+            className="flex-row items-center justify-between py-3 mt-5"
             onPress={onPress}
             activeOpacity={onPress ? 0.7 : 1}
             disabled={!onPress}

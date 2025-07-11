@@ -7,6 +7,7 @@ import { useTranslation } from '../../hooks/useTranslation'
 import CustomPopup from '../../components/PopUps/CustomPopup' 
 import { useSelector } from 'react-redux'
 import { requestDeleteCode } from '../../api/user'
+import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 
 const chevronThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-right.png'
 const chevronDownThin = 'https://img.icons8.com/ios-filled/24/008080/chevron-down.png'
@@ -38,70 +39,123 @@ export default function Settings({ navigation }) {
     return (
         <View className={`flex-1 ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 48, marginBottom: 24 }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 16 }}>
-                        <Image source={{ uri: backArrow }} style={{ width: 28, height: 28 }} />
+                <View className="flex-row items-center mt-12 mb-6 px-6">
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
-                    <Text className={`text-2xl font-bold text-center ${darkMode ? 'text-text-dark' : 'text-primary-light'}`} style={{ flex: 1, marginRight: 44 }}>
+                    <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
                         {t('settings')}
                     </Text>
                 </View>
-                <View className="px-8">
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 32, justifyContent: 'space-between' }}>
-                        <UserMenuItem
-                            icon="https://img.icons8.com/ios-filled/48/008080/light-on.png"
-                            label={t('darkMode')}
-                            hideArrow
-                            darkMode={darkMode}
-                        />
-                        <Switch
-                            value={darkMode}
-                            onValueChange={setDarkMode}
-                            trackColor={{ false: '#ccc', true: '#008080' }}
-                            thumbColor={darkMode ? '#fff' : '#fff'}
-                        />
-                    </View>
-                    <View style={{ marginBottom: showLanguages ? 0 : 32 }}>
-                        <UserMenuItem
-                            icon="https://img.icons8.com/ios-filled/48/008080/language.png"
-                            label={getCurrentLanguageLabel()}
-                            onPress={() => setShowLanguages(!showLanguages)}
-                            hideArrow
-                            darkMode={darkMode}
-                            rightComponent={
-                                <Image
-                                    source={{ uri: showLanguages ? chevronDownThin : chevronThin }}
-                                    style={{ width: 24, height: 24, marginLeft: 8 }}
-                                />
-                            }
-                        />
-                        {showLanguages && (
-                            <View className={`ml-14 mb-4 ${darkMode ? 'bg-components-dark' : 'bg-white'} rounded-lg p-4`}>
-                                <TouchableOpacity onPress={() => handleLanguageChange('es')}>
-                                    <Text className={`text-base py-1 ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
-                                        {t('spanish')}
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => handleLanguageChange('en')}>
-                                    <Text className={`text-base py-1 ${darkMode ? 'text-text-dark' : 'text-text-light'}`}>
-                                        {t('english')}
-                                    </Text>
-                                </TouchableOpacity>
+                <View className="px-8 mt-14">
+                    <View className="space-y-14">
+                        <View className="flex-row items-center justify-between">
+                            <View className="flex-row items-center">
+                                <View className="bg-primary-light/10 rounded-full p-2 mr-4">
+                                    <Image source={{ uri: "https://img.icons8.com/ios-filled/48/008080/light-on.png" }} className="w-7 h-7" />
+                                </View>
+                                <Text className={`text-lg ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>{t('darkMode')}</Text>
                             </View>
-                        )}
+                            <Switch
+                                value={darkMode}
+                                onValueChange={setDarkMode}
+                                trackColor={{ false: '#ccc', true: '#008080' }}
+                                thumbColor={darkMode ? '#fff' : '#fff'}
+                            />
+                        </View>
+                        <View>
+                            <UserMenuItem
+                                icon="https://img.icons8.com/ios-filled/48/008080/language.png"
+                                label={getCurrentLanguageLabel()}
+                                onPress={() => setShowLanguages(!showLanguages)}
+                                hideArrow
+                                darkMode={darkMode}
+                                rightComponent={
+                                    <Image
+                                        source={{ uri: showLanguages ? chevronDownThin : chevronThin }}
+                                        style={{ width: 24, height: 24, marginLeft: 3 }}
+                                    />
+                                }
+                            />
+                            {showLanguages && (
+                                <View
+                                    className={`
+                                        w-full
+                                        mt-0
+                                        px-2
+                                    `}
+                                >
+                                    <View
+                                        className={`
+                                            rounded-2xl shadow
+                                            border
+                                            ${darkMode ? 'bg-components-dark border-primary-dark' : 'bg-white border-primary-light'}
+                                            flex-col
+                                            overflow-hidden
+                                        `}
+                                        style={{
+                                            minWidth: 350,
+                                            alignSelf: 'center',
+                                        }}
+                                    >
+                                        <TouchableOpacity
+                                            onPress={() => handleLanguageChange('es')}
+                                            className={`
+                                                px-5 py-4
+                                                ${language === 'es'
+                                                    ? (darkMode ? 'bg-primary-dark' : 'bg-primary-light')
+                                                    : ''}
+                                            `}
+                                            activeOpacity={0.8}
+                                        >
+                                            <Text className={`
+                                                text-base
+                                                ${language === 'es' ? 'font-bold' : ''}
+                                                ${darkMode
+                                                    ? (language === 'es' ? 'text-white' : 'text-text-dark')
+                                                    : (language === 'es' ? 'text-white' : 'text-primary-light')}
+                                            `}>
+                                                {t('spanish')}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <View className={`${darkMode ? 'border-t border-primary-dark' : 'border-t border-primary-light'}`} />
+                                        <TouchableOpacity
+                                            onPress={() => handleLanguageChange('en')}
+                                            className={`
+                                                px-5 py-4
+                                                ${language === 'en'
+                                                    ? (darkMode ? 'bg-primary-dark' : 'bg-primary-light')
+                                                    : ''}
+                                            `}
+                                            activeOpacity={0.8}
+                                        >
+                                            <Text className={`
+                                                text-base
+                                                ${language === 'en' ? 'font-bold' : ''}
+                                                ${darkMode
+                                                    ? (language === 'en' ? 'text-white' : 'text-text-dark')
+                                                    : (language === 'en' ? 'text-white' : 'text-primary-light')}
+                                            `}>
+                                                {t('english')}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )}
+                        </View>
+                        <UserMenuItem
+                            icon="https://img.icons8.com/ios-filled/48/008080/key.png"
+                            label={t('changePassword')}
+                            onPress={() => navigation.navigate('ChangePassword')}
+                            darkMode={darkMode}
+                        />
+                        <UserMenuItem
+                            icon="https://img.icons8.com/ios-filled/48/008080/trash--v1.png"
+                            label={t('deleteAccount')}
+                            onPress={() => setShowDeletePopup(true)}
+                            darkMode={darkMode}
+                        />
                     </View>
-                    <UserMenuItem
-                        icon="https://img.icons8.com/ios-filled/48/008080/key.png"
-                        label={t('changePassword')}
-                        onPress={() => navigation.navigate('ChangePassword')}
-                        darkMode={darkMode}
-                    />
-                    <UserMenuItem
-                        icon="https://img.icons8.com/ios-filled/48/008080/trash--v1.png"
-                        label={t('deleteAccount')}
-                        onPress={() => setShowDeletePopup(true)}
-                        darkMode={darkMode}
-                    />
                 </View>
             </ScrollView>
             <CustomPopup

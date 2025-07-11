@@ -34,7 +34,6 @@ export const es = {
     name: "Nombre",
     phone: "Teléfono",
     dni: "DNI",
-    email: "Correo Electrónico",
     insuranceType: "Tipo de Obra Social",
     affiliateNumber: "N° de Afiliado",
     selectInsurance: "Seleccionar obra social",
