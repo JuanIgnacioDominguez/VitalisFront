@@ -45,9 +45,9 @@ export default function ChangePassword({ navigation }) {
                 e?.message?.toLowerCase().includes('actual') ||
                 e?.message?.toLowerCase().includes('incorrecta')
             ) {
-                setPopupMessage('La contraseña actual no es correcta')
+                setPopupMessage(t('incorrectCurrentPassword'))
             } else {
-                setPopupMessage(e?.mensaje || e?.message || 'No se pudo cambiar la contraseña')
+                setPopupMessage(e?.mensaje || e?.message || t('couldNotChangePassword'))
             }
             setShowErrorPopup(true)
         }
@@ -61,18 +61,18 @@ export default function ChangePassword({ navigation }) {
                         <ArrowLeftIcon size={28} color={darkMode ? "#07919A" : "#006A71"} />
                     </TouchableOpacity>
                     <Text className={`text-2xl font-bold flex-1 text-center mr-8 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                        Contraseña
+                        {t('password')}
                     </Text>
                 </View>
 
                 <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                    Contraseña Actual
+                    {t('currentPassword')}
                 </Text>
                 <View className={`flex-row items-center border-2 rounded-lg px-3 mb-1 ${darkMode ? 'border-primary-dark bg-quaternary-dark text-text-dark' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
-                        placeholder="Contraseña"
+                        placeholder={t('password')}
                         placeholderTextColor={darkMode ? "#BFB9AD99" : "#00808099"}
                         value={current}
                         onChangeText={setCurrent}
@@ -97,18 +97,18 @@ export default function ChangePassword({ navigation }) {
                     <Text 
                         className={`text-sm underline ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
                     >
-                        ¿Olvidó Su Contraseña?
+                        {t('forgotPasswordQuestion')}
                     </Text>
                 </TouchableOpacity>
 
                 <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                    Nueva Contraseña
+                    {t('newPassword')}
                 </Text>
                 <View className={`flex-row items-center border-2 rounded-lg px-3 mb-4 ${darkMode ? 'border-primary-dark bg-quaternary-dark text-text-dark' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
-                        placeholder="Nueva Contraseña"
+                        placeholder={t('newPassword')}
                         placeholderTextColor={darkMode ? "#BFB9AD99" : "#00808099"}
                         value={newPass}
                         onChangeText={setNewPass}
@@ -127,13 +127,13 @@ export default function ChangePassword({ navigation }) {
                 </View>
 
                 <Text className={`text-base font-bold mb-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>
-                    Confirmar Nueva Contraseña
+                    {t('confirmNewPassword')}
                 </Text>
                 <View className={`flex-row items-center border-2 rounded-lg px-3 mb-8 ${darkMode ? 'border-primary-dark bg-quaternary-dark text-text-dark' : 'border-primary-light bg-white'}`}>
                     <Image source={{ uri: icon }} className="w-5 h-5 mr-2" />
                     <TextInput
                         className={`flex-1 py-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}
-                        placeholder="Confirmar Contraseña"
+                        placeholder={t('confirmPassword')}
                         placeholderTextColor={darkMode ? "#BFB9AD99" : "#00808099"}
                         value={confirm}
                         onChangeText={setConfirm}
@@ -156,18 +156,18 @@ export default function ChangePassword({ navigation }) {
                     onPress={handleSave}
                     activeOpacity={0.85}
                 >
-                    <Text className="text-white text-lg font-bold text-center">Guardar Cambios</Text>
+                    <Text className="text-white text-lg font-bold text-center">{t('saveChanges')}</Text>
                 </TouchableOpacity>
             </ScrollView>
 
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
+                title={t('error')}
                 message={popupMessage}
                 color="#F76C6C"
                 borderColor="#F76C6C"
-                buttonText="Volver"
+                buttonText={t('goBack')}
                 darkMode={darkMode}
             />
 
@@ -177,11 +177,11 @@ export default function ChangePassword({ navigation }) {
                     setShowSuccessPopup(false)
                     navigation.navigate('MainTabs', { screen: 'User' })
                 }}
-                title="¡Contraseña cambiada!"
-                message="La contraseña fue cambiada correctamente."
+                title={t('passwordChangedTitle')}
+                message={t('passwordChangedMessage')}
                 color="#008080"
                 borderColor="#7AD7F0"
-                buttonText="Aceptar"
+                buttonText={t('accept')}
                 darkMode={darkMode}
             />
         </View>

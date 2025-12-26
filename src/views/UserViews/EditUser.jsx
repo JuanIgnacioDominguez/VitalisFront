@@ -85,21 +85,18 @@ export default function EditUser({ navigation }) {
                 
                 try {
                     const response = await updateProfilePicture(user.id, imageUri, token)
-                    console.log('Respuesta de actualización:', response)
                     setProfileImage(imageUri)
                     
                     setPopupMessage('Foto actualizada exitosamente')
                     setShowSuccessPopup(true)
                     setUploadingImage(false)
                 } catch (error) {
-                    console.error('Error capturado:', error)
                     setPopupMessage(error.message || 'Error al actualizar la foto')
                     setShowErrorPopup(true)
                     setUploadingImage(false)
                 }
             }
         } catch (error) {
-            console.error('Error al seleccionar imagen:', error)
             setPopupMessage('Error al seleccionar la imagen')
             setShowErrorPopup(true)
             setUploadingImage(false)

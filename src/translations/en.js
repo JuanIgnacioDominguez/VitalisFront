@@ -148,6 +148,11 @@ export const en = {
   currentPassword: "Current Password",
   newPassword: "New Password",
   confirmNewPassword: "Confirm New Password",
+  passwordChangedTitle: "Password changed!",
+  passwordChangedMessage: "The password was changed successfully.",
+  incorrectCurrentPassword: "The current password is incorrect",
+  couldNotChangePassword: "Could not change password",
+  accept: "Accept",
   
   // FAQ
   faq: "Frequently Asked Questions",
@@ -340,6 +345,7 @@ export const en = {
   
   // Rating and feedback
   rateApp: "Rate the app",
+  alreadyRatedApp: "You have already rated the application",
   howDidYouLikeApp: "How did you like the app?",
   whatDidYouLikeAboutApp: "What did you like about the app?",
   whatCouldBeImproved: "What could be improved?",

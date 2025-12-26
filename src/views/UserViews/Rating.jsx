@@ -131,7 +131,7 @@ export default function Rating({ navigation }) {
             {alreadyRated && (
                 <View className={`p-4 rounded-xl ${darkMode ? 'bg-primary-dark/20 border-primary-dark' : 'bg-primary-light/20 border-primary-light'} border-2`}>
                     <Text className={`text-center font-bold ${darkMode ? 'text-primary-dark' : 'text-primary-light'}`}>
-                        Ya has calificado la aplicación
+                        {t('alreadyRatedApp')}
                     </Text>
                 </View>
             )}

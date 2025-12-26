@@ -141,6 +141,11 @@ export const es = {
     currentPassword: "Contraseña Actual",
     newPassword: "Nueva Contraseña",
     confirmNewPassword: "Confirmar Nueva Contraseña",
+    passwordChangedTitle: "¡Contraseña cambiada!",
+    passwordChangedMessage: "La contraseña fue cambiada correctamente.",
+    incorrectCurrentPassword: "La contraseña actual no es correcta",
+    couldNotChangePassword: "No se pudo cambiar la contraseña",
+    accept: "Aceptar",
 
   // FAQ
     faq: "Preguntas Frecuentes",
@@ -333,6 +338,7 @@ export const es = {
 
     // Calificación y rating
     rateApp: "Calificar la app",
+    alreadyRatedApp: "Ya has calificado la aplicación",
     howDidYouLikeApp: "¿Qué te pareció la app?",
     whatDidYouLikeAboutApp: "¿Qué te gustó de la app?",
     whatCouldBeImproved: "¿Qué se podría mejorar?",
