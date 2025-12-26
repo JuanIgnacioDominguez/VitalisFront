@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import AppointmentTags from './AppointmentTags'
 
 export default function AppointmentCard({ doctor, specialty, date, time, image, onPress }) {
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
     
     return (
         <View className={`rounded-2xl px-0 py-0 mb-5 shadow-sm ${darkMode ? 'bg-quaternary-dark' : 'bg-[#E6ECEB]'}`}>
@@ -37,7 +39,7 @@ export default function AppointmentCard({ doctor, specialty, date, time, image, 
                     onPress={onPress}
                     activeOpacity={0.85}
                 >
-                    <Text className="text-white text-center text-base font-semibold">Ver Detalles</Text>
+                    <Text className="text-white text-center text-base font-semibold">{t('viewDetails')}</Text>
                 </TouchableOpacity>
             </View>
         </View>

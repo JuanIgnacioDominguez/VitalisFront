@@ -1,5 +1,6 @@
 import React from 'react'
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function CancelAppointmentPopup({ 
     visible, 
@@ -8,6 +9,8 @@ export default function CancelAppointmentPopup({
     loading = false,
     darkMode = false 
 }) {
+    const { t } = useTranslation()
+    
     return (
         <Modal
             visible={visible}
@@ -43,7 +46,7 @@ export default function CancelAppointmentPopup({
                         textAlign: 'center',
                         marginBottom: 16
                     }}>
-                        Cancelar turno
+                        {t('cancelAppointment')}
                     </Text>
                     <Text style={{
                         color: darkMode ? '#E6E6E6' : '#333',
@@ -51,7 +54,7 @@ export default function CancelAppointmentPopup({
                         textAlign: 'center',
                         marginBottom: 24
                     }}>
-                        ¿Estás seguro que deseas cancelar este turno?
+                        {t('cancelAppointmentConfirm')}
                     </Text>
                     <View>
                         <TouchableOpacity
@@ -71,7 +74,7 @@ export default function CancelAppointmentPopup({
                                 fontSize: 18,
                                 textAlign: 'center'
                             }}>
-                                {loading ? 'Cancelando...' : 'Sí, cancelar'}
+                                {loading ? t('canceling') : t('yesCancelButton')}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -90,7 +93,7 @@ export default function CancelAppointmentPopup({
                                 fontSize: 18,
                                 textAlign: 'center'
                             }}>
-                                No
+                                {t('no')}
                             </Text>
                         </TouchableOpacity>
                     </View>

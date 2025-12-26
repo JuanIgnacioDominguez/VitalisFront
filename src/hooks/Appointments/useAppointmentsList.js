@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '../useTranslation'
+import { getSpecialtyTranslation } from '../../utils/translationUtils'
 
 export function useAppointmentsList(appointments, tab) {
     const professionals = useSelector(state => state.professionals.list)
@@ -10,10 +11,11 @@ export function useAppointmentsList(appointments, tab) {
         return appointments
             .map(a => {
                 const doctor = professionals.find(d => d.id === a.professionalId)
+                const specialtyKey = doctor?.specialty || 'Especialidad'
                 return {
                     ...a,
                     doctorName: doctor?.name || 'Doctor',
-                    specialty: doctor?.specialty || 'Especialidad',
+                    specialty: getSpecialtyTranslation(specialtyKey, t),
                     image: doctor?.imagen
                         ? `data:image/jpeg;base64,${doctor.imagen}`
                         : 'https://ui-avatars.com/api/?name=Doctor'

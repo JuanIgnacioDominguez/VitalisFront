@@ -1,7 +1,9 @@
 import React from 'react'
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native'
+import { useTranslation } from '../../hooks/useTranslation'
 
 export default function LogOut({ visible, onClose, onLogout, darkMode = false }) {
+    const { t } = useTranslation()
     return (
         <Modal
             visible={visible}
@@ -37,7 +39,7 @@ export default function LogOut({ visible, onClose, onLogout, darkMode = false })
                         textAlign: 'center',
                         marginBottom: 20
                     }} className='mt-4'>
-                        ¿Seguro que quieres{'\n'}cerrar sesión?
+                        {t('logoutConfirm')}
                     </Text>
                     <TouchableOpacity
                         style={{
@@ -55,7 +57,7 @@ export default function LogOut({ visible, onClose, onLogout, darkMode = false })
                             fontSize: 18,
                             textAlign: 'center'
                         }}>
-                            Cerrar sesión
+                            {t('logout')}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -73,7 +75,7 @@ export default function LogOut({ visible, onClose, onLogout, darkMode = false })
                             fontSize: 18,
                             textAlign: 'center'
                         }}>
-                            Volver
+                            {t('goBack')}
                         </Text>
                     </TouchableOpacity>
                 </View>

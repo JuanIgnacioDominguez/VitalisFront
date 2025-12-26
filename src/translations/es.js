@@ -42,6 +42,8 @@ export const es = {
     rating: "Calificación",
     help: "Ayuda",
     logout: "Cerrar Sesión",
+    logoutConfirm: "¿Seguro que quieres\ncerrar sesión?",
+    goBack: "Volver",
 
   // Citas médicas
     appointmentView: "Vista de Turnos",
@@ -51,6 +53,20 @@ export const es = {
     bookAppointment: "Reserva tu turno",
     scheduleAppointment: "Agendar turno",
     scheduledAppointment: "Turno Programado",
+    viewDetails: "Ver Detalles",
+    dateAndTime: "Fecha y hora",
+    location: "Ubicación",
+    sector: "Sector",
+    status: "Estado",
+    confirmed: "Confirmado",
+    importantNotes: "Notas importantes",
+    cancelAppointment: "Cancelar turno",
+    canceling: "Cancelando...",
+    appointmentCanceled: "¡Turno cancelado!",
+    appointmentCanceledMessage: "Tu turno fue cancelado exitosamente.",
+    cancelAppointmentConfirm: "¿Estás seguro que deseas cancelar este turno?",
+    yesCancelButton: "Sí, cancelar",
+    no: "No",
     loading: "Cargando...",
     loadingSchedules: "Cargando horarios...",
 
@@ -103,6 +119,16 @@ export const es = {
         friday: "Vie",
         saturday: "Sáb",
         sunday: "Dom"
+    },
+    
+    daysLong: {
+        monday: "Lunes",
+        tuesday: "Martes",
+        wednesday: "Miércoles",
+        thursday: "Jueves",
+        friday: "Viernes",
+        saturday: "Sábado",
+        sunday: "Domingo"
     },
 
   // Formularios de contacto

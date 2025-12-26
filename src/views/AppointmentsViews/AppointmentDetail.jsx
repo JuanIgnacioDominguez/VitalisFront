@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
 import { useTheme } from '../../context/ThemeContext'
+import { useTranslation } from '../../hooks/useTranslation'
 import { useCancelAppointment } from '../../hooks/Appointments/useCancelAppointment'
 import AppointmentHeader from '../../components/AppointmentsDetails/AppointmentHeader'
 import AppointmentDoctorInfo from '../../components/AppointmentsDetails/AppointmentDoctorInfo'
@@ -16,6 +17,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 export default function AppointmentDetail({ route, navigation }) {
     const { appointment } = route.params
     const { darkMode } = useTheme()
+    const { t } = useTranslation()
     const { cancelAppointment, loading } = useCancelAppointment()
     const [showCancelPopup, setShowCancelPopup] = useState(false)
     const [showSuccessPopup, setShowSuccessPopup] = useState(false)
@@ -23,16 +25,35 @@ export default function AppointmentDetail({ route, navigation }) {
 
     const ubicacion = 'Clínica Vitalis, Av. Rivadavia 742'
     const sector = 'Sector C, consultorio 221'
-    const estado = appointment.status === 'completed' ? 'Completado' : 'Confirmado'
+    const estado = appointment.status === 'completed' ? t('completed') : t('confirmed')
     const notas = 'El paciente debe traer estudios de control previos.'
 
     const fechaFormateada = (() => {
-        const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+        const dias = [
+            t('daysLong.sunday'),
+            t('daysLong.monday'),
+            t('daysLong.tuesday'),
+            t('daysLong.wednesday'),
+            t('daysLong.thursday'),
+            t('daysLong.friday'),
+            t('daysLong.saturday')
+        ]
+        const meses = [
+            t('months.january'), t('months.february'), t('months.march'),
+            t('months.april'), t('months.may'), t('months.june'),
+            t('months.july'), t('months.august'), t('months.september'),
+            t('months.october'), t('months.november'), t('months.december')
+        ]
         const [año, mes, dia] = appointment.date.split('-')
         const dateObj = new Date(`${appointment.date}T00:00:00`)
         const diaSemana = dias[dateObj.getDay()]
-        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-        return `${diaSemana}, ${parseInt(dia)} de ${meses[parseInt(mes) - 1]} de ${año}`
+        const mesNombre = meses[parseInt(mes) - 1]
+        
+        const currentLang = t('english') 
+        if (currentLang === 'English') {
+            return `${diaSemana}, ${mesNombre} ${parseInt(dia)}, ${año}`
+        }
+        return `${diaSemana}, ${parseInt(dia)} de ${mesNombre.toLowerCase()} de ${año}`
     })()
     const horaFormateada = formatHourEs(appointment.time)
 
@@ -57,7 +78,7 @@ export default function AppointmentDetail({ route, navigation }) {
         <View className={`flex-1 justify-center ${darkMode ? 'bg-background-dark' : 'bg-background-light'}`}>
             <AppointmentHeader
                 onBack={() => navigation.goBack()}
-                title="Turno Programado"
+                title={t('scheduledAppointment')}
                 darkMode={darkMode}
             />
             <ScrollView
@@ -86,25 +107,25 @@ export default function AppointmentDetail({ route, navigation }) {
                     />
                     <View style={{ marginBottom: 30 }} />
                     <AppointmentInfoBlock
-                        label="Fecha y hora"
+                        label={t('dateAndTime')}
                         value={`${fechaFormateada}\n${horaFormateada}`}
                         darkMode={darkMode}
                     />
                     <View style={{ marginBottom: 30 }} />
                     <AppointmentInfoBlock
-                        label="Ubicación"
+                        label={t('location')}
                         value={ubicacion}
                         darkMode={darkMode}
                     />
                     <View style={{ marginBottom: 30 }} />
                     <AppointmentInfoBlock
-                        label="Sector"
+                        label={t('sector')}
                         value={sector}
                         darkMode={darkMode}
                     />
                     <View style={{ marginBottom: 30 }} />
                     <AppointmentInfoBlock
-                        label="Estado"
+                        label={t('status')}
                         value={estado}
                         darkMode={darkMode}
                     />
@@ -133,8 +154,8 @@ export default function AppointmentDetail({ route, navigation }) {
             <CustomPopup
                 visible={showSuccessPopup}
                 onClose={() => {}}
-                title="¡Turno cancelado!"
-                message="Tu turno fue cancelado exitosamente."
+                title={t('appointmentCanceled')}
+                message={t('appointmentCanceledMessage')}
                 color="#008080"
                 borderColor="#7AD7F0"
                 buttonText={null}
@@ -144,7 +165,7 @@ export default function AppointmentDetail({ route, navigation }) {
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}
-                title="Error"
+                title={t('error')}
                 message="No se pudo cancelar el turno. Intenta nuevamente."
                 color="#F76C6C"
                 borderColor="#F76C6C"

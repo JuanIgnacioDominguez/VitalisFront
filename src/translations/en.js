@@ -49,15 +49,31 @@ export const en = {
   rating: "Rating",
   help: "Help",
   logout: "Log Out",
+  logoutConfirm: "Are you sure you want to\nlog out?",
+  goBack: "Go Back",
   
   // Medical appointments
   appointmentView: "Appointments View",
   pending: "Pending",
   completed: "Completed",
+  viewDetails: "View Details",
   noAppointments: "No Scheduled\nAppointments!",
   bookAppointment: "Book your appointment",
   scheduleAppointment: "Schedule appointment",
   scheduledAppointment: "Scheduled Appointment",
+  dateAndTime: "Date and Time",
+  location: "Location",
+  sector: "Sector",
+  status: "Status",
+  confirmed: "Confirmed",
+  importantNotes: "Important Notes",
+  cancelAppointment: "Cancel Appointment",
+  canceling: "Canceling...",
+  appointmentCanceled: "Appointment Canceled!",
+  appointmentCanceledMessage: "Your appointment was successfully canceled.",
+  cancelAppointmentConfirm: "Are you sure you want to cancel this appointment?",
+  yesCancelButton: "Yes, cancel",
+  no: "No",
   loading: "Loading...",
   loadingSchedules: "Loading schedules...",
   
@@ -110,6 +126,16 @@ export const en = {
     friday: "Fri",
     saturday: "Sat",
     sunday: "Sun"
+  },
+  
+  daysLong: {
+    monday: "Monday",
+    tuesday: "Tuesday",
+    wednesday: "Wednesday",
+    thursday: "Thursday",
+    friday: "Friday",
+    saturday: "Saturday",
+    sunday: "Sunday"
   },
   
   // Contact forms
