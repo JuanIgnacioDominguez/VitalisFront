@@ -1,13 +1,15 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
-export default function TagSelector({ title, tags, selectedTags, setSelectedTags }) {
+export default function TagSelector({ title, tags, selectedTags, setSelectedTags, disabled = false }) {
     const toggleTag = tag => {
-        setSelectedTags(
-        selectedTags.includes(tag)
-            ? selectedTags.filter(t => t !== tag)
-            : [...selectedTags, tag]
-        )
+        if (!disabled) {
+            setSelectedTags(
+            selectedTags.includes(tag)
+                ? selectedTags.filter(t => t !== tag)
+                : [...selectedTags, tag]
+            )
+        }
     }
 
     return (
@@ -18,11 +20,13 @@ export default function TagSelector({ title, tags, selectedTags, setSelectedTags
             <TouchableOpacity
                 key={tag}
                 onPress={() => toggleTag(tag)}
+                disabled={disabled}
                 className={`px-3 py-1 rounded-full ${
                 selectedTags.includes(tag)
                     ? 'bg-primary-light text-white'
                     : 'bg-gray-200 text-primary-light'
                 }`}
+                style={disabled ? { opacity: 0.6 } : {}}
             >
                 <Text className="text-sm font-medium">{tag}</Text>
             </TouchableOpacity>

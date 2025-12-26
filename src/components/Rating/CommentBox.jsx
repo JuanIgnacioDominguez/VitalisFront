@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TextInput } from 'react-native'
 import { useTranslation } from '../../hooks/useTranslation'
 
-export default function CommentBox({ comment, setComment }) {
+export default function CommentBox({ comment, setComment, disabled = false }) {
     const { t } = useTranslation()
     
     return (
@@ -17,10 +17,12 @@ export default function CommentBox({ comment, setComment }) {
             numberOfLines={15} 
             style={{
                 textAlignVertical: 'top',
-                minHeight: 200 
+                minHeight: 200,
+                opacity: disabled ? 0.6 : 1
             }}
             value={comment}
             onChangeText={setComment}
+            editable={!disabled}
         />
         </View>
     )
