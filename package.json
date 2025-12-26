@@ -30,7 +30,8 @@
     "react-native-screens": "~4.10.0",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
-    "vitalis": "file:"
+    "vitalis": "file:",
+    "expo-image-picker": "~16.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

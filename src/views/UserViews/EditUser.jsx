@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert, Platform } from 'react-native'
 import EditUserInput from '../../components/EditUser/EditUserInput'
 import { useSelector, useDispatch } from 'react-redux'
 import { ArrowLeftIcon, PencilIcon } from 'react-native-heroicons/outline'
@@ -8,7 +8,9 @@ import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from '../../hooks/useTranslation'
 import CustomPopup from '../../components/PopUps/CustomPopup'
 import { Picker } from '@react-native-picker/picker'
-import { setUser } from '../../api/auth' 
+import { setUser } from '../../api/auth'
+import * as ImagePicker from 'expo-image-picker'
+import { updateProfilePicture } from '../../api/user' 
 
 const obrasSociales = [
     "OSDE", "Swiss Medical", "Galeno", "Medicus", "Omint",
@@ -29,7 +31,10 @@ export default function EditUser({ navigation }) {
     const [telefono, setTelefono] = useState(user?.telefono || '')
     const { darkMode } = useTheme()
     const [showErrorPopup, setShowErrorPopup] = useState(false)
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false)
     const [popupMessage, setPopupMessage] = useState('')
+    const [profileImage, setProfileImage] = useState(null)
+    const [uploadingImage, setUploadingImage] = useState(false)
 
     useEffect(() => {
         if (success) { 
@@ -49,6 +54,57 @@ export default function EditUser({ navigation }) {
             dispatch(clearEditUserState())
         }
     }, [success, error, navigation, dispatch, nombre, email, dni, obraSocial, nroAfiliado, telefono])
+
+    const handlePickImage = async () => {
+        try {
+            const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
+            
+            if (permissionResult.granted === false) {
+                setPopupMessage('Se necesita permiso para acceder a las fotos')
+                setShowErrorPopup(true)
+                return
+            }
+
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 0.8,
+            })
+
+            if (!result.canceled && result.assets[0]) {
+                const imageUri = result.assets[0].uri
+                
+                if (result.assets[0].fileSize && result.assets[0].fileSize > 5 * 1024 * 1024) {
+                    setPopupMessage('La imagen no puede superar los 5MB')
+                    setShowErrorPopup(true)
+                    return
+                }
+
+                setUploadingImage(true)
+                
+                try {
+                    const response = await updateProfilePicture(user.id, imageUri, token)
+                    console.log('Respuesta de actualización:', response)
+                    setProfileImage(imageUri)
+                    
+                    setPopupMessage('Foto actualizada exitosamente')
+                    setShowSuccessPopup(true)
+                    setUploadingImage(false)
+                } catch (error) {
+                    console.error('Error capturado:', error)
+                    setPopupMessage(error.message || 'Error al actualizar la foto')
+                    setShowErrorPopup(true)
+                    setUploadingImage(false)
+                }
+            }
+        } catch (error) {
+            console.error('Error al seleccionar imagen:', error)
+            setPopupMessage('Error al seleccionar la imagen')
+            setShowErrorPopup(true)
+            setUploadingImage(false)
+        }
+    }
 
     const handleSave = () => {
         if (!nombre || !email || !dni || !obraSocial || !nroAfiliado || !telefono) {
@@ -99,20 +155,22 @@ export default function EditUser({ navigation }) {
                     <View className="relative">
                         <Image
                             source={{
-                                uri: user?.foto || user?.imagen 
+                                uri: profileImage || (user?.foto || user?.imagen 
                                     ? `data:image/jpeg;base64,${user.foto || user.imagen}`
-                                    : 'https://randomuser.me/api/portraits/men/1.jpg'
+                                    : 'https://randomuser.me/api/portraits/men/1.jpg')
                             }}
                             className={`w-24 h-24 rounded-full mb-2 border-2 ${darkMode ? 'border-primary-dark' : 'border-primary-light'}`}
                         />
                         <TouchableOpacity
                             className={`${darkMode ? 'bg-primary-dark' : 'bg-primary-light'} absolute bottom-2 right-2 rounded-full p-1`}
-                            onPress={() => {}}
+                            onPress={handlePickImage}
+                            disabled={uploadingImage}
                         >
                             <PencilIcon size={18} color="#fff" />
                         </TouchableOpacity>
                     </View>
                     <Text className={`text-lg font-bold text-center mt-2 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>{nombre}</Text>
+                    {uploadingImage && <Text className={`text-sm mt-1 ${darkMode ? 'text-text-dark' : 'text-primary-light'}`}>Subiendo imagen...</Text>}
                 </View>
 
                 <View className="px-6">
@@ -195,7 +253,19 @@ export default function EditUser({ navigation }) {
                 </View>
             </ScrollView>
             
-            {/* ✅ Solo popup de error */}
+            {/* Popup de éxito */}
+            <CustomPopup
+                visible={showSuccessPopup}
+                onClose={() => setShowSuccessPopup(false)}
+                title={t('success')}
+                message={popupMessage}
+                color="#008080"
+                borderColor="#7AD7F0"
+                buttonText={t('goBack')}
+                darkMode={darkMode}
+            />
+            
+            {/* Popup de error */}
             <CustomPopup
                 visible={showErrorPopup}
                 onClose={() => setShowErrorPopup(false)}

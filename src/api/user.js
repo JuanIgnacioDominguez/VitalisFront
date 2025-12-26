@@ -97,3 +97,36 @@ export async function deleteUserWithCode(userId, code, token) {
         throw error.response?.data || { mensaje: error.message || 'Error al borrar usuario' }
     }
 }
+
+export async function updateProfilePicture(userId, imageUri, token) {
+    try {
+        const formData = new FormData()
+        
+        const uriParts = imageUri.split('.')
+        const fileType = uriParts[uriParts.length - 1]
+        
+        formData.append('file', {
+            uri: imageUri,
+            name: `profile.${fileType}`,
+            type: `image/${fileType}`
+        })
+
+        const response = await axios.put(
+            `${API_HOST}users/${userId}/profile-picture`,
+            formData,
+            {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : undefined,
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        )
+        console.log('Foto actualizada exitosamente:', response.data)
+        return response.data
+    } catch (error) {
+        console.error('Error al actualizar foto de perfil:', error)
+        const errorMessage = error.response?.data?.mensaje || error.response?.data?.message || error.message || 'Error al actualizar foto de perfil'
+        const errorObj = new Error(errorMessage)
+        throw errorObj
+    }
+}
