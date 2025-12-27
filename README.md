@@ -167,12 +167,12 @@ Repositorio: [Vitalis-Back](https://github.com/JuanIgnacioDominguez/Vitalis-Back
 
 ## 📄 Licencia
 
-Proyecto educativo/desarrollado con fines académicos. Ajusta la licencia según las políticas de tu organización.
+Este proyecto fue desarrollado con fines educativos como parte de un trabajo universitario.
 
 ---
 
 <div align="center">
 
-**Hecho con ❤️ para ofrecer una experiencia de salud más cercana y móvil.**
+**Hecho con ❤️ por Thomas Giardina & Juan Ignacio Domínguez**
 
 </div>
