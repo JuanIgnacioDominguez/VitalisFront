@@ -21,6 +21,17 @@
 
 ---
 
+## 👨‍💻 Desarrolladores
+
+| Desarrollador | Rol |
+|---------------|-----|
+| **Thomas Agustín Giardina** | Fullstack Developer |
+| **Juan Ignacio Domínguez** | Fullstack Developer |
+
+> 🎓 Este proyecto comenzó como un trabajo práctico en la facultad y fue posteriormente mejorado por completo, implementando buenas prácticas, patrones de diseño modernos y una arquitectura escalable.
+
+---
+
 ## 🏗️ Arquitectura del Proyecto
 
 | Repositorio | Descripción | Plataforma |
